@@ -93,31 +93,36 @@ public class Ejemplo1 {
         float promedioPositivos;
         float porcentajePositivos;
         float porcentajeNegativos;
-        final int NUMERO_CORTE = 0;
         int numeroIngresado;
+        String continuaIngreso;
         
         do{
-            numeroIngresado = pedirEntero("Ingrese un numero (o " + NUMERO_CORTE + ") para finalizar: ");
+            do{
+                numeroIngresado = pedirEntero("Ingrese un numero: ");
+                if(numeroIngresado == 0){
+                    mostrarMensaje("El número no puede ser igual a 0");
+                }
+            }while(numeroIngresado == 0);
             
-            if(numeroIngresado != NUMERO_CORTE){
-                cantidadTotal++;
-                
-                if(numeroIngresado > 0){
-                    cantidadPositivos++;
-                    sumatoriaPositivos = sumatoriaPositivos + numeroIngresado;
-                }
-                else if(numeroIngresado < 0){
-                    cantidadNegativos++;
-                }
-                
-                if(numeroIngresado % 2 == 0 && numeroIngresado != 0){
-                    cantidadPares++;
-                }
-                else if(numeroIngresado % 2 != 0){
-                    cantidadImpares++;
-                }
+            cantidadTotal++;
+
+            if(numeroIngresado > 0){
+                cantidadPositivos++;
+                sumatoriaPositivos = sumatoriaPositivos + numeroIngresado;
             }
-        }while(numeroIngresado != NUMERO_CORTE);
+            else if(numeroIngresado < 0){
+                cantidadNegativos++;
+            }
+
+            if(numeroIngresado % 2 == 0 && numeroIngresado != 0){
+                cantidadPares++;
+            }
+            else if(numeroIngresado % 2 != 0){
+                cantidadImpares++;
+            }
+            
+            continuaIngreso = pedirString("¿Continúa ingresando números?: ");
+        }while("s".equalsIgnoreCase(continuaIngreso));
         
         promedioPositivos = (float)sumatoriaPositivos / cantidadPositivos;
         porcentajePositivos = ((float)cantidadPositivos / cantidadTotal) * 100;
@@ -169,6 +174,15 @@ public class Ejemplo1 {
         Scanner lector = new Scanner(System.in);
         mostrarMensaje(mensaje);
         retorno = lector.nextFloat();
+        
+        return retorno;
+    }
+
+    private static String pedirString(String mensaje){
+        String retorno;
+        Scanner lector = new Scanner(System.in);
+        mostrarMensaje(mensaje);
+        retorno = lector.next();
         
         return retorno;
     }
