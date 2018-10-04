@@ -64,12 +64,72 @@ public class Ejemplo1 {
         mostrarMensaje("El promedio es: " + promedio);*/
         
         //Ejercicio 2
-        int numeroIngresado = pedirEntero("Ingrese un número hasta el que mostrar números primos: ", 1);
+        /*int numeroIngresado = pedirEntero("Ingrese un número hasta el que mostrar números primos: ", 1);
         for(int i = 1; i < numeroIngresado; i++){
             if(esPrimo(i)){
                 mostrarMensajeSinRetorno(i + ";");
             }
+        }*/
+        
+        //Ejercicio 3
+        /*float numero1 = pedirFlotante("Ingrese primer número: ");
+        float numero2 = pedirFlotante("Ingrese segundo número: ");
+        float numeroMayor;
+        if(numerosIguales(numero1, numero2)){
+            mostrarMensaje("Los números ingresados son iguales");
         }
+        else{
+            numeroMayor = numeroMayor(numero1, numero2);
+            mostrarMensaje("El mayor de los números ingresados es " + numeroMayor);
+        }*/
+        
+        //Ejercicio 4
+        int cantidadPositivos = 0;
+        int cantidadNegativos = 0;
+        int cantidadPares = 0;
+        int cantidadImpares = 0;
+        int sumatoriaPositivos = 0;
+        int cantidadTotal = 0;
+        float promedioPositivos;
+        float porcentajePositivos;
+        float porcentajeNegativos;
+        final int NUMERO_CORTE = 0;
+        int numeroIngresado;
+        
+        do{
+            numeroIngresado = pedirEntero("Ingrese un numero (o " + NUMERO_CORTE + ") para finalizar: ");
+            
+            if(numeroIngresado != NUMERO_CORTE){
+                cantidadTotal++;
+                
+                if(numeroIngresado > 0){
+                    cantidadPositivos++;
+                    sumatoriaPositivos = sumatoriaPositivos + numeroIngresado;
+                }
+                else if(numeroIngresado < 0){
+                    cantidadNegativos++;
+                }
+                
+                if(numeroIngresado % 2 == 0 && numeroIngresado != 0){
+                    cantidadPares++;
+                }
+                else if(numeroIngresado % 2 != 0){
+                    cantidadImpares++;
+                }
+            }
+        }while(numeroIngresado != NUMERO_CORTE);
+        
+        promedioPositivos = (float)sumatoriaPositivos / cantidadPositivos;
+        porcentajePositivos = ((float)cantidadPositivos / cantidadTotal) * 100;
+        porcentajeNegativos = ((float)cantidadNegativos / cantidadTotal) * 100;
+        
+        mostrarMensaje("Cantidad de números positivos: " + cantidadPositivos);
+        mostrarMensaje("Cantidad de números negativos: " + cantidadNegativos);
+        mostrarMensaje("Cantidad de números pares: " + cantidadPares);
+        mostrarMensaje("Cantidad de números impares: " + cantidadImpares);
+        mostrarMensaje("Promedio de los números positivos: " + promedioPositivos);
+        mostrarMensaje("Porcentaje de números positivos: " + porcentajePositivos);
+        mostrarMensaje("Porcentaje de números negativos: " + porcentajeNegativos);
     }
     
     private static void mostrarMensaje(String mensaje){
@@ -104,6 +164,15 @@ public class Ejemplo1 {
         return retorno;
     }
     
+    private static float pedirFlotante(String mensaje){
+        float retorno;
+        Scanner lector = new Scanner(System.in);
+        mostrarMensaje(mensaje);
+        retorno = lector.nextFloat();
+        
+        return retorno;
+    }
+
     private static boolean esPrimo(int numero){
         int cantidadDivisores = 0;
         boolean retorno;
@@ -123,5 +192,30 @@ public class Ejemplo1 {
         
         return retorno;
     }
-   
+    
+    private static float numeroMayor(float num1, float num2){
+        float mayor;
+        
+        if(num1 > num2){
+            mayor = num1;
+        }
+        else{
+            mayor = num2;
+        }
+        
+        return mayor;
+    }
+
+        private static boolean numerosIguales(float num1, float num2){
+        boolean sonIguales;
+        
+        if(num1 == num2){
+            sonIguales = true;
+        }
+        else{
+            sonIguales = false;
+        }
+        
+        return sonIguales;
+    }
 }
