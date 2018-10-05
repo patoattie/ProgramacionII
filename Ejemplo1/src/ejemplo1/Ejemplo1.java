@@ -94,7 +94,7 @@ public class Ejemplo1 {
         float porcentajePositivos;
         float porcentajeNegativos;
         int numeroIngresado;
-        String continuaIngreso;
+        char continuaIngreso;
         
         do{
             do{
@@ -121,8 +121,8 @@ public class Ejemplo1 {
                 cantidadImpares++;
             }
             
-            continuaIngreso = pedirString("¿Continúa ingresando números?: ");
-        }while("s".equalsIgnoreCase(continuaIngreso));
+            continuaIngreso = pedirChar("¿Continúa ingresando números?: ");
+        }while(continuaIngreso == 'S' || continuaIngreso == 's');
         
         promedioPositivos = (float)sumatoriaPositivos / cantidadPositivos;
         porcentajePositivos = ((float)cantidadPositivos / cantidadTotal) * 100;
@@ -183,6 +183,20 @@ public class Ejemplo1 {
         Scanner lector = new Scanner(System.in);
         mostrarMensaje(mensaje);
         retorno = lector.next();
+        
+        return retorno;
+    }
+
+    private static char pedirChar(String mensaje){
+        char retorno = ' ';
+        String ingresoUsuario;
+        Scanner lector = new Scanner(System.in);
+        mostrarMensaje(mensaje);
+        ingresoUsuario = lector.next();
+        
+        if(ingresoUsuario.length() == 1){
+            retorno = ingresoUsuario.charAt(0);
+        }
         
         return retorno;
     }
