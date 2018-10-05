@@ -30,7 +30,7 @@ public class Ejemplo1 {
         nombre = lector.next();
         
         System.out.println("El nombre es: " + nombre);*/
-        
+
         //Ejercicio 1
         /*int numeroMaximo = 0;
         int numeroMinimo = 0;
@@ -62,7 +62,6 @@ public class Ejemplo1 {
         mostrarMensaje("El número máximo es: " + numeroMaximo);
         mostrarMensaje("El número mínimo es: " + numeroMinimo);
         mostrarMensaje("El promedio es: " + promedio);*/
-        
         //Ejercicio 2
         /*int numeroIngresado = pedirEntero("Ingrese un número hasta el que mostrar números primos: ", 1);
         for(int i = 1; i < numeroIngresado; i++){
@@ -70,7 +69,6 @@ public class Ejemplo1 {
                 mostrarMensajeSinRetorno(i + ";");
             }
         }*/
-        
         //Ejercicio 3
         /*float numero1 = pedirFlotante("Ingrese primer número: ");
         float numero2 = pedirFlotante("Ingrese segundo número: ");
@@ -82,7 +80,6 @@ public class Ejemplo1 {
             numeroMayor = numeroMayor(numero1, numero2);
             mostrarMensaje("El mayor de los números ingresados es " + numeroMayor);
         }*/
-        
         //Ejercicio 4
         int cantidadPositivos = 0;
         int cantidadNegativos = 0;
@@ -137,15 +134,15 @@ public class Ejemplo1 {
         mostrarMensaje("Porcentaje de números negativos: " + porcentajeNegativos);
     }
     
-    private static void mostrarMensaje(String mensaje){
+    private static void mostrarMensaje(String mensaje) {
         System.out.println(mensaje);
     }
-
-    private static void mostrarMensajeSinRetorno(String mensaje){
+    
+    private static void mostrarMensajeSinRetorno(String mensaje) {
         System.out.print(mensaje);
     }
     
-    private static int pedirEntero(String mensaje){
+    private static int pedirEntero(String mensaje) {
         int retorno;
         Scanner lector = new Scanner(System.in);
         mostrarMensaje(mensaje);
@@ -153,23 +150,22 @@ public class Ejemplo1 {
         
         return retorno;
     }
-
-    private static int pedirEntero(String mensaje, int minimo){
+    
+    private static int pedirEntero(String mensaje, int minimo) {
         int retorno;
         Scanner lector = new Scanner(System.in);
-        do{
+        do {
             mostrarMensaje(mensaje);
             retorno = lector.nextInt();
-            if(retorno < minimo){
+            if (retorno < minimo) {
                 mostrarMensaje("El número ingresado debe ser mayor a " + minimo + ". Por favor reingrese");
             }
-        }
-        while(retorno < minimo);
+        } while (retorno < minimo);
         
         return retorno;
     }
     
-    private static float pedirFlotante(String mensaje){
+    private static float pedirFlotante(String mensaje) {
         float retorno;
         Scanner lector = new Scanner(System.in);
         mostrarMensaje(mensaje);
@@ -177,8 +173,8 @@ public class Ejemplo1 {
         
         return retorno;
     }
-
-    private static String pedirString(String mensaje){
+    
+    private static String pedirString(String mensaje) {
         String retorno;
         Scanner lector = new Scanner(System.in);
         mostrarMensaje(mensaje);
@@ -186,61 +182,58 @@ public class Ejemplo1 {
         
         return retorno;
     }
-
-    private static char pedirChar(String mensaje){
+    
+    private static char pedirChar(String mensaje) {
         char retorno = ' ';
         String ingresoUsuario;
         Scanner lector = new Scanner(System.in);
         mostrarMensaje(mensaje);
         ingresoUsuario = lector.next();
         
-        if(ingresoUsuario.length() == 1){
+        if (ingresoUsuario.length() == 1) {
             retorno = ingresoUsuario.charAt(0);
         }
         
         return retorno;
     }
-
-    private static boolean esPrimo(int numero){
+    
+    private static boolean esPrimo(int numero) {
         int cantidadDivisores = 0;
         boolean retorno;
         
-        for(int i = numero; i > 0; i--){
-            if(numero % i == 0){
+        for (int i = numero; i > 0; i--) {
+            if (numero % i == 0) {
                 cantidadDivisores++;
             }
         }
         
-        if(cantidadDivisores <= 2){
+        if (cantidadDivisores <= 2) {
             retorno = true;
-        }
-        else{
+        } else {
             retorno = false;
         }
         
         return retorno;
     }
     
-    private static float numeroMayor(float num1, float num2){
+    private static float numeroMayor(float num1, float num2) {
         float mayor;
         
-        if(num1 > num2){
+        if (num1 > num2) {
             mayor = num1;
-        }
-        else{
+        } else {
             mayor = num2;
         }
         
         return mayor;
     }
-
-        private static boolean numerosIguales(float num1, float num2){
+    
+    private static boolean numerosIguales(float num1, float num2) {
         boolean sonIguales;
         
-        if(num1 == num2){
+        if (num1 == num2) {
             sonIguales = true;
-        }
-        else{
+        } else {
             sonIguales = false;
         }
         
