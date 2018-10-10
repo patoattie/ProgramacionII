@@ -29,14 +29,23 @@ public class Ejemplo2 {
         //Test Calculadora
         int num1;
         int num2;
+        char operador;
         String operadores;
         operadores = "+-*/";
         num1 = Genericas.pedirEntero("Ingrese primer número: ");
         num2 = Genericas.pedirEntero("Ingrese segundo número: ");
         for (int i = 0; i < operadores.length(); i++) {
-            Calculadora.SetOperador(operadores.charAt(i));
+            operador = operadores.charAt(i);
+            Calculadora.SetOperador(operador);
             Calculadora.CalcularOperacion(num1, num2);
+            System.out.print(num1);
+            System.out.print(" ");
+            System.out.print(operador);
+            System.out.print(" ");
+            System.out.print(num2);
+            System.out.print(" = ");
             Calculadora.MostrarResultado();
+            System.out.println("");
         }
     }
     

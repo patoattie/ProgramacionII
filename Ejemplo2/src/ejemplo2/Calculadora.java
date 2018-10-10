@@ -52,7 +52,7 @@ public class Calculadora {
     }
     
     public static void MostrarResultado(){
-        System.out.println(Resultado);
+        System.out.print(Resultado);
     }
     
     public static void SetOperador(char operador){
