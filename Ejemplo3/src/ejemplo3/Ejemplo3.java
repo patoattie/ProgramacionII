@@ -25,7 +25,11 @@ public class Ejemplo3
         Rueda rueda2 = new Rueda();
         Rueda rueda3 = new Rueda();*/
         
+        //System.out.println("Cantidad de Autos: " + Auto.contador);
         Auto auto1 = new Auto();
+        /*System.out.println("Cantidad de Autos: " + Auto.contador);
+        Auto auto2 = new Auto();
+        System.out.println("Cantidad de Autos: " + Auto.contador);*/
     }
 
 }
