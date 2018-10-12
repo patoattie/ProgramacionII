@@ -33,16 +33,9 @@ public class Ejemplo3
 //        {
 //            System.out.println(f.ordinal() + ": " + f);
 //        }
-        Auto auto1 = new Auto();
-        System.out.println("Fabricante Auto " + Auto.contador + ": " + auto1.fabricante);
-        Auto auto2 = new Auto();
-        System.out.println("Fabricante Auto " + Auto.contador + ": " + auto2.fabricante);
-        Auto auto3 = new Auto();
-        System.out.println("Fabricante Auto " + Auto.contador + ": " + auto3.fabricante);
-        Auto auto4 = new Auto();
-        System.out.println("Fabricante Auto " + Auto.contador + ": " + auto4.fabricante);
-        Auto auto5 = new Auto();
-        System.out.println("Fabricante Auto " + Auto.contador + ": " + auto5.fabricante);
+        Carrera carrera1 = new Carrera();
+        carrera1.MostrarCarrera();
+        carrera1.PorTiempo(60);
     }
 
 }

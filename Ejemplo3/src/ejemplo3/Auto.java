@@ -14,7 +14,7 @@ import java.util.Random;
 public class Auto
 {
 
-    public eFabricante fabricante;
+    private eFabricante _fabricante;
     //Composición o agregación compuesta: Una clase que utiliza otra.
     //Auto es clase dependiente de Rueda
     public Rueda ruedaDD;
@@ -24,10 +24,12 @@ public class Auto
     public static int contador;
     public static Random azar;
     
+    private int _kilometrosRecorridos;
+    
     public Auto()
     {
         int numeroAleatorio = (int)(Math.random() * eFabricante.values().length);
-        this.fabricante = eFabricante.values()[numeroAleatorio];
+        this._fabricante = eFabricante.values()[numeroAleatorio];
         this.ruedaDD = new Rueda();
         this.ruedaDI = new Rueda();
         this.ruedaTD = new Rueda();
@@ -39,5 +41,25 @@ public class Auto
     {
         contador = 0;
         azar = new Random();
+    }
+    
+    public void AgregarKilometros(int kilometros)
+    {
+        this._kilometrosRecorridos += kilometros;
+    }
+
+    public eFabricante getFabricante()
+    {
+        return this._fabricante;
+    }
+
+    public void VolverACero()
+    {
+        this._kilometrosRecorridos = 0;
+    }
+
+    public int GetKms()
+    {
+        return this._kilometrosRecorridos;
     }
 }
