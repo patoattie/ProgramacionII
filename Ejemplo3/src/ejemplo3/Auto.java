@@ -5,6 +5,8 @@
  */
 package ejemplo3;
 
+import java.util.Random;
+
 /**
  *
  * @author capacita_mecon
@@ -20,22 +22,12 @@ public class Auto
     public Rueda ruedaTD;
     public Rueda ruedaTI;
     public static int contador;
+    public static Random azar;
     
     public Auto()
     {
-        double numero = Math.random();
-//        switch(numero)
-//        {
-//            case 0:
-//                this.fabricante = eFabricante.FORD;
-//                break;
-//            case 1:
-//                this.fabricante = eFabricante.CHEVROLET;
-//                break;
-//            case 2:
-//                this.fabricante = eFabricante.HONDA;
-//                break;
-//        }
+        int numeroAleatorio = (int)(Math.random() * eFabricante.values().length);
+        this.fabricante = eFabricante.values()[numeroAleatorio];
         this.ruedaDD = new Rueda();
         this.ruedaDI = new Rueda();
         this.ruedaTD = new Rueda();
@@ -46,5 +38,6 @@ public class Auto
     static
     {
         contador = 0;
+        azar = new Random();
     }
 }

@@ -11,5 +11,7 @@ package ejemplo3;
  */
 public enum eFabricante
 {
-    FORD, CHEVROLET, HONDA;
+    FORD,
+    CHEVROLET,
+    HONDA
 }
