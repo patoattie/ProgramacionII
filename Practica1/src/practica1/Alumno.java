@@ -7,6 +7,7 @@ package practica1;
 
 import java.util.Random;
 import java.util.Scanner;
+import genericas.Genericas;
 
 /**
  *
@@ -26,6 +27,8 @@ public class Alumno {
         String unApellido;
         String unNombre;
         int unLegajo;
+        byte nota1;
+        byte nota2;
         boolean huboError = false;
         
         System.out.println("Ingrese Legajo del Alumno: ");
@@ -47,11 +50,43 @@ public class Alumno {
             }
             else
             {
-                if(!Alumno.ContieneCaracteresValidos(unApellido))
+                if(!Genericas.todosAlfabeticos(unApellido))
                 {
                     System.out.println("ERROR. El Apellido del Alumno contiene caracteres no válidos");
                     huboError = true;
                 }
+            }
+        }
+
+        if(!huboError)
+        {
+            System.out.println("Ingrese Nombre del Alumno: ");
+            unNombre = lector.next();
+            if(unNombre.isEmpty())
+            {
+                System.out.println("ERROR. El Nombre del Alumno es un dato de ingreso obligatorio");
+                huboError = true;
+            }
+            else
+            {
+                if(!Genericas.todosAlfabeticos(unNombre))
+                {
+                    System.out.println("ERROR. El Nombre del Alumno contiene caracteres no válidos");
+                    huboError = true;
+                }
+            }
+        }
+
+        if(!huboError)
+        {
+            System.out.println("Ingrese Nota 1 del Alumno: ");
+            nota1 = lector.nextByte();
+            System.out.println("Ingrese Nota 2 del Alumno: ");
+            nota2 = lector.nextByte();
+            this.Estudiar(nota1, nota2);
+            if(this._nota1 == 0 || this._nota2 == 0)
+            {
+                huboError = true;
             }
         }
     }
@@ -105,29 +140,5 @@ public class Alumno {
         {
             System.out.println("Nota Final: " + this._notaFinal);
         }
-    }
-    
-    private static boolean ContieneCaracteresValidos(String texto)
-    {
-        boolean retorno = true;
-        char letra;
-        
-        for (int i = 0; i < texto.length(); i++)
-        {
-            letra = texto.charAt(i);
-            if(!(letra == ' '
-                    || letra == '\''
-                    || (letra >= 'a' && letra <= 'z')
-                    || (letra >= 'A' && letra <= 'Z')
-                    || (letra >= 'À' && letra <= 'Ü')
-                    || (letra >= 'à' && letra <= 'ü')
-                    ))
-            {
-                retorno = false;
-                break;
-            }
-        }
-        
-        return retorno;
     }
 }
