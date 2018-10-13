@@ -16,19 +16,23 @@ public class Genericas {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
 
     }
     
-    public static void mostrarMensaje(String mensaje) {
+    public static void mostrarMensaje(String mensaje) 
+    {
         System.out.println(mensaje);
     }
     
-    public static void mostrarMensajeSinRetorno(String mensaje) {
+    public static void mostrarMensajeSinRetorno(String mensaje)
+    {
         System.out.print(mensaje);
     }
     
-    public static int pedirEntero(String mensaje) {
+    public static int pedirEntero(String mensaje) 
+    {
         int retorno;
         Scanner lector = new Scanner(System.in);
         mostrarMensaje(mensaje);
@@ -37,13 +41,16 @@ public class Genericas {
         return retorno;
     }
     
-    public static int pedirEntero(String mensaje, int minimo) {
+    public static int pedirEntero(String mensaje, int minimo)
+    {
         int retorno;
         Scanner lector = new Scanner(System.in);
-        do {
+        do
+        {
             mostrarMensaje(mensaje);
             retorno = lector.nextInt();
-            if (retorno < minimo) {
+            if (retorno < minimo)
+            {
                 mostrarMensaje("El número ingresado debe ser mayor a " + minimo + ". Por favor reingrese");
             }
         } while (retorno < minimo);
@@ -51,7 +58,8 @@ public class Genericas {
         return retorno;
     }
     
-    public static float pedirFlotante(String mensaje) {
+    public static float pedirFlotante(String mensaje) 
+    {
         float retorno;
         Scanner lector = new Scanner(System.in);
         mostrarMensaje(mensaje);
@@ -60,7 +68,8 @@ public class Genericas {
         return retorno;
     }
     
-    public static String pedirString(String mensaje) {
+    public static String pedirString(String mensaje)
+    {
         String retorno;
         Scanner lector = new Scanner(System.in);
         mostrarMensaje(mensaje);
@@ -69,57 +78,73 @@ public class Genericas {
         return retorno;
     }
     
-    public static char pedirChar(String mensaje) {
+    public static char pedirChar(String mensaje)
+    {
         char retorno = ' ';
         String ingresoUsuario;
         Scanner lector = new Scanner(System.in);
         mostrarMensaje(mensaje);
         ingresoUsuario = lector.next();
         
-        if (ingresoUsuario.length() == 1) {
+        if (ingresoUsuario.length() == 1)
+        {
             retorno = ingresoUsuario.charAt(0);
         }
         
         return retorno;
     }
     
-    public static boolean esPrimo(int numero) {
+    public static boolean esPrimo(int numero)
+    {
         int cantidadDivisores = 0;
         boolean retorno;
         
-        for (int i = numero; i > 0; i--) {
-            if (numero % i == 0) {
+        for (int i = numero; i > 0; i--) 
+        {
+            if (numero % i == 0) 
+            {
                 cantidadDivisores++;
             }
         }
         
-        if (cantidadDivisores <= 2) {
+        if (cantidadDivisores <= 2) 
+        {
             retorno = true;
-        } else {
+        }
+        else
+        {
             retorno = false;
         }
         
         return retorno;
     }
     
-    public static float numeroMayor(float num1, float num2) {
+    public static float numeroMayor(float num1, float num2)
+    {
         float mayor;
         
-        if (num1 > num2) {
+        if (num1 > num2) 
+        {
             mayor = num1;
-        } else {
+        }
+        else
+        {
             mayor = num2;
         }
         
         return mayor;
     }
     
-    public static boolean numerosIguales(float num1, float num2) {
+    public static boolean numerosIguales(float num1, float num2)
+    {
         boolean sonIguales;
         
-        if (num1 == num2) {
+        if (num1 == num2) 
+        {
             sonIguales = true;
-        } else {
+        } 
+        else
+        {
             sonIguales = false;
         }
         
@@ -130,6 +155,7 @@ public class Genericas {
     {
         boolean retorno = true;
         char letra;
+        boolean existeLetraComun = false;
         
         for (int i = 0; i < texto.length(); i++)
         {
@@ -145,6 +171,17 @@ public class Genericas {
                 retorno = false;
                 break;
             }
+            else if((letra >= 'a' && letra <= 'z')
+                    || (letra >= 'A' && letra <= 'Z')
+                    )
+            {
+                existeLetraComun = true;
+            }
+        }
+        
+        if(!existeLetraComun && retorno) //Al menos debe haber un caracter alfabético sin acentuar
+        {
+            retorno = false;
         }
         
         return retorno;

@@ -6,14 +6,13 @@
 package practica1;
 
 import java.util.Random;
-import java.util.Scanner;
-import genericas.Genericas;
 
 /**
  *
  * @author Sil y Pato
  */
-public class Alumno {
+public class Alumno 
+{
     private byte _nota1;
     private byte _nota2;
     private float _notaFinal;
@@ -21,74 +20,11 @@ public class Alumno {
     public String nombre;
     public int legajo;
     
-    public Alumno()
+    public Alumno(String apellido, String nombre, int legajo)
     {
-        Scanner lector = new Scanner(System.in);
-        String unApellido;
-        String unNombre;
-        int unLegajo;
-        byte nota1;
-        byte nota2;
-        boolean huboError = false;
-        
-        System.out.println("Ingrese Legajo del Alumno: ");
-        unLegajo = lector.nextInt();
-        if(unLegajo <= 0)
-        {
-            System.out.println("ERROR. El Legajo del Alumno debe ser un número positivo");
-            huboError = true;
-        }
-        
-        if(!huboError)
-        {
-            System.out.println("Ingrese Apellido del Alumno: ");
-            unApellido = lector.next();
-            if(unApellido.isEmpty())
-            {
-                System.out.println("ERROR. El Apellido del Alumno es un dato de ingreso obligatorio");
-                huboError = true;
-            }
-            else
-            {
-                if(!Genericas.todosAlfabeticos(unApellido))
-                {
-                    System.out.println("ERROR. El Apellido del Alumno contiene caracteres no válidos");
-                    huboError = true;
-                }
-            }
-        }
-
-        if(!huboError)
-        {
-            System.out.println("Ingrese Nombre del Alumno: ");
-            unNombre = lector.next();
-            if(unNombre.isEmpty())
-            {
-                System.out.println("ERROR. El Nombre del Alumno es un dato de ingreso obligatorio");
-                huboError = true;
-            }
-            else
-            {
-                if(!Genericas.todosAlfabeticos(unNombre))
-                {
-                    System.out.println("ERROR. El Nombre del Alumno contiene caracteres no válidos");
-                    huboError = true;
-                }
-            }
-        }
-
-        if(!huboError)
-        {
-            System.out.println("Ingrese Nota 1 del Alumno: ");
-            nota1 = lector.nextByte();
-            System.out.println("Ingrese Nota 2 del Alumno: ");
-            nota2 = lector.nextByte();
-            this.Estudiar(nota1, nota2);
-            if(this._nota1 == 0 || this._nota2 == 0)
-            {
-                huboError = true;
-            }
-        }
+        this.apellido = apellido;
+        this.nombre = nombre;
+        this.legajo = legajo;
     }
     
     public void CalcularFinal()
