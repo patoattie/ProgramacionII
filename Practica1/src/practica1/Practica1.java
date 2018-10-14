@@ -5,7 +5,6 @@
  */
 package practica1;
 
-import genericas.Genericas;
 import java.util.Scanner;
 
 /**
@@ -64,9 +63,9 @@ public class Practica1
         
         if(retorno)
         {
-            //Cnvierto la primera letra de nombre y apellido a mayúscula, y el resto a minúscula
-            unApellido = unApellido.substring(0, 1).toUpperCase() + unApellido.substring(1, unApellido.length() - 1).toLowerCase();
-            unNombre = unNombre.substring(0, 1).toUpperCase() + unNombre.substring(1, unNombre.length() - 1).toLowerCase();
+            //Convierto la primera letra de nombre y apellido a mayúscula, y el resto a minúscula
+            unApellido = unApellido.substring(0, 1).toUpperCase() + unApellido.substring(1, unApellido.length()).toLowerCase();
+            unNombre = unNombre.substring(0, 1).toUpperCase() + unNombre.substring(1, unNombre.length()).toLowerCase();
 
             unAlumno = new Alumno(unApellido, unNombre, unLegajo);
             
@@ -99,7 +98,7 @@ public class Practica1
         }
         else
         {
-            if(!Genericas.todosAlfabeticos(apellido))
+            if(!apellido.matches("([a-z]|[A-Z]|)+")) //Sólo permite caracteres alfabéticos
             {
                 System.out.println("ERROR. El Apellido del Alumno contiene caracteres no válidos");
                 retorno = false;
@@ -113,7 +112,7 @@ public class Practica1
         }
         else
         {
-            if(!Genericas.todosAlfabeticos(nombre))
+            if(!nombre.matches("([a-z]|[A-Z]|)+")) //Sólo permite caracteres alfabéticos
             {
                 System.out.println("ERROR. El Nombre del Alumno contiene caracteres no válidos");
                 retorno = false;
