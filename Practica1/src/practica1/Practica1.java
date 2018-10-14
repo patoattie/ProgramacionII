@@ -20,29 +20,27 @@ public class Practica1
      */
     public static void main(String[] args)
     {
-        Scanner lector = new Scanner(System.in);
-        boolean huboError = false;
         Alumno alumno1 = null;
-        Alumno alumno2 = null;
-        Alumno alumno3 = null;
+//        Alumno alumno2 = null;
+//        Alumno alumno3 = null;
         
-        if(!CargarAtributos(alumno1))
+        if(!CargarObjetoAlumno(alumno1))
         {
             System.out.println("ERROR. No se pudo cargar en memoria el alumno 1");
         }
 
-        if(!CargarAtributos(alumno2))
-        {
-            System.out.println("ERROR. No se pudo cargar en memoria el alumno 2");
-        }
-
-        if(!CargarAtributos(alumno3))
-        {
-            System.out.println("ERROR. No se pudo cargar en memoria el alumno 3");
-        }
+//        if(!CargarObjetoAlumno(alumno2))
+//        {
+//            System.out.println("ERROR. No se pudo cargar en memoria el alumno 2");
+//        }
+//
+//        if(!CargarObjetoAlumno(alumno3))
+//        {
+//            System.out.println("ERROR. No se pudo cargar en memoria el alumno 3");
+//        }
     }
     
-    private static boolean CargarAtributos(Alumno unAlumno)
+    private static boolean CargarObjetoAlumno(Alumno unAlumno)
     {
         boolean retorno;
 
@@ -66,6 +64,10 @@ public class Practica1
         
         if(retorno)
         {
+            //Cnvierto la primera letra de nombre y apellido a mayúscula, y el resto a minúscula
+            unApellido = unApellido.substring(0, 1).toUpperCase() + unApellido.substring(1, unApellido.length() - 1).toLowerCase();
+            unNombre = unNombre.substring(0, 1).toUpperCase() + unNombre.substring(1, unNombre.length() - 1).toLowerCase();
+
             unAlumno = new Alumno(unApellido, unNombre, unLegajo);
             
             System.out.println("Ingrese Nota 1 del Alumno: ");
@@ -90,9 +92,9 @@ public class Practica1
             retorno = false;
         }
 
-        if(apellido.isEmpty())
+        if(apellido.length() <= 1)
         {
-            System.out.println("ERROR. El Apellido del Alumno es un dato de ingreso obligatorio");
+            System.out.println("ERROR. El Apellido del Alumno es un dato de ingreso obligatorio y debe contener al menos dos caracteres");
             retorno = false;
         }
         else
@@ -104,9 +106,9 @@ public class Practica1
             }
         }
 
-        if(nombre.isEmpty())
+        if(nombre.length() <= 1)
         {
-            System.out.println("ERROR. El Nombre del Alumno es un dato de ingreso obligatorio");
+            System.out.println("ERROR. El Nombre del Alumno es un dato de ingreso obligatorio y debe contener al menos dos caracteres");
             retorno = false;
         }
         else

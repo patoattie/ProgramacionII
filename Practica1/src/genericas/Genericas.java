@@ -164,8 +164,9 @@ public class Genericas {
                     || letra == '\''
                     || (letra >= 'a' && letra <= 'z')
                     || (letra >= 'A' && letra <= 'Z')
-                    || (letra >= 'À' && letra <= 'Ü')
-                    || (letra >= 'à' && letra <= 'ü')
+                    || (letra >= 'Ç' && letra <= 'Ñ')
+                    || (letra >= 'Á' && letra <= 'À')
+                    || (letra >= 'Ó' && letra <= 'Ý')
                     ))
             {
                 retorno = false;
