@@ -19,20 +19,26 @@ public class MiClase1
     
     public MiClase1()
     {
-        
+        this.fecha = new Date();
     }
 
-    public MiClase1(int entero, String cadena, Date fecha)
+    public MiClase1(int entero, String cadena)
     {
+        this();
         this.entero = entero;
         this.cadena = cadena;
+    }
+    
+    public MiClase1(int entero, String cadena, Date fecha)
+    {
+        this(entero, cadena);
         this.fecha = fecha;
     }
     
-    public MiClase1(int entero, String cadena)
+    public MiClase1(MiClase1 objeto)
     {
-        this.entero = entero;
-        this.cadena = cadena;
+        this(objeto.entero, objeto.cadena, objeto.fecha);
+        objeto.entero = 7; //Muy mala práctica.
     }
     
     public void CargarValor(int entero)
@@ -54,15 +60,7 @@ public class MiClase1
     {
         System.out.println("Entero: " + this.entero);
         System.out.println("Cadena: " + this.cadena);
-
-        if(this.fecha == null)
-        {
-            System.out.println("Fecha: null");
-        }
-        else
-        {
-            System.out.println("Fecha: " + this.fecha.toLocaleString());
-        }
+        System.out.println("Fecha: " + this.fecha.toLocaleString());
         System.out.println("-------------------");
     }
 }
