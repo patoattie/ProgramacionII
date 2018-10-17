@@ -19,11 +19,23 @@ public class Boligrafo
     
     public Boligrafo(Color colorBoligrafo, int cantidadTinta)
     {
-        if(colorBoligrafo != null && cantidadTinta > 0 && cantidadTinta <= Boligrafo.CAPACIDAD)
-        {
-            this._color = colorBoligrafo;
-            this._tinta = cantidadTinta;
-        }
+        this._color = colorBoligrafo;
+        this._tinta = cantidadTinta;
+    }
+    
+    public Boligrafo(int cantidadTinta)
+    {
+        this(new Color(0, 0, 255), cantidadTinta); //Por defecto Azul.
+    }
+    
+    public Boligrafo(Color colorBoligrafo)
+    {
+        this(colorBoligrafo, Boligrafo.CAPACIDAD); //Por defecto se llena con la capacidad del boligrafo.
+    }
+    
+    public Boligrafo()
+    {
+        this(new Color(0, 0, 255), Boligrafo.CAPACIDAD); //Por defecto Azul y se llena con la capacidad del boligrafo.
     }
     
     public boolean Pintar(int gasto)
