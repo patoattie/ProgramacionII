@@ -15,10 +15,11 @@ public class Boligrafo
 {
     private Color _color;
     private int _tinta;
+    private static final int CAPACIDAD = 100;
     
     public Boligrafo(Color colorBoligrafo, int cantidadTinta)
     {
-        if(colorBoligrafo != null && cantidadTinta > 0 && cantidadTinta <= 100)
+        if(colorBoligrafo != null && cantidadTinta > 0 && cantidadTinta <= Boligrafo.CAPACIDAD)
         {
             this._color = colorBoligrafo;
             this._tinta = cantidadTinta;
@@ -44,7 +45,7 @@ public class Boligrafo
     
     public void Recargar()
     {
-        this._tinta = 100;
+        this._tinta = Boligrafo.CAPACIDAD;
     }
 
     public Color getColor()
