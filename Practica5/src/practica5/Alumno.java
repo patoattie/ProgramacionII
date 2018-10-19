@@ -170,7 +170,7 @@ public class Alumno
     }
     */
 
-    //Con StringBuffer
+    //Con StringBuffer.
     public String AlumnoAString()
     {
         StringBuffer cadena = new StringBuffer();
