@@ -129,6 +129,7 @@ public class Alumno
         this.promedio = (float)sumatoria / Alumno.cantidadNotas;
     }
     
+    /*Con String
     public String AlumnoAString()
     {
         String retorno;
@@ -145,5 +146,48 @@ public class Alumno
 
         return retorno;
     }
+    */
     
+    /*Con StringBuilder
+    public String AlumnoAString()
+    {
+        StringBuilder cadena = new StringBuilder();
+        String retorno;
+        
+        cadena.append("ID: ").append(this.getId()).append("\n");
+        cadena.append("Apellido y Nombre: ").append(this.getApellidoNombre()).append("\n");
+        cadena.append("Dirección: ").append(this.getDireccion()).append("\n");
+        cadena.append("e-mail: ").append(this.geteMail()).append("\n");
+        for (int i : this.getNotasIngreso())
+        {
+            cadena.append("Nota: ").append(i).append("\n");
+        }
+        cadena.append("Promedio: ").append(this.getPromedio());
+        
+        retorno = cadena.toString();
+        
+        return retorno;
+    }
+    */
+
+    //Con StringBuffer
+    public String AlumnoAString()
+    {
+        StringBuffer cadena = new StringBuffer();
+        String retorno;
+        
+        cadena.append("ID: ").append(this.getId()).append("\n");
+        cadena.append("Apellido y Nombre: ").append(this.getApellidoNombre()).append("\n");
+        cadena.append("Dirección: ").append(this.getDireccion()).append("\n");
+        cadena.append("e-mail: ").append(this.geteMail()).append("\n");
+        for (int i : this.getNotasIngreso())
+        {
+            cadena.append("Nota: ").append(i).append("\n");
+        }
+        cadena.append("Promedio: ").append(this.getPromedio());
+        
+        retorno = cadena.toString();
+        
+        return retorno;
+    }
 }
