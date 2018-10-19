@@ -41,6 +41,29 @@ public class Ejemplo6
         {
             System.out.println(i + ") " + otroVector[i]);
         }
+
+        System.out.println("Modifico Mi Vector:");
+        for (int i = 0; i < miVector.length; i++)
+        {
+            miVector[i] = i + 1;
+        }
+
+        System.out.println("Mi Vector:");
+        for (int i = 0; i < miVector.length; i++)
+        {
+            System.out.println(i + ") " + miVector[i]);
+        }
+
+        System.out.println("Otro Vector:");
+        for (int i = 0; i < otroVector.length; i++)
+        {
+            System.out.println(i + ") " + otroVector[i]);
+        }
+        //Utilizando un foreach
+        for (int i : otroVector)
+        {
+            System.out.println(i);
+        }
     }
     
 }
