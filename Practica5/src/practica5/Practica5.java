@@ -24,7 +24,7 @@ public class Practica5
         Alumno alumno1 = new Alumno("Perez, Juan", "perez@mail.com", "Balcarce 186");
         for (int i = 0; i < notas.length; i++)
         {
-            System.out.println("Ingrese nota 1: ");
+            System.out.print("Ingrese nota " + (i + 1) + ": ");
             notas[i] = lector.nextInt();
         }
         
