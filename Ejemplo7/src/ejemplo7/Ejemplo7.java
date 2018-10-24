@@ -51,8 +51,22 @@ public class Ejemplo7
         Perro perro2 = new Perro ("Maggie", 12, eRaza.BASSET);
         Perro perro3 = new Perro ("Max", 8, eRaza.OVEJERO);
         Perro perro4 = new Perro ("Pamela", 10, eRaza.COCKER);
-        Perro perro5 = perro3;
+        Perro perro5 = perro3; //Apuntan al mismo segmento del Heap
+        
+        Veterinaria vet1 = new Veterinaria("LA VETERINARIA");
+        vet1.agregarPerro(perro1);
+        vet1.agregarPerro(perro2);
+        vet1.agregarPerro(perro3);
+        vet1.agregarPerro(perro4);
+        vet1.agregarPerro(perro5);
+        
+        System.out.println(vet1.mostrarVeterinaria());
+        
+        vet1.quitarPerro(2);
+        System.out.println("Borro 2");
+        System.out.println(vet1.mostrarVeterinaria());
 
+        /*
         ArrayList<Perro> lista = new ArrayList<>();
         boolean esIgual = perro5.equals(perro3);
 
@@ -61,6 +75,29 @@ public class Ejemplo7
         lista.add(perro3);
         lista.add(perro4);
         lista.add(perro5);
+        
+        /*for (int i = 0; i < lista.size(); i++)
+        {
+            System.out.println(Perro.mostrarPerro(lista.get(i)));
+        }*/
+        /*
+        for (Perro unPerro : lista)
+        {
+            System.out.println(Perro.mostrarPerro(unPerro));
+        }
+        if(esIgual)
+        {
+            System.out.println("Perro 5 y Perro 3 son el mismo objeto");
+        }
+        
+        lista.remove(perro3);
+        lista.remove(0); //Se puede usar indexOf, que dado un objeto retorna su indice
+        for (Perro unPerro : lista)
+        {
+            System.out.println(Perro.mostrarPerro(unPerro));
+        }
+        */
+        
     }
     
 }

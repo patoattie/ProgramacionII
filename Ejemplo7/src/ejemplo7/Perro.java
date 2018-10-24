@@ -80,7 +80,7 @@ public class Perro
         this.raza = raza;
     }
     
-    public static void mostrarPerro(Perro unPerro)    
+    public static String mostrarPerro(Perro unPerro)    
     {
         String retorno;
         StringBuilder cadena = new StringBuilder();
@@ -92,6 +92,6 @@ public class Perro
         cadena.append("Raza: ").append(unPerro.getRaza()).append("\n");
         
         retorno = cadena.toString();
-        System.out.println(retorno);        
+        return retorno;
     }
 }
