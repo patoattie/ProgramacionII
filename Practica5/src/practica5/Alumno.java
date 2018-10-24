@@ -148,7 +148,7 @@ public class Alumno
     }
     */
     
-    /*Con StringBuilder
+    //Con StringBuilder
     public String AlumnoAString()
     {
         StringBuilder cadena = new StringBuilder();
@@ -168,9 +168,8 @@ public class Alumno
         
         return retorno;
     }
-    */
 
-    //Con StringBuffer
+    /*Con StringBuffer
     public String AlumnoAString()
     {
         StringBuffer cadena = new StringBuffer();
@@ -190,4 +189,5 @@ public class Alumno
         
         return retorno;
     }
+    */
 }
