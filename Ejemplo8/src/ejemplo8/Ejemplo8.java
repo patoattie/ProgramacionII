@@ -30,10 +30,19 @@ public class Ejemplo8
         Paciente p4 = new Paciente("4567", "Gomez");
         
         Turno t1 = new Turno(p4, eTipo.NORMAL);
+        t1.encolarPaciente(colaUrgente, colaNormal);
         Turno t2 = new Turno(p2, eTipo.NORMAL);
+        t2.encolarPaciente(colaUrgente, colaNormal);
         Turno t3 = new Turno(p3, eTipo.URGENTE);
+        t3.encolarPaciente(colaUrgente, colaNormal);
         Turno t4 = new Turno(p1, eTipo.URGENTE);
+        t4.encolarPaciente(colaUrgente, colaNormal);
         
+        while(Turno.atenderPaciente(colaUrgente, colaNormal))
+        {
+            
+        }
+
         /* C O L A S
         ------------
 

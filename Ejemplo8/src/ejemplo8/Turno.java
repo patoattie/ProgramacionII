@@ -82,4 +82,41 @@ public class Turno
         
         return retorno;
     }
+    
+    public static boolean atenderPaciente(Queue<Turno> colaUrgente, Queue<Turno> colaNormal)
+    {
+        boolean retorno;
+        
+        if(colaUrgente.size() > 0)
+        {
+            System.out.println(Turno.mostrarTurnoAtendido(colaUrgente.poll()));
+            retorno = true;
+        }
+        else if(colaNormal.size() > 0)
+        {
+            System.out.println(Turno.mostrarTurnoAtendido(colaNormal.poll()));
+            retorno = true;
+        }
+        else
+        {
+            System.out.println("NO QUEDAN PACIENTES SIN ATENDER");
+            retorno = false;
+        }
+        
+        return retorno;
+    }
+    
+    public static String mostrarTurnoAtendido(Turno unTurno)
+    {
+        StringBuilder cadena = new StringBuilder();
+        
+        cadena.append("TURNO ATENDIDO").append("\n");
+        cadena.append("--------------").append("\n");
+        cadena.append("Tipo: ").append(unTurno.getTipo()).append("\n");
+        cadena.append("Orden: ").append(unTurno.getOrden()).append("\n");
+        cadena.append("DNI Paciente: ").append(unTurno.getPaciente().getDni()).append("\n");
+        cadena.append("Nombre Paciente: ").append(unTurno.getPaciente().getNombre()).append("\n");
+        
+        return cadena.toString();
+    }
 }
