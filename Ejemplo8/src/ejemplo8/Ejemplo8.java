@@ -21,8 +21,21 @@ public class Ejemplo8
      */
     public static void main(String[] args)
     {
+        Queue<Turno> colaUrgente = new LinkedList<>();
+        Queue<Turno> colaNormal = new LinkedList<>();
+        
+        Paciente p1 = new Paciente("1234", "Perez");
+        Paciente p2 = new Paciente("2345", "Garcia");
+        Paciente p3 = new Paciente("3456", "Fernandez");
+        Paciente p4 = new Paciente("4567", "Gomez");
+        
+        Turno t1 = new Turno(p4, eTipo.NORMAL);
+        Turno t2 = new Turno(p2, eTipo.NORMAL);
+        Turno t3 = new Turno(p3, eTipo.URGENTE);
+        Turno t4 = new Turno(p1, eTipo.URGENTE);
+        
         /* C O L A S
-        ------------*/
+        ------------
 
         Queue<Integer> cola = new LinkedList<>();
         cola.offer(1);
@@ -36,7 +49,7 @@ public class Ejemplo8
         }
         System.out.println("Cantidad de elementos encolados: " + cola.size());
         System.out.println("Primer elemento a desencolar: " + cola.peek());
-        //Dos formas de desapilar (el atributo size() se actualiza dinámicamente a medida que desapilo)
+        //Tres formas de desapilar (el atributo size() se actualiza dinámicamente a medida que desapilo)
         //1)
         //sizeCola = cola.size();
         //for (int i = 0; i < sizeCola; i++)
@@ -44,12 +57,18 @@ public class Ejemplo8
         //    System.out.println("Desencolo: " + cola.poll());
         //}
         //2)
-        for (int i = cola.size(); i > 0; i--)
+        //for (int i = cola.size(); i > 0; i--)
+        //{
+        //    System.out.println("Desencolo: " + cola.poll());
+        //}
+        //3)
+        while (cola.size() > 0)
         {
             System.out.println("Desencolo: " + cola.poll());
         }
         System.out.println("Cantidad de elementos encolados: " + cola.size());
-
+        */
+        
         /* P I L A S
         ------------
 
@@ -66,7 +85,7 @@ public class Ejemplo8
         }
         System.out.println("Cantidad de elementos apilados: " + pila.size());
         System.out.println("Primer elemento a desapilar: " + pila.peek());
-        //Dos formas de desapilar (el atributo size() se actualiza dinámicamente a medida que desapilo)
+        //Tres formas de desapilar (el atributo size() se actualiza dinámicamente a medida que desapilo)
         //1)
         //sizePila = pila.size();
         //for (int i = 0; i < sizePila; i++)
@@ -75,6 +94,11 @@ public class Ejemplo8
         //}
         //2)
         for (int i = pila.size(); i > 0; i--)
+        {
+            System.out.println("Desapilo: " + pila.pop());
+        }
+        //3)
+        while (pila.size() > 0)
         {
             System.out.println("Desapilo: " + pila.pop());
         }
