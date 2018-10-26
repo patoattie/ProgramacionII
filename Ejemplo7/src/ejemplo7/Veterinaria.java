@@ -64,14 +64,15 @@ public class Veterinaria
     {
         boolean retorno = true;
         
-        if(this.existePerro(this.lista.get(indice)))
-        {
-            this.lista.remove(indice);
-        }
-        else
+        //if(this.existePerro(this.lista.get(indice)))
+        if(indice < 0 || indice >= this.lista.size())
         {
             retorno = false;
             System.out.println("El Perro no se encuentra ingresado en la Veterinaria");
+        }
+        else
+        {
+            this.lista.remove(indice);
         }
         
         return retorno;
