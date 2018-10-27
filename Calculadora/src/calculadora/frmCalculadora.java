@@ -127,54 +127,99 @@ public class frmCalculadora extends javax.swing.JFrame {
         btn7.setFocusable(false);
         btn7.setLabel("7");
         btn7.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btn7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn7ActionPerformed(evt);
+            }
+        });
 
         btn8.setForeground(new java.awt.Color(0, 0, 255));
         btn8.setText("8");
         btn8.setBorder(null);
         btn8.setFocusable(false);
         btn8.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btn8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn8ActionPerformed(evt);
+            }
+        });
 
         btn9.setForeground(new java.awt.Color(0, 0, 255));
         btn9.setText("9");
         btn9.setBorder(null);
         btn9.setFocusable(false);
         btn9.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btn9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn9ActionPerformed(evt);
+            }
+        });
 
         btn4.setForeground(new java.awt.Color(0, 0, 255));
         btn4.setText("4");
         btn4.setBorder(null);
         btn4.setFocusable(false);
         btn4.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btn4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn4ActionPerformed(evt);
+            }
+        });
 
         btn5.setForeground(new java.awt.Color(0, 0, 255));
         btn5.setText("5");
         btn5.setBorder(null);
         btn5.setFocusable(false);
         btn5.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btn5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn5ActionPerformed(evt);
+            }
+        });
 
         btn6.setForeground(new java.awt.Color(0, 0, 255));
         btn6.setText("6");
         btn6.setBorder(null);
         btn6.setFocusable(false);
         btn6.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btn6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn6ActionPerformed(evt);
+            }
+        });
 
         btn1.setForeground(new java.awt.Color(0, 0, 255));
         btn1.setText("1");
         btn1.setBorder(null);
         btn1.setFocusable(false);
         btn1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn1ActionPerformed(evt);
+            }
+        });
 
         btn2.setForeground(new java.awt.Color(0, 0, 255));
         btn2.setText("2");
         btn2.setBorder(null);
         btn2.setFocusable(false);
         btn2.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn2ActionPerformed(evt);
+            }
+        });
 
         btn3.setForeground(new java.awt.Color(0, 0, 255));
         btn3.setText("3");
         btn3.setBorder(null);
         btn3.setFocusable(false);
         btn3.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn3ActionPerformed(evt);
+            }
+        });
 
         btnSigno.setForeground(new java.awt.Color(0, 0, 255));
         btnSigno.setText("+/-");
@@ -193,6 +238,11 @@ public class frmCalculadora extends javax.swing.JFrame {
         btn0.setBorder(null);
         btn0.setFocusable(false);
         btn0.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btn0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn0ActionPerformed(evt);
+            }
+        });
 
         btnDividir.setForeground(new java.awt.Color(255, 0, 0));
         btnDividir.setText("/");
@@ -321,13 +371,14 @@ public class frmCalculadora extends javax.swing.JFrame {
                     .addComponent(btnCE, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRetroceso, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMC, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRaiz, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDividir, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnMC, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDividir, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnMR, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -362,8 +413,48 @@ public class frmCalculadora extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCActionPerformed
-        // TODO add your handling code here:
+        this.borrarVisor();
     }//GEN-LAST:event_btnCActionPerformed
+
+    private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
+        this.escribirNumero(this.btn1.getText());
+    }//GEN-LAST:event_btn1ActionPerformed
+
+    private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
+        this.escribirNumero(this.btn2.getText());
+    }//GEN-LAST:event_btn2ActionPerformed
+
+    private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
+        this.escribirNumero(this.btn3.getText());
+    }//GEN-LAST:event_btn3ActionPerformed
+
+    private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
+        this.escribirNumero(this.btn4.getText());
+    }//GEN-LAST:event_btn4ActionPerformed
+
+    private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
+        this.escribirNumero(this.btn5.getText());
+    }//GEN-LAST:event_btn5ActionPerformed
+
+    private void btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6ActionPerformed
+        this.escribirNumero(this.btn6.getText());
+    }//GEN-LAST:event_btn6ActionPerformed
+
+    private void btn7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7ActionPerformed
+        this.escribirNumero(this.btn7.getText());
+    }//GEN-LAST:event_btn7ActionPerformed
+
+    private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
+        this.escribirNumero(this.btn8.getText());
+    }//GEN-LAST:event_btn8ActionPerformed
+
+    private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
+        this.escribirNumero(this.btn9.getText());
+    }//GEN-LAST:event_btn9ActionPerformed
+
+    private void btn0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn0ActionPerformed
+        this.escribirNumero(this.btn0.getText());
+    }//GEN-LAST:event_btn0ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -398,6 +489,25 @@ public class frmCalculadora extends javax.swing.JFrame {
                 new frmCalculadora().setVisible(true);
             }
         });
+    }
+    
+    private void escribirNumero(String numero)
+    {
+        StringBuilder cadena = new StringBuilder();
+        String visor = this.lblVisor.getText();
+        
+        if(!"0".equals(visor))
+        {
+            cadena.append(visor);
+        }
+        
+        cadena.append(numero);
+        this.lblVisor.setText(cadena.toString());
+    }
+
+    private void borrarVisor()
+    {
+        this.lblVisor.setText("0");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
