@@ -556,14 +556,23 @@ public class frmCalculadora extends javax.swing.JFrame {
     private void borrarNumero()
     {
         String visor = this.lblVisor.getText();
+        int posicionHasta = visor.length();
         
-        if(visor.length() > 1)
+        if(!this.esDecimal)
         {
-            if(visor.charAt(visor.length() - 1) == '.')
+            posicionHasta--;
+        }
+        
+        if(visor.length() > this.INICIO_VISOR.length())
+        {
+            if(visor.charAt(visor.length() - 1) == this.signoDecimal.charAt(0))
             {
                 this.esDecimal = false;
             }
-            this.lblVisor.setText(visor.substring(0, visor.length() - 1));
+            else
+            {
+                this.lblVisor.setText(visor.substring(0, visor.length() - 1));
+            }
         }
         else
         {
