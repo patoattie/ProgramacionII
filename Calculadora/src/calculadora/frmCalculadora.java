@@ -27,6 +27,9 @@ public class frmCalculadora extends javax.swing.JFrame {
 
         this.esDecimal = false;
         this.esPrimerDigito = true;
+        this.esNegativo = false;
+        this.signoDecimal = ".";
+        this.INICIO_VISOR = "0" + this.getSignoDecimal();
         this.lblVisor.setText(INICIO_VISOR);
     }
 
@@ -98,6 +101,11 @@ public class frmCalculadora extends javax.swing.JFrame {
         btnCE.setBorder(null);
         btnCE.setFocusable(false);
         btnCE.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnCE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCEActionPerformed(evt);
+            }
+        });
 
         btnRetroceso.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         btnRetroceso.setForeground(new java.awt.Color(255, 0, 0));
@@ -242,6 +250,11 @@ public class frmCalculadora extends javax.swing.JFrame {
         btnSigno.setBorder(null);
         btnSigno.setFocusable(false);
         btnSigno.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnSigno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSignoActionPerformed(evt);
+            }
+        });
 
         btnPunto.setForeground(new java.awt.Color(0, 0, 255));
         btnPunto.setText(".");
@@ -485,6 +498,14 @@ public class frmCalculadora extends javax.swing.JFrame {
         this.borrarNumero();
     }//GEN-LAST:event_btnRetrocesoActionPerformed
 
+    private void btnCEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCEActionPerformed
+        this.borrarVisor();
+    }//GEN-LAST:event_btnCEActionPerformed
+
+    private void btnSignoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSignoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -533,7 +554,7 @@ public class frmCalculadora extends javax.swing.JFrame {
         {
             cadena.append(visor);
         }
-        else
+        else if(!"0".equals(numero))
         {
             this.esPrimerDigito = false;
         }
@@ -550,13 +571,14 @@ public class frmCalculadora extends javax.swing.JFrame {
     private void borrarVisor()
     {
         this.esDecimal = false;
+        this.esPrimerDigito = true;
         this.lblVisor.setText(this.INICIO_VISOR);
     }
     
     private void borrarNumero()
     {
         String visor = this.lblVisor.getText();
-        int posicionHasta = visor.length();
+        int posicionHasta = visor.length() - 1;
         
         if(!this.esDecimal)
         {
@@ -565,18 +587,24 @@ public class frmCalculadora extends javax.swing.JFrame {
         
         if(visor.length() > this.INICIO_VISOR.length())
         {
-            if(visor.charAt(visor.length() - 1) == this.signoDecimal.charAt(0))
+            if(visor.charAt(posicionHasta) == this.signoDecimal.charAt(0))
             {
                 this.esDecimal = false;
             }
             else
             {
-                this.lblVisor.setText(visor.substring(0, visor.length() - 1));
+                this.lblVisor.setText(visor.substring(0, posicionHasta));
+                if(!this.esDecimal)
+                {
+                    this.lblVisor.setText(this.lblVisor.getText().concat(this.signoDecimal));
+                }
             }
         }
         else
         {
             this.lblVisor.setText(this.INICIO_VISOR);
+            this.esPrimerDigito = true;
+            this.esDecimal = false;
         }
     }
 
@@ -585,13 +613,34 @@ public class frmCalculadora extends javax.swing.JFrame {
         if(!this.esDecimal)
         {
             this.esDecimal = true;
+            this.esPrimerDigito = false;
             //this.escribirNumero(this.btnPunto.getText());
         }
     }
+    
+    private void escribirSigno()
+    {
+        String visor = this.lblVisor.getText();
+        if(!this.INICIO_VISOR.equals(visor))
+        {
+            if(this.esNegativo)
+            {
+                this.lblVisor.setText(visor.substring(1, visor.length()));
+                this.esNegativo = false;
+            }
+            else
+            {
+                this.lblVisor.setText("-".concat(visor));
+                this.esNegativo = true;
+            }
+        }
+    }
+    
     private boolean esDecimal; //Va true cuando presiono '.', para verificar que no va más de un punto decimal
     private boolean esPrimerDigito; //Va true cuando ingreso el primer dígito, para que reemplace valor en lugar de acumular
-    private String signoDecimal = ".";
-    private final String INICIO_VISOR = "0" + this.getSignoDecimal();
+    private boolean esNegativo; //Para el manejo del botón de signo.
+    private String signoDecimal;
+    private final String INICIO_VISOR;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn0;
