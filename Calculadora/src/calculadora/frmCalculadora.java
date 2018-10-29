@@ -604,12 +604,28 @@ public class frmCalculadora extends javax.swing.JFrame {
 */
     private void escribirNumero(String numero)
     {
-        StringBuilder cadena = new StringBuilder();
-        
         if(!this.esPrimerDigito || (this.esPrimerDigito && !"0".equals(numero)))
         {
             this.stkVisor.push(numero.charAt(0)); //Apilo el número ingresado
+            this.escribirVisor();
 
+            if(this.esPrimerDigito)
+            {
+                this.esPrimerDigito = false;
+            }
+        }
+    }
+
+    private void escribirVisor()
+    {
+        StringBuilder cadena = new StringBuilder();
+        
+        if(this.stkVisor.size() == 0)
+        {
+            this.lblVisor.setText(this.INICIO_VISOR);
+        }
+        else
+        {
             //Recorro la pila para dibujar el visor
             for (Character digito : stkVisor)
             {
@@ -623,11 +639,6 @@ public class frmCalculadora extends javax.swing.JFrame {
             }
 
             this.lblVisor.setText(cadena.toString());
-
-            if(this.esPrimerDigito)
-            {
-                this.esPrimerDigito = false;
-            }
         }
     }
 
@@ -644,7 +655,7 @@ public class frmCalculadora extends javax.swing.JFrame {
         }
 
     }
-    
+/*    
     private void borrarNumero()
     {
         String visor = this.lblVisor.getText();
@@ -677,6 +688,26 @@ public class frmCalculadora extends javax.swing.JFrame {
             this.esDecimal = false;
         }
     }
+*/
+    private void borrarNumero()
+    {
+        if(!this.esPrimerDigito)
+        {
+            String digito = this.stkVisor.pop().toString(); //Apilo el número ingresado
+            
+            if(digito.equals(this.signoDecimal))
+            {
+                this.esDecimal = false;
+            }
+            
+            if(this.stkVisor.size() == 0)
+            {
+                this.esPrimerDigito = true;
+            }
+
+            this.escribirVisor();
+        }
+    }
 
     private void escribirDecimal()
     {
@@ -693,7 +724,7 @@ public class frmCalculadora extends javax.swing.JFrame {
     private void escribirSigno()
     {
         String visor = this.lblVisor.getText();
-        if(!this.INICIO_VISOR.equals(visor))
+        if(!this.esPrimerDigito)
         {
             if(this.esNegativo)
             {
