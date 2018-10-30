@@ -5,6 +5,7 @@
  */
 package calculadora;
 
+import java.awt.event.KeyEvent;
 import java.util.Stack;
 
 /**
@@ -83,6 +84,13 @@ public class frmCalculadora extends javax.swing.JFrame {
         setTitle("Calculadora");
         setLocation(new java.awt.Point(509, 384));
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                formKeyTyped(evt);
+            }
+        });
 
         lblVisor.setBackground(new java.awt.Color(255, 255, 255));
         lblVisor.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -489,43 +497,43 @@ public class frmCalculadora extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCActionPerformed
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        this.escribirNumero(this.btn1.getText());
+        this.escribirNumero(this.btn1.getText().charAt(0));
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
-        this.escribirNumero(this.btn2.getText());
+        this.escribirNumero(this.btn2.getText().charAt(0));
     }//GEN-LAST:event_btn2ActionPerformed
 
     private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
-        this.escribirNumero(this.btn3.getText());
+        this.escribirNumero(this.btn3.getText().charAt(0));
     }//GEN-LAST:event_btn3ActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
-        this.escribirNumero(this.btn4.getText());
+        this.escribirNumero(this.btn4.getText().charAt(0));
     }//GEN-LAST:event_btn4ActionPerformed
 
     private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
-        this.escribirNumero(this.btn5.getText());
+        this.escribirNumero(this.btn5.getText().charAt(0));
     }//GEN-LAST:event_btn5ActionPerformed
 
     private void btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6ActionPerformed
-        this.escribirNumero(this.btn6.getText());
+        this.escribirNumero(this.btn6.getText().charAt(0));
     }//GEN-LAST:event_btn6ActionPerformed
 
     private void btn7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7ActionPerformed
-        this.escribirNumero(this.btn7.getText());
+        this.escribirNumero(this.btn7.getText().charAt(0));
     }//GEN-LAST:event_btn7ActionPerformed
 
     private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
-        this.escribirNumero(this.btn8.getText());
+        this.escribirNumero(this.btn8.getText().charAt(0));
     }//GEN-LAST:event_btn8ActionPerformed
 
     private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
-        this.escribirNumero(this.btn9.getText());
+        this.escribirNumero(this.btn9.getText().charAt(0));
     }//GEN-LAST:event_btn9ActionPerformed
 
     private void btn0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn0ActionPerformed
-        this.escribirNumero(this.btn0.getText());
+        this.escribirNumero(this.btn0.getText().charAt(0));
     }//GEN-LAST:event_btn0ActionPerformed
 
     private void btnPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuntoActionPerformed
@@ -543,6 +551,28 @@ public class frmCalculadora extends javax.swing.JFrame {
     private void btnSignoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignoActionPerformed
         this.escribirSigno();
     }//GEN-LAST:event_btnSignoActionPerformed
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_formKeyTyped
+    {//GEN-HEADEREND:event_formKeyTyped
+        char tecla = evt.getKeyChar();
+        
+        if(tecla == this.signoDecimal.charAt(0))
+        {
+            this.escribirDecimal();
+        }
+        else if(tecla == KeyEvent.VK_ESCAPE)
+        {
+            this.borrarVisor();
+        }
+        else if(tecla == KeyEvent.VK_BACK_SPACE)
+        {
+            this.borrarNumero();
+        }
+        else if(tecla >= KeyEvent.VK_0 && tecla <= KeyEvent.VK_9)
+        {
+            this.escribirNumero(tecla);
+        }
+    }//GEN-LAST:event_formKeyTyped
 
     /**
      * @param args the command line arguments
@@ -579,7 +609,7 @@ public class frmCalculadora extends javax.swing.JFrame {
         });
     }
 
-    private void escribirNumero(String numero)
+    private void escribirNumero(char digito)
     {
         boolean esPrimerDigito = this.stkVisor.empty();
         //Si se levantó la bandera, borro el visor previamente.
@@ -588,9 +618,9 @@ public class frmCalculadora extends javax.swing.JFrame {
             this.borrarVisor();
         }
         
-        if(!esPrimerDigito || (esPrimerDigito && !"0".equals(numero)))
+        if(!esPrimerDigito || (esPrimerDigito && digito != '0'))
         {
-            this.stkVisor.push(numero.charAt(0)); //Apilo el número ingresado
+            this.stkVisor.push(digito); //Apilo el número ingresado
             this.escribirVisor();
         }
     }
