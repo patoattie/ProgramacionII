@@ -28,8 +28,8 @@ public class frmCalculadora extends javax.swing.JFrame {
         initComponents();
 
         this.esDecimal = false;
-        this.esPrimerDigito = true;
         this.esNegativo = false;
+        this.limpiaVisor = false;
         this.signoDecimal = ".";
         this.INICIO_VISOR = "0" + this.getSignoDecimal();
         this.lblVisor.setText(INICIO_VISOR);
@@ -135,17 +135,20 @@ public class frmCalculadora extends javax.swing.JFrame {
         btnMC.setForeground(new java.awt.Color(255, 0, 0));
         btnMC.setText("MC");
         btnMC.setBorder(null);
+        btnMC.setEnabled(false);
         btnMC.setFocusable(false);
         btnMC.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         btnMR.setForeground(new java.awt.Color(255, 0, 0));
         btnMR.setBorder(null);
+        btnMR.setEnabled(false);
         btnMR.setFocusable(false);
         btnMR.setLabel("MR");
         btnMR.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         btnMS.setForeground(new java.awt.Color(255, 0, 0));
         btnMS.setBorder(null);
+        btnMS.setEnabled(false);
         btnMS.setFocusable(false);
         btnMS.setLabel("MS");
         btnMS.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -153,6 +156,7 @@ public class frmCalculadora extends javax.swing.JFrame {
         btnMmas.setForeground(new java.awt.Color(255, 0, 0));
         btnMmas.setAlignmentY(0.0F);
         btnMmas.setBorder(null);
+        btnMmas.setEnabled(false);
         btnMmas.setFocusable(false);
         btnMmas.setLabel("M+");
         btnMmas.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -537,7 +541,7 @@ public class frmCalculadora extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCEActionPerformed
 
     private void btnSignoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignoActionPerformed
-        // TODO add your handling code here:
+        this.escribirSigno();
     }//GEN-LAST:event_btnSignoActionPerformed
 
     /**
@@ -574,45 +578,20 @@ public class frmCalculadora extends javax.swing.JFrame {
             }
         });
     }
-/*    
-    private void escribirNumero(String numero)
-    {
-        StringBuilder cadena = new StringBuilder();
-        String visor = this.lblVisor.getText();
-        if(!this.esDecimal)
-        {
-            visor = visor.substring(0, visor.length() - 1);
-        }
-        
-        if(!this.esPrimerDigito)
-        {
-            cadena.append(visor);
-        }
-        else if(!"0".equals(numero))
-        {
-            this.esPrimerDigito = false;
-        }
-        
-        cadena.append(numero);
-        if(!this.esDecimal)
-        {
-            cadena.append(this.signoDecimal);
-        }
 
-        this.lblVisor.setText(cadena.toString());
-    }
-*/
     private void escribirNumero(String numero)
     {
-        if(!this.esPrimerDigito || (this.esPrimerDigito && !"0".equals(numero)))
+        boolean esPrimerDigito = this.stkVisor.empty();
+        //Si se levantó la bandera, borro el visor previamente.
+        if(this.limpiaVisor)
+        {
+            this.borrarVisor();
+        }
+        
+        if(!esPrimerDigito || (esPrimerDigito && !"0".equals(numero)))
         {
             this.stkVisor.push(numero.charAt(0)); //Apilo el número ingresado
             this.escribirVisor();
-
-            if(this.esPrimerDigito)
-            {
-                this.esPrimerDigito = false;
-            }
         }
     }
 
@@ -620,12 +599,17 @@ public class frmCalculadora extends javax.swing.JFrame {
     {
         StringBuilder cadena = new StringBuilder();
         
-        if(this.stkVisor.size() == 0)
+        if(this.stkVisor.empty())
         {
             this.lblVisor.setText(this.INICIO_VISOR);
         }
         else
         {
+            if(this.esNegativo)
+            {
+                cadena.append('-');
+            }
+            
             //Recorro la pila para dibujar el visor
             for (Character digito : stkVisor)
             {
@@ -645,64 +629,34 @@ public class frmCalculadora extends javax.swing.JFrame {
     private void borrarVisor()
     {
         this.esDecimal = false;
-        this.esPrimerDigito = true;
-        this.lblVisor.setText(this.INICIO_VISOR);
+        this.esNegativo = false;
+        this.limpiaVisor = false;
         
         //Desapilo la pila completa
-        while (this.stkVisor.size() > 0)
+        while (!this.stkVisor.empty())
         {
             this.stkVisor.pop();
         }
+        
+        this.escribirVisor();
+    }
 
-    }
-/*    
     private void borrarNumero()
     {
-        String visor = this.lblVisor.getText();
-        int posicionHasta = visor.length() - 1;
-        
-        if(!this.esDecimal)
-        {
-            posicionHasta--;
-        }
-        
-        if(visor.length() > this.INICIO_VISOR.length())
-        {
-            if(visor.charAt(posicionHasta) == this.signoDecimal.charAt(0))
-            {
-                this.esDecimal = false;
-            }
-            else
-            {
-                this.lblVisor.setText(visor.substring(0, posicionHasta));
-                if(!this.esDecimal)
-                {
-                    this.lblVisor.setText(this.lblVisor.getText().concat(this.signoDecimal));
-                }
-            }
-        }
-        else
-        {
-            this.lblVisor.setText(this.INICIO_VISOR);
-            this.esPrimerDigito = true;
-            this.esDecimal = false;
-        }
-    }
-*/
-    private void borrarNumero()
-    {
-        if(!this.esPrimerDigito)
+        if(!this.stkVisor.empty())
         {
             String digito = this.stkVisor.pop().toString(); //Apilo el número ingresado
             
             if(digito.equals(this.signoDecimal))
             {
                 this.esDecimal = false;
+                digito = this.stkVisor.pop().toString();
             }
-            
-            if(this.stkVisor.size() == 0)
+
+            if(this.stkVisor.empty())
             {
-                this.esPrimerDigito = true;
+                this.esNegativo = false;
+                this.limpiaVisor = false;
             }
 
             this.escribirVisor();
@@ -714,8 +668,11 @@ public class frmCalculadora extends javax.swing.JFrame {
         if(!this.esDecimal)
         {
             this.esDecimal = true;
-            this.esPrimerDigito = false;
-            //this.escribirNumero(this.btnPunto.getText());
+            
+            if(this.stkVisor.empty())
+            {
+                this.stkVisor.push('0');
+            }
 
             this.stkVisor.push(this.signoDecimal.charAt(0)); //Apilo el número ingresado
         }
@@ -723,25 +680,24 @@ public class frmCalculadora extends javax.swing.JFrame {
     
     private void escribirSigno()
     {
-        String visor = this.lblVisor.getText();
-        if(!this.esPrimerDigito)
+        if(!this.stkVisor.empty())
         {
             if(this.esNegativo)
             {
-                this.lblVisor.setText(visor.substring(1, visor.length()));
                 this.esNegativo = false;
             }
             else
             {
-                this.lblVisor.setText("-".concat(visor));
                 this.esNegativo = true;
             }
+            
+            this.escribirVisor();
         }
     }
     
     private boolean esDecimal; //Va true cuando presiono '.', para verificar que no va más de un punto decimal
-    private boolean esPrimerDigito; //Va true cuando ingreso el primer dígito, para que reemplace valor en lugar de acumular
     private boolean esNegativo; //Para el manejo del botón de signo.
+    private boolean limpiaVisor; //Luego de ingresar un operador, cuando se ingresa un número se debe borrar el visor previamente.
     private String signoDecimal;
     private final String INICIO_VISOR;
     private Stack<Character> stkVisor;
