@@ -32,7 +32,6 @@ public class frmCalculadora extends javax.swing.JFrame {
 
         this.esDecimal = false;
         this.esNegativo = false;
-        this.limpiaVisor = false;
         this.signoDecimal = ".";
         this.INICIO_VISOR = "0" + this.getSignoDecimal();
         this.lblVisor.setText(INICIO_VISOR);
@@ -48,7 +47,8 @@ public class frmCalculadora extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         lblVisor = new javax.swing.JLabel();
         btnC = new javax.swing.JButton();
@@ -83,8 +83,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         setTitle("Calculadora");
         setLocation(new java.awt.Point(509, 384));
         setResizable(false);
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
+        addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
                 formKeyTyped(evt);
             }
         });
@@ -100,8 +102,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         btnC.setBorder(null);
         btnC.setFocusable(false);
         btnC.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnC.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCActionPerformed(evt);
             }
         });
@@ -111,8 +115,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         btnCE.setBorder(null);
         btnCE.setFocusable(false);
         btnCE.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnCE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCE.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCEActionPerformed(evt);
             }
         });
@@ -125,8 +131,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         btnRetroceso.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRetroceso.setFocusable(false);
         btnRetroceso.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnRetroceso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnRetroceso.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnRetrocesoActionPerformed(evt);
             }
         });
@@ -165,8 +173,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         btn7.setFocusable(false);
         btn7.setLabel("7");
         btn7.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btn7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btn7.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btn7ActionPerformed(evt);
             }
         });
@@ -176,8 +186,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         btn8.setBorder(null);
         btn8.setFocusable(false);
         btn8.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btn8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btn8.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btn8ActionPerformed(evt);
             }
         });
@@ -187,8 +199,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         btn9.setBorder(null);
         btn9.setFocusable(false);
         btn9.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btn9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btn9.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btn9ActionPerformed(evt);
             }
         });
@@ -198,8 +212,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         btn4.setBorder(null);
         btn4.setFocusable(false);
         btn4.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btn4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btn4.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btn4ActionPerformed(evt);
             }
         });
@@ -209,8 +225,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         btn5.setBorder(null);
         btn5.setFocusable(false);
         btn5.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btn5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btn5.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btn5ActionPerformed(evt);
             }
         });
@@ -220,8 +238,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         btn6.setBorder(null);
         btn6.setFocusable(false);
         btn6.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btn6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btn6.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btn6ActionPerformed(evt);
             }
         });
@@ -231,8 +251,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         btn1.setBorder(null);
         btn1.setFocusable(false);
         btn1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btn1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btn1ActionPerformed(evt);
             }
         });
@@ -242,8 +264,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         btn2.setBorder(null);
         btn2.setFocusable(false);
         btn2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btn2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btn2ActionPerformed(evt);
             }
         });
@@ -253,8 +277,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         btn3.setBorder(null);
         btn3.setFocusable(false);
         btn3.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btn3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btn3.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btn3ActionPerformed(evt);
             }
         });
@@ -264,8 +290,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         btnSigno.setBorder(null);
         btnSigno.setFocusable(false);
         btnSigno.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnSigno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnSigno.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnSignoActionPerformed(evt);
             }
         });
@@ -274,8 +302,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         btnPunto.setBorder(null);
         btnPunto.setFocusable(false);
         btnPunto.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnPunto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnPunto.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnPuntoActionPerformed(evt);
             }
         });
@@ -285,8 +315,10 @@ public class frmCalculadora extends javax.swing.JFrame {
         btn0.setBorder(null);
         btn0.setFocusable(false);
         btn0.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btn0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btn0.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btn0ActionPerformed(evt);
             }
         });
@@ -308,6 +340,13 @@ public class frmCalculadora extends javax.swing.JFrame {
         btnSumar.setBorder(null);
         btnSumar.setFocusable(false);
         btnSumar.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnSumar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnSumarActionPerformed(evt);
+            }
+        });
 
         btnRestar.setForeground(new java.awt.Color(255, 0, 0));
         btnRestar.setText("-");
@@ -541,6 +580,12 @@ public class frmCalculadora extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formKeyTyped
 
+    private void btnSumarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSumarActionPerformed
+    {//GEN-HEADEREND:event_btnSumarActionPerformed
+        this.escribirResultado();
+        this.encolarOperacion(this.btnSumar.getText());
+    }//GEN-LAST:event_btnSumarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -579,16 +624,19 @@ public class frmCalculadora extends javax.swing.JFrame {
     private void escribirNumero(char digito)
     {
         boolean esPrimerDigito = this.stkVisor.empty();
-        //Si se levantó la bandera, borro el visor previamente.
-        if(this.limpiaVisor)
-        {
-            this.borrarVisor();
-        }
         
         if(!esPrimerDigito || (esPrimerDigito && digito != '0'))
         {
             this.stkVisor.push(digito); //Apilo el número ingresado
             this.escribirVisor();
+        }
+    }
+    
+    private void escribirNumero(String numero)
+    {
+        for (int i = 0; i < numero.length(); i++)
+        {
+            this.escribirNumero(numero.charAt(i));
         }
     }
     
@@ -643,7 +691,6 @@ public class frmCalculadora extends javax.swing.JFrame {
     {
         this.esDecimal = false;
         this.esNegativo = false;
-        this.limpiaVisor = false;
         
         //Desapilo la pila completa
         this.leerPilaVisor(true);
@@ -666,7 +713,6 @@ public class frmCalculadora extends javax.swing.JFrame {
             if(this.stkVisor.empty())
             {
                 this.esNegativo = false;
-                this.limpiaVisor = false;
             }
 
             this.escribirVisor();
@@ -720,24 +766,33 @@ public class frmCalculadora extends javax.swing.JFrame {
         char operador = ' ';
         String proximoTermino;
         byte posicion = 0;
+        float resultado;
         
-        while(!this.splOperaciones.isEmpty())
+        if(!this.splOperaciones.isEmpty())
         {
-            if(posicion == termino.length)
+            while(!this.splOperaciones.isEmpty())
             {
-                posicion--;
-                termino[0] = this.efectuarOperacion(termino[0], termino[1], operador);
+                if(posicion == termino.length)
+                {
+                    posicion--;
+                    termino[0] = this.efectuarOperacion(termino[0], termino[1], operador);
+                }
+                proximoTermino = this.splOperaciones.peek();
+                if(proximoTermino.equals("+") || proximoTermino.equals("-") || proximoTermino.equals("*") || proximoTermino.equals("/"))
+                {
+                    operador = this.splOperaciones.poll().charAt(0);
+                }
+                else
+                {
+                    termino[posicion] = Float.parseFloat(this.splOperaciones.poll());
+                    posicion++;
+                }
             }
-            proximoTermino = this.splOperaciones.peek();
-            if(proximoTermino.equals("+") || proximoTermino.equals("-") || proximoTermino.equals("*") || proximoTermino.equals("/"))
-            {
-                operador = this.splOperaciones.poll().charAt(0);
-            }
-            else
-            {
-                termino[posicion] = Float.parseFloat(this.splOperaciones.poll());
-                posicion++;
-            }
+
+            resultado = this.efectuarOperacion(termino[0], termino[1], operador);
+
+            this.borrarVisor();
+            this.escribirNumero(Float.toString(resultado));
         }
     }
     
@@ -768,7 +823,6 @@ public class frmCalculadora extends javax.swing.JFrame {
     
     private boolean esDecimal; //Va true cuando presiono '.', para verificar que no va más de un punto decimal
     private boolean esNegativo; //Para el manejo del botón de signo.
-    private boolean limpiaVisor; //Luego de ingresar un operador, cuando se ingresa un número se debe borrar el visor previamente.
     private String signoDecimal;
     private final String INICIO_VISOR;
     private final Stack<Character> stkVisor;
