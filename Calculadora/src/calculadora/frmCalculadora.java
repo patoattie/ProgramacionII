@@ -582,7 +582,7 @@ public class frmCalculadora extends javax.swing.JFrame {
 
     private void btnSumarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSumarActionPerformed
     {//GEN-HEADEREND:event_btnSumarActionPerformed
-        this.escribirResultado();
+        //this.escribirResultado();
         this.encolarOperacion(this.btnSumar.getText());
     }//GEN-LAST:event_btnSumarActionPerformed
 
@@ -753,21 +753,33 @@ public class frmCalculadora extends javax.swing.JFrame {
     
     private void encolarOperacion(String operador)
     {
+        boolean muestraResultado = !this.splOperaciones.isEmpty();
+        String resultado;
+        
         if(!this.stkVisor.empty())
         {
             this.splOperaciones.offer(this.leerPilaVisor(true));
             this.splOperaciones.offer(operador);
+            
+            if(muestraResultado)
+            {
+                resultado = this.escribirResultado();
+                if(resultado != null)
+                {
+                    this.splOperaciones.offer(resultado);
+                }
+            }
         }
     }
     
-    private void escribirResultado()
+    private String escribirResultado()
     {
         float[] termino = new float[2];
         char operador = ' ';
         String proximoTermino;
         byte posicion = 0;
         float resultado;
-        String resultadoString;
+        String resultadoString = null;
         
         if(!this.splOperaciones.isEmpty())
         {
@@ -777,6 +789,38 @@ public class frmCalculadora extends javax.swing.JFrame {
                 {
                     posicion--;
                     termino[0] = this.efectuarOperacion(termino[0], termino[1], operador);
+                    
+                    resultadoString = Float.toString(termino[0]);
+                    if(termino[0] % 1 == 0)
+                    {
+                        this.esDecimal = false;
+                        resultadoString = resultadoString.substring(0, resultadoString.length() - 2);
+                    }
+                    else
+                    {
+                        this.esDecimal = true;
+                    }
+                    
+                    if(termino[0] < 0)
+                    {
+                        this.esNegativo = true;
+                    }
+                    else
+                    {
+                        this.esNegativo = false;
+                    }
+
+                    this.borrarVisor();
+
+                    if(this.esNegativo)
+                    {
+                        resultadoString = "-".concat(resultadoString);
+                    }
+                    if(!this.esDecimal)
+                    {
+                        resultadoString = resultadoString.concat(this.signoDecimal);
+                    }
+                    this.lblVisor.setText(resultadoString);
                 }
                 proximoTermino = this.splOperaciones.peek();
                 if(proximoTermino.equals("+") || proximoTermino.equals("-") || proximoTermino.equals("*") || proximoTermino.equals("/"))
@@ -800,9 +844,11 @@ public class frmCalculadora extends javax.swing.JFrame {
                 resultadoString = resultadoString.substring(0, resultadoString.length() - 2);
             }
 
-            this.borrarVisor();
-            this.escribirNumero(resultadoString);
+            //this.borrarVisor();
+            //this.escribirNumero(resultadoString);
         }
+        
+        return resultadoString;
     }
     
     private float efectuarOperacion(float termino1, float termino2, char operador)
