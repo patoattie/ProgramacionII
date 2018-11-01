@@ -767,6 +767,7 @@ public class frmCalculadora extends javax.swing.JFrame {
         String proximoTermino;
         byte posicion = 0;
         float resultado;
+        String resultadoString;
         
         if(!this.splOperaciones.isEmpty())
         {
@@ -790,9 +791,17 @@ public class frmCalculadora extends javax.swing.JFrame {
             }
 
             resultado = this.efectuarOperacion(termino[0], termino[1], operador);
+            resultadoString = Float.toString(resultado);
+            
+            //Si es entero recorto del String la porción ".0"
+            //if(resultadoString.substring(resultadoString.length() - 2, resultadoString.length()).equals(this.signoDecimal.concat("0")))
+            if(resultado % 1 == 0)
+            {
+                resultadoString = resultadoString.substring(0, resultadoString.length() - 2);
+            }
 
             this.borrarVisor();
-            this.escribirNumero(Float.toString(resultado));
+            this.escribirNumero(resultadoString);
         }
     }
     
