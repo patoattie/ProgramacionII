@@ -50,6 +50,21 @@ public class Llamada
     
     public static int OrdenarPorDuracion(Llamada uno, Llamada dos)
     {
-        return Float.compare(uno._duracion, dos._duracion);
+        int retorno;
+        
+        if(uno._duracion > dos._duracion)
+        {
+            retorno = 1;
+        }
+        else if(uno._duracion < dos._duracion)
+        {
+            retorno = -1;
+        }
+        else
+        {
+            retorno = 0;
+        }
+        
+        return retorno;
     }
 }
