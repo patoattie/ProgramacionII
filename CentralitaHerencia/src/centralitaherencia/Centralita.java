@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Centralita
 {
-    protected ArrayList<Llamada> _listaDeLlamadas;
+    private ArrayList<Llamada> _listaDeLlamadas;
     protected String _razonSocial;
 
     public Centralita()
