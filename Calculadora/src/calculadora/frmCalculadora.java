@@ -583,7 +583,7 @@ public class frmCalculadora extends javax.swing.JFrame {
     private void btnSumarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSumarActionPerformed
     {//GEN-HEADEREND:event_btnSumarActionPerformed
         //this.escribirResultado();
-        this.encolarOperacion(this.btnSumar.getText());
+        //this.encolarOperacion(this.btnSumar.getText());
     }//GEN-LAST:event_btnSumarActionPerformed
 
     /**
@@ -750,7 +750,7 @@ public class frmCalculadora extends javax.swing.JFrame {
             this.escribirVisor();
         }
     }
-    
+/*    
     private void encolarOperacion(String operador)
     {
         boolean muestraResultado = !this.splOperaciones.isEmpty();
@@ -875,7 +875,7 @@ public class frmCalculadora extends javax.swing.JFrame {
         
         return resultado;
     }
-    
+*/    
     private boolean esDecimal; //Va true cuando presiono '.', para verificar que no va más de un punto decimal
     private boolean esNegativo; //Para el manejo del botón de signo.
     private String signoDecimal;
