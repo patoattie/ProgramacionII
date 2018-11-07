@@ -45,7 +45,7 @@ public class Producto
         cadena.append("Nombre: ").append(this._nombre).append("\n");
         cadena.append("Tipo: ").append(this._tipo).append("\n");
         cadena.append("Código: ").append(this._codigoBarras).append("\n");
-        cadena.append("Precio: ").append(this._precio);
+        cadena.append("Precio: ").append(String.format("%.0f", this._precio));
         
         System.out.println(cadena.toString());
     }
