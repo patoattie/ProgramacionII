@@ -26,21 +26,56 @@ public class Container
     
     public boolean Agregar(Producto proUno)
     {
-        return true;
+        boolean retorno;
+        
+        if(!this.ContieneProducto(this, proUno))
+        {
+            retorno = this._listaProductos.add(proUno);
+        }
+        else
+        {
+            retorno = false;
+        }
+        
+        return retorno;
     }
     
     public void Mostrar(Container contenedor)
     {
+        StringBuilder cadena = new StringBuilder();
         
+        cadena.append("-__-__Container__-__-").append("\n");
+        cadena.append("Empresa:").append(this._empresa).append("\n");
+        cadena.append("Capacidad:").append(this._capacidad).append("\n");
+        cadena.append("Productos:");
+        
+        System.out.println(cadena.toString());
+        
+        for (Producto unProducto : this._listaProductos)
+        {
+            unProducto.Mostrar();
+        }
     }
     
     public ArrayList<Producto> SeleccionarComestible(Container contenedorUno, eTipoComestible tipo)
     {
-        return null;
+        ArrayList<Producto> retorno = new ArrayList<>();
+        
+        for (Producto unProducto : contenedorUno._listaProductos)
+        {
+            if(unProducto.comparaComestible(unProducto, tipo))
+            {
+                retorno.add(unProducto);
+            }
+        }
+        
+        return retorno;
     }
     
     public boolean ContieneProducto(Container unContenedor, Producto unProducto)
     {
-        return true;
+        boolean retorno = unContenedor._listaProductos.contains(unProducto);
+        
+        return retorno;
     }
 }
