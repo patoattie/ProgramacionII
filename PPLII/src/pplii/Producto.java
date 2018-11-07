@@ -72,10 +72,7 @@ public class Producto
     {
         boolean retorno;
         
-        if(unProducto._codigoBarras == otroProducto._codigoBarras
-                && unProducto._nombre.equalsIgnoreCase(otroProducto._nombre)
-                //&& unProducto._precio == otroProducto._precio
-                && unProducto._tipo.equals(otroProducto._tipo))
+        if(unProducto._codigoBarras == otroProducto._codigoBarras)
         {
             retorno = true;
         }
