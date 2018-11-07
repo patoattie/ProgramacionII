@@ -28,7 +28,7 @@ public class Container
     {
         boolean retorno;
         
-        if(!this.ContieneProducto(this, proUno))
+        if(!this.ContieneProducto(this, proUno) && this._listaProductos.size() < this._capacidad)
         {
             retorno = this._listaProductos.add(proUno);
         }
@@ -40,30 +40,30 @@ public class Container
         return retorno;
     }
     
-    public void Mostrar(Container contenedor)
+    public static void Mostrar(Container contenedor)
     {
         StringBuilder cadena = new StringBuilder();
         
         cadena.append("-__-__Container__-__-").append("\n");
-        cadena.append("Empresa:").append(this._empresa).append("\n");
-        cadena.append("Capacidad:").append(this._capacidad).append("\n");
+        cadena.append("Empresa:").append(contenedor._empresa).append("\n");
+        cadena.append("Capacidad:").append(contenedor._capacidad).append("\n");
         cadena.append("Productos:");
         
         System.out.println(cadena.toString());
         
-        for (Producto unProducto : this._listaProductos)
+        for (Producto unProducto : contenedor._listaProductos)
         {
             unProducto.Mostrar();
         }
     }
     
-    public ArrayList<Producto> SeleccionarComestible(Container contenedorUno, eTipoComestible tipo)
+    public static ArrayList<Producto> SeleccionarComestible(Container contenedorUno, eTipoComestible tipo)
     {
         ArrayList<Producto> retorno = new ArrayList<>();
         
         for (Producto unProducto : contenedorUno._listaProductos)
         {
-            if(unProducto.comparaComestible(unProducto, tipo))
+            if(Producto.comparaComestible(unProducto, tipo))
             {
                 retorno.add(unProducto);
             }
@@ -74,7 +74,16 @@ public class Container
     
     public boolean ContieneProducto(Container unContenedor, Producto unProducto)
     {
-        boolean retorno = unContenedor._listaProductos.contains(unProducto);
+        boolean retorno = false;
+        
+        for (Producto elProducto : unContenedor._listaProductos)
+        {
+            if(Producto.comparaDosProductos(unProducto, elProducto))
+            {
+                retorno = true;
+                break;
+            }
+        }
         
         return retorno;
     }

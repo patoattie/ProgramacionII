@@ -11,6 +11,6 @@ package pplii;
  */
 public enum eTipoComestible
 {
-    SOLIDO,
-    LIQUIDO
+    Solido,
+    Liquido
 }

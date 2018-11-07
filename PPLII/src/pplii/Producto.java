@@ -46,7 +46,7 @@ public class Producto
         System.out.println(cadena.toString());
     }
     
-    public boolean comparaComestible(Producto unProducto, eTipoComestible tipo)
+    public static boolean comparaComestible(Producto unProducto, eTipoComestible tipo)
     {
         boolean retorno;
         
@@ -62,13 +62,13 @@ public class Producto
         return retorno;
     }
     
-    public boolean comparaDosProductos(Producto unProducto, Producto otroProducto)
+    public static boolean comparaDosProductos(Producto unProducto, Producto otroProducto)
     {
         boolean retorno;
         
         if(unProducto._codigoBarras == otroProducto._codigoBarras
                 && unProducto._nombre.equalsIgnoreCase(otroProducto._nombre)
-                && unProducto._precio == otroProducto._precio
+                //&& unProducto._precio == otroProducto._precio
                 && unProducto._tipo.equals(otroProducto._tipo))
         {
             retorno = true;
