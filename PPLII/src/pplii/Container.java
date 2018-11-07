@@ -31,7 +31,7 @@ public class Container
     {
         boolean retorno;
         
-        if(!this.ContieneProducto(this, proUno) && this._listaProductos.size() < this._capacidad)
+        if(!Container.ContieneProducto(this, proUno) && this._listaProductos.size() < this._capacidad)
         {
             retorno = this._listaProductos.add(proUno);
         }
@@ -79,7 +79,7 @@ public class Container
     }
     
     //5) El método ContieneProducto que devuelve verdadero sólo si el producto se encuentra en la lista.
-    public boolean ContieneProducto(Container unContenedor, Producto unProducto)
+    public static boolean ContieneProducto(Container unContenedor, Producto unProducto)
     {
         boolean retorno = false;
         
