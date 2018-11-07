@@ -17,6 +17,7 @@ public class Container
     private String _empresa;
     private ArrayList<Producto> _listaProductos;
 
+    //d) El constructor de la clase Container deberá instanciar la lista
     public Container(int capacidad, String empresa)
     {
         this._capacidad = capacidad;
@@ -24,6 +25,8 @@ public class Container
         this._listaProductos = new ArrayList<>();
     }
     
+    //7) Crear el método de instancia Agregar (Producto) que agregue a la lista de productos del contenedor 
+    //   el producto pasado por parámetro sólo si la capacidad lo permite y el producto no se encuentra ya en la lista.
     public boolean Agregar(Producto proUno)
     {
         boolean retorno;
@@ -40,6 +43,8 @@ public class Container
         return retorno;
     }
     
+    //4) Crear un método de clase Mostrar (Container) que muestre los datos del contenedor pasado por parámetro. 
+    //   Se deberá mostrar también la lista completa de sus productos.
     public static void Mostrar(Container contenedor)
     {
         StringBuilder cadena = new StringBuilder();
@@ -57,6 +62,7 @@ public class Container
         }
     }
     
+    //6) El método SeleccionarComestible retornara una lista con todos los productos que pertenecen al tipo indicado.
     public static ArrayList<Producto> SeleccionarComestible(Container contenedorUno, eTipoComestible tipo)
     {
         ArrayList<Producto> retorno = new ArrayList<>();
@@ -72,6 +78,7 @@ public class Container
         return retorno;
     }
     
+    //5) El método ContieneProducto que devuelve verdadero sólo si el producto se encuentra en la lista.
     public boolean ContieneProducto(Container unContenedor, Producto unProducto)
     {
         boolean retorno = false;
