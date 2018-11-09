@@ -49,11 +49,17 @@ public class Vehiculo
     
     protected String Mostrar()
     {
-        return "";
+        StringBuilder cadena = new StringBuilder();
+        
+        cadena.append("     Marca: ").append(this._marca).append("\n");
+        cadena.append("   Patente: ").append(this._patente).append("\n");
+        cadena.append("    Ruedas: ").append(this._cantRuedas);
+
+        return cadena.toString();
     }
     
     protected static boolean ComparaVehiculos(Vehiculo uno, Vehiculo dos)
     {
-        return true;
+        return (uno._patente.equals(dos._patente) && uno._marca.equals(dos._marca));
     }
 }

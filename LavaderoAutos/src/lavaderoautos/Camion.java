@@ -20,4 +20,15 @@ public class Camion extends Vehiculo
     {
         this(_tara, unVehiculo.getPatente(), unVehiculo.getCantRuedas(), unVehiculo.getMarca());
     }
+
+    @Override
+    protected String Mostrar()
+    {
+        StringBuilder cadena = new StringBuilder();
+        
+        super.Mostrar();
+        cadena.append("      Tara: ").append(this._tara);
+        
+        return cadena.toString();
+    }
 }

@@ -20,4 +20,15 @@ public class Auto extends Vehiculo
     {
         this(_cantidadAsientos, _patente, 4, _marca);
     }
+    
+    @Override
+    protected String Mostrar()
+    {
+        StringBuilder cadena = new StringBuilder();
+        
+        super.Mostrar();
+        cadena.append("  Asientos: ").append(this._cantidadAsientos);
+        
+        return cadena.toString();
+    }
 }

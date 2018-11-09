@@ -16,4 +16,14 @@ public class Moto extends Vehiculo
         this._cilindrada = _cilindrada;
     }
 
+    @Override
+    protected String Mostrar()
+    {
+        StringBuilder cadena = new StringBuilder();
+        
+        super.Mostrar();
+        cadena.append("Cilindrada: ").append(this._cilindrada);
+        
+        return cadena.toString();
+    }
 }
