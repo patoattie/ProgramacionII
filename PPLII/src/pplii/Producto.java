@@ -32,7 +32,7 @@ public class Producto
     }
 
     //c) Todas las instancias de producto deben de alguna forma inicializar el atributo _codigoDeBarra
-    public Producto(int codigo)
+    private Producto(int codigo)
     {
         this._codigoBarras = codigo;
     }
@@ -53,34 +53,12 @@ public class Producto
     //b) El método comparaComestible devuelve verdadero sólo si el producto pertenece al tipo de comestible con el que se compara
     public static boolean comparaComestible(Producto unProducto, eTipoComestible tipo)
     {
-        boolean retorno;
-        
-        if(unProducto._tipo.equals(tipo))
-        {
-            retorno = true;
-        }
-        else
-        {
-            retorno = false;
-        }
-        
-        return retorno;
+        return unProducto._tipo.equals(tipo);
     }
     
     //a) El método comparaDosProductos permite comparar dos productos y devuelva verdadero sólo cuando estos sean iguales
     public static boolean comparaDosProductos(Producto unProducto, Producto otroProducto)
     {
-        boolean retorno;
-        
-        if(unProducto._codigoBarras == otroProducto._codigoBarras)
-        {
-            retorno = true;
-        }
-        else
-        {
-            retorno = false;
-        }
-        
-        return retorno;
+        return unProducto._codigoBarras == otroProducto._codigoBarras;
     }
 }
