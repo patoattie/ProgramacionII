@@ -18,11 +18,16 @@ public class Container
     private ArrayList<Producto> _listaProductos;
 
     //d) El constructor de la clase Container deberá instanciar la lista
+    private Container()
+    {
+        this._listaProductos = new ArrayList<>();
+    }
+    
     public Container(int capacidad, String empresa)
     {
+        this();
         this._capacidad = capacidad;
         this._empresa = empresa;
-        this._listaProductos = new ArrayList<>();
     }
     
     //7) Crear el método de instancia Agregar (Producto) que agregue a la lista de productos del contenedor 
@@ -31,7 +36,7 @@ public class Container
     {
         boolean retorno;
         
-        if(!Container.ContieneProducto(this, proUno) && this._listaProductos.size() < this._capacidad)
+        if(this._listaProductos.size() < this._capacidad && !Container.ContieneProducto(this, proUno))
         {
             retorno = this._listaProductos.add(proUno);
         }
