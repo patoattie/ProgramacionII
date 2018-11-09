@@ -5,6 +5,8 @@
  */
 package centralitaherencia;
 
+import java.util.Comparator;
+
 /**
  *
  * @author capacita_mecon
@@ -47,7 +49,7 @@ public class Llamada
         
         System.out.println(cadena.toString());
     }
-    
+    /*
     public static int OrdenarPorDuracion(Llamada uno, Llamada dos)
     {
         int retorno;
@@ -67,4 +69,24 @@ public class Llamada
         
         return retorno;
     }
+    */
+    public static Comparator<Llamada> CompararDuracionAsc = ((uno, dos) ->
+    {
+        int retorno;
+        
+        if(uno._duracion > dos._duracion)
+        {
+            retorno = 1;
+        }
+        else if(uno._duracion < dos._duracion)
+        {
+            retorno = -1;
+        }
+        else
+        {
+            retorno = 0;
+        }
+        
+        return retorno;
+    });
 }

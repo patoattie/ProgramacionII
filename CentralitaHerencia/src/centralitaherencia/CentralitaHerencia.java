@@ -33,6 +33,9 @@ public class CentralitaHerencia
         lista.add(ll4);
         
         c1.Mostrar();
+        
+        c1.Llamadas().sort(Llamada.CompararDuracionAsc);
+        c1.Mostrar();
     }
     
 }
