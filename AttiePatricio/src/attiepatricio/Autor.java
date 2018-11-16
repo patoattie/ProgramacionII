@@ -20,14 +20,14 @@ public class Autor
         this._nombre = _nombre;
     }
     
-    public boolean compararAutores(Autor uno, Autor dos)
+    public static boolean compararAutores(Autor uno, Autor dos)
     {
         boolean retorno = uno._apellido.equalsIgnoreCase(dos._apellido) && uno._nombre.equalsIgnoreCase(dos._nombre);
         
         return retorno;
     }
     
-    public String mostrarAutor(Autor unAutor)
+    public static String mostrarAutor(Autor unAutor)
     {
         StringBuilder retorno = new StringBuilder();
         
