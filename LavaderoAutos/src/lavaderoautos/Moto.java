@@ -21,7 +21,7 @@ public class Moto extends Vehiculo
     {
         StringBuilder cadena = new StringBuilder();
         
-        super.Mostrar();
+        cadena.append(super.Mostrar()).append("\n");
         cadena.append("Cilindrada: ").append(this._cilindrada);
         
         return cadena.toString();

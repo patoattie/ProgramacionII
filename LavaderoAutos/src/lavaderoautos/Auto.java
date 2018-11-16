@@ -26,7 +26,7 @@ public class Auto extends Vehiculo
     {
         StringBuilder cadena = new StringBuilder();
         
-        super.Mostrar();
+        cadena.append(super.Mostrar()).append("\n");
         cadena.append("  Asientos: ").append(this._cantidadAsientos);
         
         return cadena.toString();

@@ -6,6 +6,7 @@
 package lavaderoautos;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  *
@@ -51,9 +52,9 @@ public class Lavadero
         
         cadena.append("Razón Social: ").append(this._razonSocial).append("\n");
         cadena.append("Lista de Precios vigente").append("\n");
-        cadena.append("   Autos: ").append(Lavadero._precioAuto).append("\n");
-        cadena.append("Camiones: ").append(Lavadero._precioCamion).append("\n");
-        cadena.append("   Motos: ").append(Lavadero._precioMoto).append("\n");
+        cadena.append("   Autos: ").append(String.format("%.2f", Lavadero._precioAuto)).append("\n");
+        cadena.append("Camiones: ").append(String.format("%.2f", Lavadero._precioCamion)).append("\n");
+        cadena.append("   Motos: ").append(String.format("%.2f", Lavadero._precioMoto)).append("\n");
         cadena.append("Vehículos atendidos").append("\n");
         for (Vehiculo unVehiculo : getVehiculos())
         {
@@ -140,4 +141,70 @@ public class Lavadero
         
         return retorno;
     }
+    
+    public double MostrarTotalFacturado()
+    {
+        double total = 0.0;
+        
+        total += this.MostrarTotalFacturado(EVehiculos.AUTO);
+        total += this.MostrarTotalFacturado(EVehiculos.MOTO);
+        total += this.MostrarTotalFacturado(EVehiculos.CAMION);
+        
+        return total;
+    }
+
+    public double MostrarTotalFacturado(EVehiculos tipoVehiculo)
+    {
+        double total = 0.0;
+        
+        for (Vehiculo unVehiculo : _vehiculos) 
+        {
+            if(unVehiculo instanceof Auto && tipoVehiculo == EVehiculos.AUTO)
+            {
+                total += Lavadero._precioAuto;
+            }
+            else if(unVehiculo instanceof Camion && tipoVehiculo == EVehiculos.CAMION)
+            {
+                total += Lavadero._precioCamion;
+            }
+            else if(unVehiculo instanceof Moto && tipoVehiculo == EVehiculos.MOTO)
+            {
+                total += Lavadero._precioMoto;
+            }
+        }
+        
+        return total;
+    }
+    
+    public static Comparator<Vehiculo> OrdenarVehiculosPorPatente = ((uno, dos) ->
+    {
+        int retorno = uno.getPatente().compareTo(dos.getPatente());
+        
+        if(retorno > 0)
+        {
+            retorno = 1;
+        }
+        else if(retorno < 0)
+        {
+            retorno = -1;
+        }
+        
+        return retorno;
+    });
+
+    public Comparator<Vehiculo> OrdenarVehiculosPorMarca = ((uno, dos) ->
+    {
+        int retorno = uno.getMarca().toString().compareTo(dos.getMarca().toString());
+        
+        if(retorno > 0)
+        {
+            retorno = 1;
+        }
+        else if(retorno < 0)
+        {
+            retorno = -1;
+        }
+        
+        return retorno;
+    });
 }

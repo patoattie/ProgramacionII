@@ -26,7 +26,7 @@ public class Camion extends Vehiculo
     {
         StringBuilder cadena = new StringBuilder();
         
-        super.Mostrar();
+        cadena.append(super.Mostrar()).append("\n");
         cadena.append("      Tara: ").append(this._tara);
         
         return cadena.toString();
