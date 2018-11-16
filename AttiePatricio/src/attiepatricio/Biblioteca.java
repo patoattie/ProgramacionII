@@ -138,7 +138,8 @@ public class Biblioteca
         cadena.append("BIBLIOTECA").append("\n");
         cadena.append("----------").append("\n");
         cadena.append("Capacidad Total: ").append(unaBiblioteca._capacidad).append("\n");
-        cadena.append("Espacio Restante: ").append(unaBiblioteca._capacidad - unaBiblioteca._libros.size());
+        cadena.append("Espacio Restante: ").append(unaBiblioteca._capacidad - unaBiblioteca._libros.size()).append("\n");
+        cadena.append("****************");
         
         for (Libro _libro : unaBiblioteca._libros)
         {

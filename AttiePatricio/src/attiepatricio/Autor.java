@@ -14,7 +14,7 @@ public class Autor
     private String _apellido;
     private String _nombre;
 
-    public Autor(String _apellido, String _nombre)
+    public Autor(String _nombre, String _apellido)
     {
         this._apellido = _apellido;
         this._nombre = _nombre;
@@ -31,7 +31,7 @@ public class Autor
     {
         StringBuilder retorno = new StringBuilder();
         
-        retorno.append(unAutor._nombre).append(" ").append(unAutor._apellido);
+        retorno.append(unAutor._apellido).append(" ").append(unAutor._nombre);
         
         return retorno.toString();
     }

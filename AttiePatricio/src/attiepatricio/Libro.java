@@ -57,12 +57,10 @@ public class Libro
     {
         StringBuilder cadena = new StringBuilder();
         
-        cadena.append("DATOS DEL LIBRO").append("\n");
-        cadena.append("---------------").append("\n");
         cadena.append("Autor: ").append(Autor.mostrarAutor(unLibro._autor)).append("\n");
-        cadena.append("Título: ").append(unLibro._titulo).append("\n");
         cadena.append("Páginas: ").append(unLibro._cantidadPaginas).append("\n");
-        cadena.append("Precio: ").append(unLibro._precio);
+        cadena.append("Precio: ").append(unLibro._precio).append("\n");
+        cadena.append("Título: ").append(unLibro._titulo);
         
         return cadena.toString();
     }
