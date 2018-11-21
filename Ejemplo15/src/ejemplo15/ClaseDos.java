@@ -21,8 +21,20 @@ public class ClaseDos extends ClaseUno
         return this._atributoDos;
     }
     
-    public String mostrarDos()
+    /*public String mostrarDos()
     {
         return super.mostrarUno() + " ClaseDos";
+    }*/
+
+    @Override
+    public String mostrar()
+    {
+        return "ClaseDos";
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "ClaseDos";
     }
 }

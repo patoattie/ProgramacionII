@@ -9,7 +9,7 @@ package ejemplo15;
  *
  * @author capacita_mecon
  */
-public class ClaseUno
+public abstract class ClaseUno
 {
     protected String _atributoUno;
 
@@ -23,7 +23,13 @@ public class ClaseUno
         return this._atributoUno;
     }
     
-    public String mostrarUno()
+    public abstract String mostrar();
+    /*{
+        return "ClaseUno";
+    }*/
+    
+    @Override
+    public String toString()
     {
         return "ClaseUno";
     }

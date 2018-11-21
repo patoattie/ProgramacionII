@@ -10,9 +10,9 @@ public final class ClaseTres extends ClaseDos
 {
     protected float _atributoTres;
 
-    public ClaseTres(ClaseDos unClaseDos, float _atributoTres)
+    public ClaseTres(String _atributoUno, int _atributoDos, float _atributoTres)
     {
-        super(unClaseDos._atributoUno, unClaseDos._atributoDos);
+        super(_atributoUno, _atributoDos);
         this._atributoTres = _atributoTres;
     }
 
@@ -21,8 +21,15 @@ public final class ClaseTres extends ClaseDos
         return this._atributoTres;
     }
     
-    public String mostrarTres()
+    @Override
+    public String mostrar()
     {
-        return super.mostrarDos() + " ClaseTres";
+        return super.mostrar() + " ClaseTres";
+    }
+
+    @Override
+    public String toString()
+    {
+        return super.toString() + " ClaseTres";
     }
 }
