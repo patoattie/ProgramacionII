@@ -3,9 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/TEST/pattie/ProgramacionII/AttiePatricio/src/attiepatricio/Libro.java</file>
             <file>file:/C:/TEST/pattie/ProgramacionII/AttiePatricio/src/attiepatricio/AttiePatricio.java</file>
             <file>file:/C:/TEST/pattie/ProgramacionII/AttiePatricio/src/attiepatricio/Autor.java</file>
+            <file>file:/C:/TEST/pattie/ProgramacionII/AttiePatricio/src/attiepatricio/EGenero.java</file>
+            <file>file:/C:/TEST/pattie/ProgramacionII/AttiePatricio/src/attiepatricio/EClaseLibro.java</file>
+            <file>file:/C:/TEST/pattie/ProgramacionII/AttiePatricio/src/attiepatricio/Libro.java</file>
+            <file>file:/C:/TEST/pattie/ProgramacionII/AttiePatricio/src/attiepatricio/Manual.java</file>
+            <file>file:/C:/TEST/pattie/ProgramacionII/AttiePatricio/src/attiepatricio/ETipo.java</file>
+            <file>file:/C:/TEST/pattie/ProgramacionII/AttiePatricio/src/attiepatricio/Novela.java</file>
+            <file>file:/C:/TEST/pattie/ProgramacionII/AttiePatricio/src/attiepatricio/Biblioteca.java</file>
         </group>
     </open-files>
 </project-private>
