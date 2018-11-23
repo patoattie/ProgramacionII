@@ -78,21 +78,21 @@ public class Centralita
         cadena.append("    Ganancias Totales: ").append(this.GananciaTotal()).append("\n");
         cadena.append("---------------------").append("\n");
         cadena.append("Detalle de Llamadas").append("\n");
-        cadena.append("---------------------").append("\n");
-        
-        System.out.println(cadena.toString());
+        cadena.append("---------------------");
         
         for (Llamada unaLlamada : _listaDeLlamadas)
         {
             if(unaLlamada instanceof Local)
             {
-                System.out.println(((Local) unaLlamada).Mostrar());
+                cadena.append("\n").append(((Local) unaLlamada).Mostrar());
             }
             else if(unaLlamada instanceof Provincial)
             {
-                System.out.println(((Provincial) unaLlamada).Mostrar());
+                cadena.append("\n").append(((Provincial) unaLlamada).Mostrar());
             }
         }
+
+        System.out.println(cadena.toString());
     }
     
     public void OrdenarLlamadas()

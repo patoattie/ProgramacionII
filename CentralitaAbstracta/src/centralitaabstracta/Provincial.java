@@ -18,20 +18,6 @@ public class Provincial extends Llamada
     {
         super(origen, destino, duracion);
         this._franjaHoraria = miFranja;
-        switch(miFranja)
-        {
-            case FRANJA_1:
-                this._costo = 0.99F;
-                break;
-            case FRANJA_2:
-                this._costo = 1.25F;
-                break;
-            case FRANJA_3:
-                this._costo = 0.66F;
-                break;
-            default:
-                this._costo = 0.0F;
-        }
     }
 
     public Provincial(Franja miFranja, Llamada unaLlamada)
@@ -47,6 +33,21 @@ public class Provincial extends Llamada
 
     private float CalcularCosto()
     {
+        switch(this._franjaHoraria)
+        {
+            case FRANJA_1:
+                this._costo = 0.99F;
+                break;
+            case FRANJA_2:
+                this._costo = 1.25F;
+                break;
+            case FRANJA_3:
+                this._costo = 0.66F;
+                break;
+            default:
+                this._costo = 0.0F;
+        }
+
         return this._costo * this._duracion;
     }
     
