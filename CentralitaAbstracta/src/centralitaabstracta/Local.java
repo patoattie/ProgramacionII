@@ -39,9 +39,11 @@ public class Local extends Llamada
     protected String Mostrar()
     {
         StringBuilder cadena = new StringBuilder();
+        cadena.append("  Origen: ").append(this._nroOrigen).append("\n");
+        cadena.append(" Destino: ").append(this._nroDestino).append("\n");
+        cadena.append("Duración: ").append(this._duracion).append("\n");
         cadena.append("Llamada Local").append("\n");
-        cadena.append("   Costo: ").append(this.getCostoLlamada()).append("\n");
-        cadena.append(super.Mostrar());
+        cadena.append("   Costo: ").append(this.getCostoLlamada());
         return cadena.toString();
     }
     

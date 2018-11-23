@@ -39,16 +39,6 @@ public abstract class Llamada
         return _nroOrigen;
     }
     
-    protected String Mostrar()
-    {
-        StringBuilder cadena = new StringBuilder();
-        
-        cadena.append("  Origen: ").append(this._nroOrigen).append("\n");
-        cadena.append(" Destino: ").append(this._nroDestino).append("\n");
-        cadena.append("Duración: ").append(this._duracion);
-        
-        return cadena.toString();
-    }
     /*
     public static int OrdenarPorDuracion(Llamada uno, Llamada dos)
     {
@@ -107,7 +97,8 @@ public abstract class Llamada
     }
     
     public abstract float getCostoLlamada();
-    
+    protected abstract String Mostrar();
+
     @Override
     public String toString()
     {
