@@ -52,7 +52,7 @@ public class Provincial extends Llamada
     }
     
     @Override
-    public String Mostrar()
+    protected String Mostrar()
     {
         StringBuilder cadena = new StringBuilder();
         cadena.append("Llamada Provincial").append("\n");

@@ -36,7 +36,7 @@ public class Local extends Llamada
     }
     
     @Override
-    public String Mostrar()
+    protected String Mostrar()
     {
         StringBuilder cadena = new StringBuilder();
         cadena.append("Llamada Local").append("\n");

@@ -84,11 +84,11 @@ public class Centralita
         {
             if(unaLlamada instanceof Local)
             {
-                cadena.append("\n").append(((Local) unaLlamada).Mostrar());
+                cadena.append("\n").append(((Local) unaLlamada).toString());
             }
             else if(unaLlamada instanceof Provincial)
             {
-                cadena.append("\n").append(((Provincial) unaLlamada).Mostrar());
+                cadena.append("\n").append(((Provincial) unaLlamada).toString());
             }
         }
 
