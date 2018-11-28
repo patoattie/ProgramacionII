@@ -19,5 +19,12 @@ public abstract class Persona implements iComportamiento
     }
 
     @Override
-    public abstract String toString();
+    public String toString()
+    {
+        StringBuilder cadena = new StringBuilder();
+
+        cadena.append("Nombre: ").append(this._nombre).append("\n");
+
+        return cadena.toString();
+    }
 }

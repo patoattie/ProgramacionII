@@ -15,16 +15,6 @@ public class Niño extends Persona implements iJugable
     }
     
     @Override
-    public String toString()
-    {
-        StringBuilder cadena = new StringBuilder();
-
-        cadena.append("Nombre: ").append(this._nombre).append("\n");
-
-        return cadena.toString();
-    }
-
-    @Override
     public void alimentarse(eComida unaComida)
     {
         System.out.println("Soy un Niño y comí " + unaComida.toString());
