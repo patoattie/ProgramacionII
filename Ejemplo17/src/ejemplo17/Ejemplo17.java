@@ -50,7 +50,7 @@ public class Ejemplo17
                 item.dormir(8);
                 ((Niño) item).jugar("Mancha");
             }
-            
+            System.out.println("-----");
         }
     }
     
