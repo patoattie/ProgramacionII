@@ -19,7 +19,16 @@ public class Ejemplo19
      */
     public static void main(String[] args)
     {
-        int x;
+        try
+        {
+            Ejemplo19.F1();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+        /*int x;
         Scanner lector=new Scanner(System.in);
 
         try
@@ -35,7 +44,7 @@ public class Ejemplo19
         catch(Exception e)
         {
             System.out.println(e.getMessage());
-        }
+        }*/
         /*int x;
         int y;
         int z;
@@ -80,5 +89,46 @@ public class Ejemplo19
         {
             System.out.println(40/divisor);
         }
+    }
+    
+    public static void F1() throws Exception
+    {
+        try
+        {
+            Ejemplo19.F2();
+        }
+        catch(Exception e)
+        {
+            throw new Exception(e.getMessage() + "\nERROR en F1");
+        }
+    }
+
+    public static void F2() throws Exception
+    {
+        try
+        {
+            Ejemplo19.F3();
+        }
+        catch(Exception e)
+        {
+            throw new Exception(e.getMessage() + "\nERROR en F2");
+        }
+    }
+
+    public static void F3() throws Exception
+    {
+        try
+        {
+            Ejemplo19.F4();
+        }
+        catch(Exception e)
+        {
+            throw new Exception(e.getMessage() + "\nERROR en F3");
+        }
+    }
+
+    public static void F4() throws Exception
+    {
+        throw new Exception("ERROR en F4");
     }
 }
