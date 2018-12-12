@@ -5,6 +5,8 @@
  */
 package ejemplo20_ej2;
 
+import java.util.Scanner;
+
 /**
  *
  * @author capacita_mecon
@@ -17,35 +19,65 @@ public class Ejemplo20_Ej2
      */
     public static void main(String[] args)
     {
-        int numero; 
+        int opcion = 0;
+        int dato;
+        char tecla;
         
-        System.out.println("Cargo en la pila");
-        for(int i = 0; i < 4; i++)
+        Scanner lector = new Scanner(System.in);
+        
+        do
         {
-            try
+            System.out.println("1 - Ingresar elemento");
+            System.out.println("2 - Leer elemento");
+            System.out.println("------");
+            System.out.println("0 - Salir");
+            
+            opcion = lector.nextInt();
+            
+            switch(opcion)
             {
-                Pila.InsertarDato(i);
-                System.out.println(i + 1);
+                case 1:
+                    try
+                    {
+                        Pila.InsertarDato(opcion);
+                    }
+                    catch(DesbordePilaExcepcion e)
+                    {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 2:
+                    try
+                    {
+                        dato = Pila.ExtraerDato();
+                    }
+                    catch(PilaVaciaExcepcion e)
+                    {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opción incorrecta");
             }
-            catch(DesbordePilaExcepcion e)
+    
+            if(opcion != 0)
             {
-                System.out.println(e.getMessage());
+                Ejemplo20_Ej2.pressAnyKeyToContinue();
+                System.out.println("\n\n\n\n\n\n\n");
             }
-        }
-
-        System.out.println("Leo desde la pila");
-        for(int i = 0; i < 4; i++)
-        {
-            try
-            {
-                numero = Pila.ExtraerDato();
-                System.out.println(numero + 1);
-            }
-            catch(PilaVaciaExcepcion e)
-            {
-                System.out.println(e.getMessage());
-            }
-        }
+        } while(opcion != 0);
     }
     
+     public static void pressAnyKeyToContinue()
+    { 
+        System.out.println("Presione cualquier tecla para continuar...");
+        try
+        {
+            System.in.read();
+        }  
+        catch(Exception e)
+        {}  
+    }
 }
