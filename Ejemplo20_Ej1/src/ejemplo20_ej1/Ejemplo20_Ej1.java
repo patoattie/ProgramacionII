@@ -37,7 +37,7 @@ public class Ejemplo20_Ej1
 
         try
         {
-            Ejemplo20_Ej1.verificarRango(55, 11);
+            Ejemplo20_Ej1.verificarRango(55, 12);
         }
         catch(fueraDeRangoExcepcion e)
         {
@@ -47,17 +47,13 @@ public class Ejemplo20_Ej1
     
     public static void verificarRango(int par1, int par2) throws fueraDeRangoExcepcion
     {
-        float resultado = 0.0F;
-        
         if(!(par1 < 100 && par2 > 9))
         {
             throw new fueraDeRangoExcepcion("ERROR. El parámetro 1 debe ser menor a 100 y el parámetro 2 mayor a 9");
         }
         else
         {
-            resultado = par1 / (float)par2;
-            System.out.print(par1 + " / " + par2 + " = ");
-            System.out.print(resultado);
+            System.out.println(par1 + " / " + par2 + " = " + ((float)par1 / par2));
         }
     }
     
