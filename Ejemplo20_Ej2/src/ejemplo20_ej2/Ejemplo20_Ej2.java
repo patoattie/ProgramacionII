@@ -21,14 +21,14 @@ public class Ejemplo20_Ej2
     {
         int opcion = 0;
         int dato;
-        char tecla;
         
         Scanner lector = new Scanner(System.in);
         
         do
         {
             System.out.println("1 - Ingresar elemento");
-            System.out.println("2 - Leer elemento");
+            System.out.println("2 - Quitar elemento");
+            System.out.println("3 - Mostrar los elementos");
             System.out.println("------");
             System.out.println("0 - Salir");
             
@@ -56,6 +56,19 @@ public class Ejemplo20_Ej2
                         System.out.println(e.getMessage());
                     }
                     break;
+                case 3:
+                    if(Pila.numeros.isEmpty())
+                    {
+                        System.out.println("No hay elementos");
+                    }
+                    else
+                    {
+                        for (int elemento : Pila.numeros)
+                        {
+                            System.out.println(elemento);
+                        }
+                    }
+                    break;
                 case 0:
                     break;
                 default:
@@ -64,13 +77,13 @@ public class Ejemplo20_Ej2
     
             if(opcion != 0)
             {
-                Ejemplo20_Ej2.pressAnyKeyToContinue();
+                Ejemplo20_Ej2.presioneCualquierTecla();
                 System.out.println("\n\n\n\n\n\n\n");
             }
         } while(opcion != 0);
     }
     
-     public static void pressAnyKeyToContinue()
+    public static void presioneCualquierTecla()
     { 
         System.out.println("Presione cualquier tecla para continuar...");
         try
