@@ -17,7 +17,35 @@ public class Ejemplo20_Ej2
      */
     public static void main(String[] args)
     {
+        int numero; 
         
+        System.out.println("Cargo en la pila");
+        for(int i = 0; i < 4; i++)
+        {
+            try
+            {
+                Pila.InsertarDato(i);
+                System.out.println(i + 1);
+            }
+            catch(DesbordePilaExcepcion e)
+            {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        System.out.println("Leo desde la pila");
+        for(int i = 0; i < 4; i++)
+        {
+            try
+            {
+                numero = Pila.ExtraerDato();
+                System.out.println(numero + 1);
+            }
+            catch(PilaVaciaExcepcion e)
+            {
+                System.out.println(e.getMessage());
+            }
+        }
     }
     
 }
