@@ -9,6 +9,18 @@ package ejemplo20_ej1;
  *
  * @author capacita_mecon
  */
+
+/*
+Crear la clase fueraDeRangoExcepcion que hereda de la clase Exception. Cuyo constructor 
+recibe como parámetro un String que representa un mensaje.
+ La clase Main, tendrá un método verificarRango que recibe como parámetros dos enteros. 
+Este método verifica si el primer parámetro es menor que 100 y el segundo mayor que 9. 
+En caso de que no se cumplan estas condiciones, el método deberá lanzar una excepción 
+del tipo fueraDeRangoExcepcion. 
+Pedir en el método Main dos valores intentar dividirlos entre sí y manejar las 
+correspondientes excepciones que se puedan generar.
+*/
+
 public class Ejemplo20_Ej1
 {
 
