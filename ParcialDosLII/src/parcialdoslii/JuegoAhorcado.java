@@ -14,7 +14,7 @@ import java.util.Stack;
  */
 public class JuegoAhorcado
 {
-    private static ArrayList<Palabra> listaPalabras;
+    private static Diccionario listaPalabras;
     private static int fallosMaximos;
     private Palabra palabraSeleccionada;
     private Stack<Character> letrasJugadas;
@@ -23,7 +23,7 @@ public class JuegoAhorcado
     static //Constructor estático
     {
         fallosMaximos = 10;
-        listaPalabras = new ArrayList<>();
+        listaPalabras = new Diccionario();
     }
 
     public JuegoAhorcado()

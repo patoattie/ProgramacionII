@@ -12,8 +12,6 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,16 +27,16 @@ public class XML {
     private static final String SERIALIZED_FILE_NAME = "dvd.xml";
 
     public static void main(String[] args) {
-        Movie bourneIndentity = new Movie("The Bourne Identity", 119, "Doug Liman", 2002, "Matt Damon, Franka Potente");
+        /*Movie bourneIndentity = new Movie("The Bourne Identity", 119, "Doug Liman", 2002, "Matt Damon, Franka Potente");
         Movie bourneSupermacy = new Movie("The Bourne Supremacy", 108, "Paul Greengrass", 2004, "Matt Damon, Franka Potente, Joan Allen");
         Movie bourneUltimatum = new Movie("The Bourne Ultimatum", 115, "Paul Greengrass", 2007, "Matt Damon, Edgar Ramirez, Joan Allen");
-        Movie bourneLegacy = new Movie("The Bourne Legacy", 135, "Tony Gilroy", 2012, "Jeremy Renner, Rachel Weisz, Edward Norton");
+        Movie bourneLegacy = new Movie("The Bourne Legacy", 135, "Tony Gilroy", 2012, "Jeremy Renner, Rachel Weisz, Edward Norton");*/
 
         List moviesList = new ArrayList();
-        moviesList.add(bourneIndentity);
-        moviesList.add(bourneSupermacy);
-        moviesList.add(bourneUltimatum);
-        moviesList.add(bourneLegacy);
+        moviesList.add(new Movie("The Bourne Identity", 119, "Doug Liman", 2002, "Matt Damon, Franka Potente"));
+        moviesList.add(new Movie("The Bourne Supremacy", 108, "Paul Greengrass", 2004, "Matt Damon, Franka Potente, Joan Allen"));
+        moviesList.add(new Movie("The Bourne Ultimatum", 115, "Paul Greengrass", 2007, "Matt Damon, Edgar Ramirez, Joan Allen"));
+        moviesList.add(new Movie("The Bourne Legacy", 135, "Tony Gilroy", 2012, "Jeremy Renner, Rachel Weisz, Edward Norton"));
 
         DVD bourneSeries = new DVD();
         bourneSeries.setMovies(moviesList);
@@ -46,9 +44,9 @@ public class XML {
         serializarPeliculas(bourneSeries);
 
         //Lectura
-        DVD lectura = deserializarPeliculas();
+       // DVD lectura = deserializarPeliculas();
 
-        System.out.println(lectura.toString());
+        //System.out.println(lectura.toString());
 
     }
 

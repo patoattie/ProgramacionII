@@ -25,6 +25,10 @@ public class Palabra
         this(palabra, "No se halló definición");
     }
 
+    public Palabra()
+    {
+    }
+
     public String getPalabra()
     {
         return palabra;
@@ -44,5 +48,9 @@ public class Palabra
     {
         this.definicion = definicion;
     }
-    
+
+    @Override
+    public String toString() {
+        return this.getPalabra(); 
+    }
 }
