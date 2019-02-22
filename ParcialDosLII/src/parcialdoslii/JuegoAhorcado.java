@@ -14,15 +14,16 @@ import java.util.Stack;
  */
 public class JuegoAhorcado
 {
-    private static ArrayList<String> listaPalabras;
+    private static ArrayList<Palabra> listaPalabras;
     private static int fallosMaximos;
-    private String palabraSeleccionada;
+    private Palabra palabraSeleccionada;
     private Stack<Character> letrasJugadas;
     private int cantidadFallos;
     
     static //Constructor estático
     {
         fallosMaximos = 10;
+        listaPalabras = new ArrayList<>();
     }
 
     public JuegoAhorcado()
