@@ -51,6 +51,6 @@ public class Palabra
 
     @Override
     public String toString() {
-        return this.getPalabra(); 
+        return this.getPalabra() + ";" + this.getDefinicion(); 
     }
 }

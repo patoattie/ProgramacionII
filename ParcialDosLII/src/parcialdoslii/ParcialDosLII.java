@@ -5,11 +5,13 @@
  */
 package parcialdoslii;
 
+import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 
 /**
  *
@@ -24,10 +26,13 @@ public class ParcialDosLII
      */
     public static void main(String[] args)
     {
-        cargarListaPalabras();
+        //cargarListaPalabras();
+        
+        Diccionario miDiccionario = deserializarPalabras();
+        System.out.println(miDiccionario.toString());
     }
     
-    public static void cargarListaPalabras()
+    private static void cargarListaPalabras()
     {
         Diccionario miDiccionario = new Diccionario();
 
@@ -48,23 +53,44 @@ public class ParcialDosLII
         serializarPalabras(miDiccionario);
     }
     
-    public static void serializarPalabras(Diccionario unDiccionario)
+    private static void serializarPalabras(Diccionario unDiccionario)
     {
         XMLEncoder encoder = null;
      
         try 
         {
-               FileOutputStream fos = new FileOutputStream(ARCHIVO_XML);
-               BufferedOutputStream bos = new BufferedOutputStream(fos); 
-            
-               encoder = new XMLEncoder(bos);
+            FileOutputStream fos = new FileOutputStream(ARCHIVO_XML);
+            BufferedOutputStream bos = new BufferedOutputStream(fos); 
+
+            encoder = new XMLEncoder(bos);
         } 
-        catch (FileNotFoundException fileNotFound) 
+        catch (FileNotFoundException e) 
         {
             System.out.println("ERROR: guardando palabra");
         }
 
         encoder.writeObject(unDiccionario);
         encoder.close();
+    }
+
+    private static Diccionario deserializarPalabras()
+    {
+        XMLDecoder decoder = null;
+        
+        try 
+        {
+            FileInputStream fis = new FileInputStream(ARCHIVO_XML);
+            BufferedInputStream bis = new BufferedInputStream(fis);
+
+            decoder = new XMLDecoder(bis);
+        } 
+        catch (FileNotFoundException e) 
+        {
+            System.out.println("ERROR: Archivo no encontrado");
+        }
+        
+        Diccionario unDiccionario = (Diccionario) decoder.readObject();
+
+        return unDiccionario;
     }
 }

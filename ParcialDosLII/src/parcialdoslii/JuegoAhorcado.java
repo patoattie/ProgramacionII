@@ -14,16 +14,14 @@ import java.util.Stack;
  */
 public class JuegoAhorcado
 {
-    private static Diccionario listaPalabras;
-    private static int fallosMaximos;
+    private static final int FALLOS_MAXIMOS;
     private Palabra palabraSeleccionada;
     private Stack<Character> letrasJugadas;
     private int cantidadFallos;
     
     static //Constructor estático
     {
-        fallosMaximos = 10;
-        listaPalabras = new Diccionario();
+        FALLOS_MAXIMOS = 10;
     }
 
     public JuegoAhorcado()

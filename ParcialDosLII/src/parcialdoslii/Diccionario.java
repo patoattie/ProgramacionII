@@ -11,15 +11,13 @@ import java.util.ArrayList;
  *
  * @author capacita_mecon
  */
-public class Diccionario //implements java.io.Serializable
+public class Diccionario implements java.io.Serializable
 {
     private ArrayList<Palabra> listaPalabras;
-    //private List listaPalabras;
 
     public Diccionario()
     {
         this.listaPalabras = new ArrayList<>();
-        //this.listaPalabras = new ArrayList();
     }
 
     public Diccionario(ArrayList<Palabra> listaPalabras)
@@ -50,10 +48,6 @@ public class Diccionario //implements java.io.Serializable
         for (Palabra unaPalabra : this.listaPalabras)
         {
             salida.append(unaPalabra.toString()).append("\n");
-            /*Palabra p;
-            p = (Palabra) unaPalabra;
-            salida.append(p.toString()).append("\n");*/
-
         }
         
         return salida.toString();
