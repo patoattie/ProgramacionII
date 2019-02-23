@@ -5,13 +5,7 @@
  */
 package parcialdoslii;
 
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 
 /**
  *
@@ -28,8 +22,25 @@ public class ParcialDosLII
     {
         //cargarListaPalabras();
         
-        Diccionario miDiccionario = deserializarPalabras();
-        System.out.println(miDiccionario.toString());
+        Diccionario miDiccionario = null;
+
+        try
+        {
+            miDiccionario = Diccionario.crearDiccionario(ARCHIVO_XML);
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println("ERROR. Archivo XML no encontrado");
+        }
+
+        if(miDiccionario == null)
+        {
+            System.out.println("ERROR. No se pudo crear el Diccionario");
+        }
+        else
+        {
+            System.out.println(miDiccionario.toString());
+        }
     }
     
     private static void cargarListaPalabras()
@@ -48,12 +59,12 @@ public class ParcialDosLII
         miDiccionario.agregarPalabra(new Palabra("CINTA", "Tira de tela u otro material de propiedades semejantes que sirve para atar, ceñir o adornar"));
         miDiccionario.agregarPalabra(new Palabra("CUERDA", "Conjunto de hilos entrelazados que forman un solo cuerpo largo y flexible que sirve para atar, suspender pesos, etc."));
         miDiccionario.agregarPalabra(new Palabra("ZAPATILLA", "Calzado cómodo y ligero, de paño, piel, etc., y con suela delgada, que se usa para estar en casa"));
-        miDiccionario.agregarPalabra(new Palabra("VENTILADOR", "Instrumento o aparato con aspas giratorias que impulsa o remueve el aire"));
+        miDiccionario.agregarPalabra(new Palabra("VENTILADOR", "Instrumento o aparato con aspas giratorias que impulsa o remueve el aire"), ARCHIVO_XML);
         
-        serializarPalabras(miDiccionario);
+        //serializarPalabras(miDiccionario);
     }
     
-    private static void serializarPalabras(Diccionario unDiccionario)
+    /*private static void serializarPalabras(Diccionario unDiccionario)
     {
         XMLEncoder encoder = null;
      
@@ -92,5 +103,5 @@ public class ParcialDosLII
         Diccionario unDiccionario = (Diccionario) decoder.readObject();
 
         return unDiccionario;
-    }
+    }*/
 }

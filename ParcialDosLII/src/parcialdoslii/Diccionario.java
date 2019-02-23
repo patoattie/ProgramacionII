@@ -5,6 +5,13 @@
  */
 package parcialdoslii;
 
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +38,26 @@ public class Diccionario implements java.io.Serializable
         return this.listaPalabras.add(unaPalabra);
     }
 
+    public boolean agregarPalabra(Palabra unaPalabra, String archivoXML)
+    {
+        boolean retorno = this.agregarPalabra(unaPalabra);
+        
+        if(retorno)
+        {
+            try
+            {
+                Diccionario.serializarPalabras(this, archivoXML);
+            }
+            catch(FileNotFoundException e)
+            {
+                System.out.println("ERROR. Archivo XML no encontrado");
+                retorno = false;
+            }
+        }
+        
+        return retorno;
+    }
+
     public ArrayList<Palabra> getListaPalabras()
     {
         return listaPalabras;
@@ -51,5 +78,31 @@ public class Diccionario implements java.io.Serializable
         }
         
         return salida.toString();
+    }
+    
+    public int getCantidadPalabras()
+    {
+        return this.listaPalabras.size();
+    }
+
+    public static Diccionario crearDiccionario(String archivoXML) throws FileNotFoundException
+    {
+        FileInputStream fis = new FileInputStream(archivoXML);
+        BufferedInputStream bis = new BufferedInputStream(fis);
+        XMLDecoder decoder = new XMLDecoder(bis);
+        
+        Diccionario unDiccionario = (Diccionario) decoder.readObject();
+
+        return unDiccionario;
+    }
+
+    private static void serializarPalabras(Diccionario unDiccionario, String archivoXML) throws FileNotFoundException
+    {
+        FileOutputStream fos = new FileOutputStream(archivoXML);
+        BufferedOutputStream bos = new BufferedOutputStream(fos); 
+        XMLEncoder encoder = new XMLEncoder(bos);
+
+        encoder.writeObject(unDiccionario);
+        encoder.close();
     }
 }
