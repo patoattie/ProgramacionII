@@ -5,7 +5,6 @@
  */
 package parcialdoslii;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -14,21 +13,45 @@ import java.util.Stack;
  */
 public class JuegoAhorcado
 {
-    private static final int FALLOS_MAXIMOS;
+    private int fallosMaximos;
     private Palabra palabraSeleccionada;
     private Stack<Character> letrasJugadas;
     private int cantidadFallos;
+    private int jugadaMuestraAyuda;
+    private final int FALLOS_MINIMOS_PERMITIDOS = 5;
     
-    static //Constructor estático
-    {
-        FALLOS_MAXIMOS = 10;
-    }
-
     public JuegoAhorcado()
     {
-        letrasJugadas = new Stack<>();
-        cantidadFallos = 0;
+        this.letrasJugadas = new Stack<>();
+        this.cantidadFallos = 0;
     }
-    
-    
+
+    public JuegoAhorcado(int fallosMaximos, Diccionario unDiccionario) throws DiccionarioVacioException
+    {
+        this();
+
+        if(unDiccionario == null)
+        {
+            throw new DiccionarioVacioException("ERROR. El Diccionario esta vacío");
+        }
+        else
+        {
+            if(fallosMaximos < this.FALLOS_MINIMOS_PERMITIDOS)
+            {
+                this.fallosMaximos = this.FALLOS_MINIMOS_PERMITIDOS;
+            }
+            else
+            {
+                this.fallosMaximos = fallosMaximos;
+            }
+
+            this.jugadaMuestraAyuda = this.fallosMaximos - 2;
+            this.palabraSeleccionada = unDiccionario.getPalabra();
+        }
+    }
+
+    public Palabra getPalabraSeleccionada()
+    {
+        return palabraSeleccionada;
+    }
 }

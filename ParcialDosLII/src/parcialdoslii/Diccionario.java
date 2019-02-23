@@ -33,26 +33,18 @@ public class Diccionario implements java.io.Serializable
         this.listaPalabras = listaPalabras;
     }
     
-    public boolean agregarPalabra(Palabra unaPalabra)
+    public boolean agregarPalabra(Palabra unaPalabra) throws ExistePalabraException
     {
-        return this.listaPalabras.add(unaPalabra);
-    }
-
-    public boolean agregarPalabra(Palabra unaPalabra, String archivoXML)
-    {
-        boolean retorno = this.agregarPalabra(unaPalabra);
+        boolean retorno;
         
-        if(retorno)
+        if(this.existePalabra(unaPalabra))
         {
-            try
-            {
-                Diccionario.serializarPalabras(this, archivoXML);
-            }
-            catch(FileNotFoundException e)
-            {
-                System.out.println("ERROR. Archivo XML no encontrado");
-                retorno = false;
-            }
+            retorno = false;
+            throw new ExistePalabraException("ERROR. La palabra ya existe en el Diccionario");
+        }
+        else
+        {
+            retorno = this.listaPalabras.add(unaPalabra);
         }
         
         return retorno;
@@ -96,13 +88,47 @@ public class Diccionario implements java.io.Serializable
         return unDiccionario;
     }
 
-    private static void serializarPalabras(Diccionario unDiccionario, String archivoXML) throws FileNotFoundException
+    public void grabarDiccionario(String archivoXML) throws FileNotFoundException
     {
         FileOutputStream fos = new FileOutputStream(archivoXML);
         BufferedOutputStream bos = new BufferedOutputStream(fos); 
         XMLEncoder encoder = new XMLEncoder(bos);
 
-        encoder.writeObject(unDiccionario);
+        encoder.writeObject(this);
         encoder.close();
+    }
+    
+    public boolean existePalabra(Palabra unaPalabra)
+    {
+        boolean retorno = false;
+        
+        for (Palabra termino : this.listaPalabras) 
+        {
+            if(termino.getPalabra().equalsIgnoreCase(unaPalabra.getPalabra()))
+            {
+                retorno = true;
+                break;
+            }
+        }
+        
+        return retorno;
+    }
+    
+    public Palabra getPalabra() throws DiccionarioVacioException
+    {
+        Palabra unaPalabra = null;
+        int indiceAleatorio;
+        
+        if(this.listaPalabras.isEmpty())
+        {
+            throw new DiccionarioVacioException("ERROR. El Diccionario esta vacío");
+        }
+        else
+        {
+            indiceAleatorio = (int)(Math.random() * (this.listaPalabras.size()));
+            unaPalabra = this.listaPalabras.get(indiceAleatorio);
+        }
+        
+        return unaPalabra;
     }
 }

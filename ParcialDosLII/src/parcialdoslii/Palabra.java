@@ -16,7 +16,7 @@ public class Palabra
 
     public Palabra(String palabra, String definicion)
     {
-        this.palabra = palabra;
+        this.palabra = palabra.toUpperCase();
         this.definicion = definicion;
     }
     
@@ -36,7 +36,7 @@ public class Palabra
 
     public void setPalabra(String palabra)
     {
-        this.palabra = palabra;
+        this.palabra = palabra.toUpperCase();
     }
 
     public String getDefinicion()
