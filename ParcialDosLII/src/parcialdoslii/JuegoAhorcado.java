@@ -15,14 +15,14 @@ public class JuegoAhorcado
 {
     private int fallosMaximos;
     private Palabra palabraSeleccionada;
-    private Stack<Character> letrasJugadas;
+    private String letrasJugadas;
     private int cantidadFallos;
     private int jugadaMuestraAyuda;
     private final int FALLOS_MINIMOS_PERMITIDOS = 5;
     
     public JuegoAhorcado()
     {
-        this.letrasJugadas = new Stack<>();
+        this.letrasJugadas = "";
         this.cantidadFallos = 0;
     }
 
