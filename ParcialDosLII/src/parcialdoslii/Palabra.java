@@ -14,13 +14,13 @@ public class Palabra
     private String palabra;
     private String definicion;
 
-    public Palabra(String palabra, String definicion)
+    public Palabra(String palabra, String definicion) throws CaracterPalabraException
     {
-        this.palabra = palabra.toUpperCase();
-        this.definicion = definicion;
+        this.setPalabra(palabra);
+        this.setDefinicion(definicion);
     }
     
-    public Palabra(String palabra)
+    public Palabra(String palabra) throws CaracterPalabraException
     {
         this(palabra, "No se halló definición");
     }
@@ -34,9 +34,18 @@ public class Palabra
         return palabra;
     }
 
-    public void setPalabra(String palabra)
+    public final void setPalabra(String palabra) throws CaracterPalabraException
     {
-        this.palabra = palabra.toUpperCase();
+        String tst = new String(palabra);
+        
+        if(tst.matches("[^A-Za-z]")) //La palabra no puede contener caracteres que no sean letras
+        {
+            throw new CaracterPalabraException("ERROR. La palabra no puede contener caracteres especiales o acentuados, números, o espacios en blanco");
+        }
+        else
+        {
+            this.palabra = palabra.toUpperCase();
+        }
     }
 
     public String getDefinicion()
@@ -44,7 +53,7 @@ public class Palabra
         return definicion;
     }
 
-    public void setDefinicion(String definicion)
+    public final void setDefinicion(String definicion)
     {
         this.definicion = definicion;
     }

@@ -5,8 +5,6 @@
  */
 package parcialdoslii;
 
-import java.util.Stack;
-
 /**
  *
  * @author pattie
