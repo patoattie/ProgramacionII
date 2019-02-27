@@ -6,7 +6,6 @@
 package parcialdoslii;
 
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 /**
  *
@@ -37,8 +36,7 @@ public class ParcialDosLII
         
         try
         {
-            JuegoAhorcado juego1 = new JuegoAhorcado("*", 10, miDiccionario);
-            JugarPorConsola(juego1);
+            JuegoAhorcado.JugarPorConsola(new JuegoAhorcado("*", 10, miDiccionario));
         }
         catch (DiccionarioVacioException e)
         {
@@ -83,42 +81,5 @@ public class ParcialDosLII
         {
             System.out.println(e.getMessage());
         }
-    }
-    
-    private static void JugarPorConsola(JuegoAhorcado miJuego)
-    {
-        Scanner lector = new Scanner(System.in);
-        final String TERMINA = "0";
-        String letraJugada = "";
-        String palabra = "";
-        boolean finJuego = false;
-        
-        do
-        {
-            try
-            {
-                palabra = miJuego.getPalabra();
-                System.out.println(palabra);
-                System.out.println(miJuego.getDefinicion());
-
-                System.out.print("Ingrese letra a jugar (o '" + TERMINA + "' para finalizar): ");
-                letraJugada = lector.next();
-
-                if(!letraJugada.equalsIgnoreCase(TERMINA))
-                {
-                    miJuego.jugarLetra(letraJugada);
-                }
-            }
-            catch (LetraJugadaException e)
-            {
-                System.out.println(e.getMessage());
-            }
-            catch(JuegoException e)
-            {
-                finJuego = true;
-                System.out.println(e.getMessage());
-                System.out.println("Palabra: " + miJuego.getPalabraSeleccionada().getPalabra());
-            }
-        } while(!letraJugada.equalsIgnoreCase(TERMINA) && !finJuego);
     }
 }
