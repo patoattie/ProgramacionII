@@ -6,6 +6,7 @@
 package parcialdoslii;
 
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  *
@@ -28,7 +29,7 @@ public class ParcialDosLII
         try
         {
             miDiccionario = Diccionario.crearDiccionario(ARCHIVO_XML);
-            System.out.println(miDiccionario.toString());
+            //System.out.println(miDiccionario.toString());
         }
         catch(FileNotFoundException e)
         {
@@ -37,8 +38,8 @@ public class ParcialDosLII
         
         try
         {
-            juego1 = new JuegoAhorcado('*', 10, miDiccionario);
-            System.out.println(juego1.getPalabraSeleccionada().getPalabra());
+            juego1 = new JuegoAhorcado("*", 10, miDiccionario);
+            JugarPorConsola(juego1);
         }
         catch (DiccionarioVacioException e)
         {
@@ -83,5 +84,42 @@ public class ParcialDosLII
         {
             System.out.println(e.getMessage());
         }
+    }
+    
+    private static void JugarPorConsola(JuegoAhorcado miJuego)
+    {
+        Scanner lector = new Scanner(System.in);
+        final String TERMINA = "0";
+        String letraJugada = "";
+        String palabra = "";
+        boolean finJuego = false;
+
+        System.out.println(miJuego.getPalabraSeleccionada().getPalabra());
+        
+        do
+        {
+            try
+            {
+                palabra = miJuego.getPalabra();
+                System.out.println(palabra);
+
+                System.out.print("Ingrese letra a jugar (o '" + TERMINA + "' para finalizar): ");
+                letraJugada = lector.next();
+
+                if(!letraJugada.equalsIgnoreCase(TERMINA))
+                {
+                    miJuego.jugarLetra(letraJugada);
+                }
+            }
+            catch (LetraJugadaException e)
+            {
+                System.out.println(e.getMessage());
+            }
+            catch(JuegoException e)
+            {
+                finJuego = true;
+                System.out.println(e.getMessage());
+            }
+        } while(!letraJugada.equalsIgnoreCase(TERMINA) && !finJuego);
     }
 }

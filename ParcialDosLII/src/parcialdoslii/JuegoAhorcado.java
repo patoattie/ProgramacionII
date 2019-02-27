@@ -17,7 +17,7 @@ public class JuegoAhorcado
     private int cantidadFallos;
     private int jugadaMuestraAyuda;
     private final int FALLOS_MINIMOS_PERMITIDOS = 5;
-    private char caracterMascara;
+    private String caracterMascara;
     
     public JuegoAhorcado()
     {
@@ -25,7 +25,7 @@ public class JuegoAhorcado
         this.cantidadFallos = 0;
     }
 
-    public JuegoAhorcado(char caracterMascara, int fallosMaximos, Diccionario unDiccionario) throws DiccionarioVacioException
+    public JuegoAhorcado(String caracterMascara, int fallosMaximos, Diccionario unDiccionario) throws DiccionarioVacioException
     {
         this();
 
@@ -62,7 +62,7 @@ public class JuegoAhorcado
 
     public void setLetrasJugadas(String letrasJugadas)
     {
-        this.letrasJugadas = this.letrasJugadas.concat(letrasJugadas);
+        this.letrasJugadas = this.letrasJugadas.concat(letrasJugadas.toUpperCase());
     }
 
     public int getCantidadFallos()
@@ -75,12 +75,63 @@ public class JuegoAhorcado
         this.cantidadFallos++;
     }
     
-    public String getPalabra()
+    public String getPalabra() throws JuegoException
     {
         String retorno = this.palabraSeleccionada.getPalabra();
+        boolean faltanLetras = false;
 
-        // TODO Falta desarrollar el código.
+        for (int i = 0; i < retorno.length(); i++)
+        {
+            String caracterLeido = retorno.substring(i, i + 1);
+            if(!caracterLeido.equalsIgnoreCase(this.caracterMascara) && !this.letrasJugadas.contains(caracterLeido))
+            {
+                retorno = retorno.replace(caracterLeido.charAt(0), this.caracterMascara.charAt(0));
+                faltanLetras = true;
+            }
+        }
+        
+        if(!faltanLetras)
+        {
+            throw new JuegoException("JUEGO GANADO");
+        }
         
         return retorno;
     }
+    
+    public void jugarLetra(String letraJugada) throws LetraJugadaException, JuegoException
+    {
+        if(this.cantidadFallos < this.fallosMaximos)
+        {
+            String letraJugadaUpper = letraJugada.substring(0, 1).toUpperCase();
+            char letraJugadaChar = letraJugadaUpper.charAt(0);
+
+            if(letraJugadaChar < 'A' || letraJugadaChar > 'Z')
+            {
+                throw new LetraJugadaException("ERROR. La letra '" + letraJugada + "' es un caracter especial y no puede ser jugado");
+            }
+            else if(this.letrasJugadas.contains(letraJugadaUpper))
+            {
+                throw new LetraJugadaException("ERROR. La letra '" + letraJugada + "' ya fue jugada");
+            }
+            else
+            {
+                this.setLetrasJugadas(letraJugadaUpper);
+
+                if(!this.palabraSeleccionada.getPalabra().contains(letraJugadaUpper))
+                {
+                    this.setCantidadFallos();
+
+                    if(this.cantidadFallos == this.fallosMaximos)
+                    {
+                        throw new JuegoException("GAME OVER");
+                    }
+                }
+            }
+        }
+        else
+        {
+            throw new JuegoException("GAME OVER");
+        }
+    }
+    
 }
