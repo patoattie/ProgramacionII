@@ -40,7 +40,7 @@ public class Diccionario implements java.io.Serializable
         if(this.existePalabra(unaPalabra))
         {
             retorno = false;
-            throw new ExistePalabraException("ERROR. La palabra ya existe en el Diccionario");
+            throw new ExistePalabraException("ERROR. La palabra '" + unaPalabra.getPalabra() + "' ya existe en el Diccionario");
         }
         else
         {

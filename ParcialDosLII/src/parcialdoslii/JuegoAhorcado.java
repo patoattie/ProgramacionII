@@ -17,6 +17,7 @@ public class JuegoAhorcado
     private int cantidadFallos;
     private int jugadaMuestraAyuda;
     private final int FALLOS_MINIMOS_PERMITIDOS = 5;
+    private char caracterMascara;
     
     public JuegoAhorcado()
     {
@@ -24,7 +25,7 @@ public class JuegoAhorcado
         this.cantidadFallos = 0;
     }
 
-    public JuegoAhorcado(int fallosMaximos, Diccionario unDiccionario) throws DiccionarioVacioException
+    public JuegoAhorcado(char caracterMascara, int fallosMaximos, Diccionario unDiccionario) throws DiccionarioVacioException
     {
         this();
 
@@ -45,11 +46,41 @@ public class JuegoAhorcado
 
             this.jugadaMuestraAyuda = this.fallosMaximos - 2;
             this.palabraSeleccionada = unDiccionario.getPalabra();
+            this.caracterMascara = caracterMascara;
         }
     }
 
     public Palabra getPalabraSeleccionada()
     {
         return palabraSeleccionada;
+    }
+
+    public String getLetrasJugadas()
+    {
+        return letrasJugadas;
+    }
+
+    public void setLetrasJugadas(String letrasJugadas)
+    {
+        this.letrasJugadas = this.letrasJugadas.concat(letrasJugadas);
+    }
+
+    public int getCantidadFallos()
+    {
+        return cantidadFallos;
+    }
+
+    public void setCantidadFallos()
+    {
+        this.cantidadFallos++;
+    }
+    
+    public String getPalabra()
+    {
+        String retorno = this.palabraSeleccionada.getPalabra();
+
+        // TODO Falta desarrollar el código.
+        
+        return retorno;
     }
 }

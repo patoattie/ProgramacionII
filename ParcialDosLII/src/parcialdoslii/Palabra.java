@@ -36,11 +36,10 @@ public class Palabra
 
     public final void setPalabra(String palabra) throws CaracterPalabraException
     {
-        String tst = new String(palabra);
-        
-        if(tst.matches("[^A-Za-z]")) //La palabra no puede contener caracteres que no sean letras
+        //if(palabra.matches("[^A-Za-z]")) //La palabra no puede contener caracteres que no sean letras
+        if(!Palabra.existeCaracterEspecial(palabra)) //La palabra no puede contener caracteres que no sean letras
         {
-            throw new CaracterPalabraException("ERROR. La palabra no puede contener caracteres especiales o acentuados, números, o espacios en blanco");
+            throw new CaracterPalabraException("ERROR. La palabra '" + palabra + "' no puede contener caracteres especiales o acentuados, números, o espacios en blanco");
         }
         else
         {
@@ -61,5 +60,23 @@ public class Palabra
     @Override
     public String toString() {
         return this.getPalabra() + ";" + this.getDefinicion(); 
+    }
+    
+    private static boolean existeCaracterEspecial(String palabra)
+    {
+        boolean retorno = true;
+        
+        for (int i = 0; i < palabra.length(); i++)
+        {
+            char caracter = palabra.charAt(i);
+            
+            if(!((caracter >= 'a' && caracter <= 'z') || (caracter >= 'A' && caracter <= 'Z')))
+            {
+                retorno = false;
+                break;
+            }
+        }
+        
+        return retorno;
     }
 }

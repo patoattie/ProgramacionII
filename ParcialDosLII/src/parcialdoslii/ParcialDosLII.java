@@ -20,7 +20,7 @@ public class ParcialDosLII
      */
     public static void main(String[] args)
     {
-        cargarListaPalabras();
+        //cargarListaPalabras();
         
         Diccionario miDiccionario = null;
         JuegoAhorcado juego1 = null;
@@ -37,7 +37,7 @@ public class ParcialDosLII
         
         try
         {
-            juego1 = new JuegoAhorcado(10, miDiccionario);
+            juego1 = new JuegoAhorcado('*', 10, miDiccionario);
             System.out.println(juego1.getPalabraSeleccionada().getPalabra());
         }
         catch (DiccionarioVacioException e)
@@ -60,9 +60,9 @@ public class ParcialDosLII
             miDiccionario.agregarPalabra(new Palabra("Ovulo", "Células sexuales o gametos femeninos.​ Son células grandes, esféricas e inmóviles."));
             miDiccionario.agregarPalabra(new Palabra("Techo", "Parte superior de un edificio, construcción, habitáculo, etc., que lo cubre y cierra"));
             miDiccionario.agregarPalabra(new Palabra("Hora", "Tiempo que equivale a 60 minutos, es decir, 3600 segundos"));
-            miDiccionario.agregarPalabra(new Palabra("Violín", "Instrumento musical de cuerda, el más pequeño y agudo entre los de su clase, que se compone de una caja de resonancia en forma de 8, un mástil sin trastes y cuatro cuerdas que se hacen sonar con un arco"));
-            miDiccionario.agregarPalabra(new Palabra("Cinta roja", "Tira de tela u otro material de propiedades semejantes que sirve para atar, ceñir o adornar"));
-            miDiccionario.agregarPalabra(new Palabra("Cue1rda", "Conjunto de hilos entrelazados que forman un solo cuerpo largo y flexible que sirve para atar, suspender pesos, etc."));
+            miDiccionario.agregarPalabra(new Palabra("Violin", "Instrumento musical de cuerda, el más pequeño y agudo entre los de su clase, que se compone de una caja de resonancia en forma de 8, un mástil sin trastes y cuatro cuerdas que se hacen sonar con un arco"));
+            miDiccionario.agregarPalabra(new Palabra("Cinta", "Tira de tela u otro material de propiedades semejantes que sirve para atar, ceñir o adornar"));
+            miDiccionario.agregarPalabra(new Palabra("Cuerda", "Conjunto de hilos entrelazados que forman un solo cuerpo largo y flexible que sirve para atar, suspender pesos, etc."));
             miDiccionario.agregarPalabra(new Palabra("Zapatilla", "Calzado cómodo y ligero, de paño, piel, etc., y con suela delgada, que se usa para estar en casa"));
             miDiccionario.agregarPalabra(new Palabra("Ventilador", "Instrumento o aparato con aspas giratorias que impulsa o remueve el aire"));
 
