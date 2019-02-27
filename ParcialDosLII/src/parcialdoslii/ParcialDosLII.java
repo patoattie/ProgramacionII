@@ -24,7 +24,6 @@ public class ParcialDosLII
         //cargarListaPalabras();
         
         Diccionario miDiccionario = null;
-        JuegoAhorcado juego1 = null;
 
         try
         {
@@ -38,7 +37,7 @@ public class ParcialDosLII
         
         try
         {
-            juego1 = new JuegoAhorcado("*", 10, miDiccionario);
+            JuegoAhorcado juego1 = new JuegoAhorcado("*", 10, miDiccionario);
             JugarPorConsola(juego1);
         }
         catch (DiccionarioVacioException e)
@@ -93,8 +92,6 @@ public class ParcialDosLII
         String letraJugada = "";
         String palabra = "";
         boolean finJuego = false;
-
-        System.out.println(miJuego.getPalabraSeleccionada().getPalabra());
         
         do
         {
@@ -102,6 +99,7 @@ public class ParcialDosLII
             {
                 palabra = miJuego.getPalabra();
                 System.out.println(palabra);
+                System.out.println(miJuego.getDefinicion());
 
                 System.out.print("Ingrese letra a jugar (o '" + TERMINA + "' para finalizar): ");
                 letraJugada = lector.next();
@@ -119,6 +117,7 @@ public class ParcialDosLII
             {
                 finJuego = true;
                 System.out.println(e.getMessage());
+                System.out.println("Palabra: " + miJuego.getPalabraSeleccionada().getPalabra());
             }
         } while(!letraJugada.equalsIgnoreCase(TERMINA) && !finJuego);
     }

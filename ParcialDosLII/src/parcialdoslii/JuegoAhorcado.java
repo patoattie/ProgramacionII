@@ -44,7 +44,7 @@ public class JuegoAhorcado
                 this.fallosMaximos = fallosMaximos;
             }
 
-            this.jugadaMuestraAyuda = this.fallosMaximos - 2;
+            this.jugadaMuestraAyuda = this.fallosMaximos - 3;
             this.palabraSeleccionada = unDiccionario.getPalabra();
             this.caracterMascara = caracterMascara;
         }
@@ -93,6 +93,18 @@ public class JuegoAhorcado
         if(!faltanLetras)
         {
             throw new JuegoException("JUEGO GANADO");
+        }
+        
+        return retorno;
+    }
+    
+    public String getDefinicion()
+    {
+        String retorno = "";
+        
+        if(this.cantidadFallos >= this.jugadaMuestraAyuda)
+        {
+            retorno = this.palabraSeleccionada.getDefinicion();
         }
         
         return retorno;
