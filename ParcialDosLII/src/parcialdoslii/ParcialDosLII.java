@@ -34,14 +34,17 @@ public class ParcialDosLII
             System.out.println("ERROR. Archivo XML no encontrado");
         }
         
-        try
+        /*try
         {
             JuegoAhorcado.JugarPorConsola(new JuegoAhorcado("*", 10, miDiccionario));
         }
         catch (DiccionarioVacioException e)
         {
             System.out.println(e.getMessage());
-        }
+        }*/
+        frmAhorcado ventana = new frmAhorcado();
+        ventana.setVisible(true);
+
     }
     
     private static void cargarListaPalabras()
