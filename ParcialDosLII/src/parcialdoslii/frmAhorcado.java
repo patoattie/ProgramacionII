@@ -18,6 +18,7 @@ public class frmAhorcado extends javax.swing.JFrame
     public frmAhorcado(JuegoAhorcado miJuego)
     {
         initComponents();
+        this.juego = miJuego;
     }
 
     /**
@@ -85,6 +86,15 @@ public class frmAhorcado extends javax.swing.JFrame
         {
             this.cmbLetraJugada.addItem(Character.toString(i));
         }
+        
+        try
+        {
+            this.lblPalabra.setText(this.juego.getPalabra());
+        }
+        catch (JuegoException e)
+        {
+            
+        }
     }//GEN-LAST:event_formWindowOpened
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -92,4 +102,5 @@ public class frmAhorcado extends javax.swing.JFrame
     private javax.swing.JLabel lblLetrasJugadas;
     private javax.swing.JLabel lblPalabra;
     // End of variables declaration//GEN-END:variables
+    private JuegoAhorcado juego;
 }
