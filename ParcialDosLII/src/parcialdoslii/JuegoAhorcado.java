@@ -148,7 +148,7 @@ public class JuegoAhorcado
         }
     }
 
-    public static void JugarPorConsola(JuegoAhorcado miJuego)
+    public static void jugarPorConsola(JuegoAhorcado miJuego)
     {
         Scanner lector = new Scanner(System.in);
         final String TERMINA = "0";
@@ -183,5 +183,11 @@ public class JuegoAhorcado
                 System.out.println("Palabra: " + miJuego.getPalabraSeleccionada().getPalabra());
             }
         } while(!letraJugada.equalsIgnoreCase(TERMINA) && !finJuego);
+    }
+    
+    public static void jugarPorEntornoGrafico(JuegoAhorcado miJuego)
+    {
+        frmAhorcado ventana = new frmAhorcado(miJuego);
+        ventana.setVisible(true);
     }
 }
