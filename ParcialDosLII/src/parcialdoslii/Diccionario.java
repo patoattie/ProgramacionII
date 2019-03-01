@@ -114,21 +114,4 @@ public class Diccionario implements java.io.Serializable
         return retorno;
     }
     
-    public Palabra getPalabra() throws DiccionarioVacioException
-    {
-        Palabra unaPalabra = null;
-        int indiceAleatorio;
-        
-        if(this.listaPalabras.isEmpty())
-        {
-            throw new DiccionarioVacioException("ERROR. El Diccionario esta vacío");
-        }
-        else
-        {
-            indiceAleatorio = (int)(Math.random() * (this.listaPalabras.size()));
-            unaPalabra = this.listaPalabras.get(indiceAleatorio);
-        }
-        
-        return unaPalabra;
-    }
 }

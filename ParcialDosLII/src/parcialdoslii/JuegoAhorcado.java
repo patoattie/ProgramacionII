@@ -47,7 +47,7 @@ public class JuegoAhorcado
             }
 
             this.jugadaMuestraAyuda = this.fallosMaximos - 3;
-            this.palabraSeleccionada = unDiccionario.getPalabra();
+            this.palabraSeleccionada = getPalabraAleatoria(unDiccionario);
             this.caracterMascara = caracterMascara;
         }
     }
@@ -75,6 +75,16 @@ public class JuegoAhorcado
     public void setCantidadFallos()
     {
         this.cantidadFallos++;
+    }
+
+    public int getFallosMaximos()
+    {
+        return fallosMaximos;
+    }
+    
+    public int getCantidadJugadas()
+    {
+        return this.letrasJugadas.length();
     }
     
     public String getPalabra() throws JuegoException
@@ -190,5 +200,20 @@ public class JuegoAhorcado
     {
         frmAhorcado ventana = new frmAhorcado(miJuego);
         ventana.setVisible(true);
+    }
+
+    private Palabra getPalabraAleatoria(Diccionario diccionario) throws DiccionarioVacioException
+    {
+        Palabra unaPalabra = null;
+        int indiceAleatorio;
+        if (diccionario.getListaPalabras().isEmpty())
+        {
+            throw new DiccionarioVacioException("ERROR. El Diccionario esta vacío");
+        } else
+        {
+            indiceAleatorio = (int) (Math.random() * (diccionario.getListaPalabras().size()));
+            unaPalabra = diccionario.getListaPalabras().get(indiceAleatorio);
+        }
+        return unaPalabra;
     }
 }
