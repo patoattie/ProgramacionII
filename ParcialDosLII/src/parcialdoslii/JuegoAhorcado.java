@@ -119,7 +119,8 @@ public class JuegoAhorcado
             String letraJugadaUpper = letraJugada.substring(0, 1).toUpperCase();
             char letraJugadaChar = letraJugadaUpper.charAt(0);
 
-            if(letraJugadaChar < 'A' || letraJugadaChar > 'Z')
+            //if(letraJugadaChar < 'A' || letraJugadaChar > 'Z')
+            if(Palabra.existeCaracterEspecial(letraJugadaUpper))
             {
                 throw new LetraJugadaException("ERROR. La letra '" + letraJugada + "' es un caracter especial y no puede ser jugado");
             }

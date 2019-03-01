@@ -5,6 +5,8 @@
  */
 package parcialdoslii;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author capacita_mecon
@@ -34,6 +36,9 @@ public class frmAhorcado extends javax.swing.JFrame
         lblPalabra = new javax.swing.JLabel();
         lblLetrasJugadas = new javax.swing.JLabel();
         cmbLetraJugada = new javax.swing.JComboBox<>();
+        btnJugarLetra = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDefinicion = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Juego Ahorcado");
@@ -45,26 +50,54 @@ public class frmAhorcado extends javax.swing.JFrame
             }
         });
 
+        btnJugarLetra.setText("Jugar Letra");
+        btnJugarLetra.setFocusable(false);
+        btnJugarLetra.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnJugarLetraActionPerformed(evt);
+            }
+        });
+
+        txtDefinicion.setEditable(false);
+        txtDefinicion.setColumns(20);
+        txtDefinicion.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        txtDefinicion.setLineWrap(true);
+        txtDefinicion.setRows(5);
+        txtDefinicion.setWrapStyleWord(true);
+        txtDefinicion.setFocusable(false);
+        txtDefinicion.setOpaque(false);
+        jScrollPane1.setViewportView(txtDefinicion);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(111, 111, 111)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblLetrasJugadas, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbLetraJugada, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cmbLetraJugada, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnJugarLetra))
+                    .addComponent(lblLetrasJugadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblPalabra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(241, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                 .addComponent(lblPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(cmbLetraJugada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbLetraJugada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnJugarLetra))
+                .addGap(77, 77, 77)
                 .addComponent(lblLetrasJugadas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
@@ -90,17 +123,45 @@ public class frmAhorcado extends javax.swing.JFrame
         try
         {
             this.lblPalabra.setText(this.juego.getPalabra());
+            this.txtDefinicion.setText(this.juego.getDefinicion());
         }
         catch (JuegoException e)
         {
-            
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void btnJugarLetraActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnJugarLetraActionPerformed
+    {//GEN-HEADEREND:event_btnJugarLetraActionPerformed
+        try
+        {
+            this.juego.jugarLetra(this.cmbLetraJugada.getItemAt(this.cmbLetraJugada.getSelectedIndex()));
+            this.lblPalabra.setText(this.juego.getPalabra());
+            this.txtDefinicion.setText(this.juego.getDefinicion());
+        }
+        catch (LetraJugadaException e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch (JuegoException e)
+        {
+            this.lblPalabra.setText(this.juego.getPalabraSeleccionada().getPalabra());
+            this.btnJugarLetra.setEnabled(false);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
+        }
+        finally
+        {
+            this.lblLetrasJugadas.setText(this.juego.getLetrasJugadas());
+        }
+    }//GEN-LAST:event_btnJugarLetraActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnJugarLetra;
     private javax.swing.JComboBox<String> cmbLetraJugada;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLetrasJugadas;
     private javax.swing.JLabel lblPalabra;
+    private javax.swing.JTextArea txtDefinicion;
     // End of variables declaration//GEN-END:variables
     private JuegoAhorcado juego;
 }

@@ -62,7 +62,7 @@ public class Palabra
         return this.getPalabra() + ";" + this.getDefinicion(); 
     }
     
-    private static boolean existeCaracterEspecial(String palabra)
+    protected static boolean existeCaracterEspecial(String palabra)
     {
         boolean retorno = false;
         
