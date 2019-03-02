@@ -181,6 +181,8 @@ public class frmAhorcado extends javax.swing.JFrame
         {
             if(e instanceof JuegoPerdidoException)
             {
+                this.lblFilo.setVisible(false);
+                this.lblGuillotina.setIcon(new ImageIcon("guillotina3.jpg"));
             }
             this.lblPalabra.setText(this.juego.getPalabraSeleccionada().getPalabra());
             this.btnJugarLetra.setEnabled(false);
