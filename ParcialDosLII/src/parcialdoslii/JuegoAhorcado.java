@@ -104,7 +104,7 @@ public class JuegoAhorcado
         
         if(!faltanLetras)
         {
-            throw new JuegoException("JUEGO GANADO");
+            throw new JuegoGanadoException("JUEGO GANADO");
         }
         
         return retorno;
@@ -148,14 +148,14 @@ public class JuegoAhorcado
 
                     if(this.cantidadFallos == this.fallosMaximos)
                     {
-                        throw new JuegoException("GAME OVER");
+                        throw new JuegoPerdidoException("GAME OVER");
                     }
                 }
             }
         }
         else
         {
-            throw new JuegoException("GAME OVER");
+            throw new JuegoPerdidoException("GAME OVER");
         }
     }
 
@@ -198,7 +198,7 @@ public class JuegoAhorcado
     
     public static void jugarPorEntornoGrafico(JuegoAhorcado miJuego)
     {
-        frmAhorcado ventana = new frmAhorcado(miJuego);
+        frmAhorcado ventana = new frmAhorcado(miJuego, 102, 149, 224);
         ventana.setVisible(true);
     }
 

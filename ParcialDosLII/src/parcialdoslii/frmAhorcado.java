@@ -18,11 +18,17 @@ public class frmAhorcado extends javax.swing.JFrame
     /**
      * Creates new form frmAhorcado
      */
-    public frmAhorcado(JuegoAhorcado miJuego)
+    public frmAhorcado(JuegoAhorcado miJuego, int xFilo, int yFilo, int yFiloMax)
     {
         initComponents();
         this.juego = miJuego;
+        this.xFilo = xFilo;
+        this.yFilo = yFilo;
+        this.yFiloMax = yFiloMax;
+        this.yFiloRatio = (this.yFiloMax - this.yFilo) / this.juego.getFallosMaximos();
         this.setLayout(null);
+        this.setComponentZOrder(this.lblFilo, 0);
+        this.setComponentZOrder(this.lblGuillotina, 1);
     }
 
     /**
@@ -32,8 +38,7 @@ public class frmAhorcado extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         lblPalabra = new javax.swing.JLabel();
         lblLetrasJugadas = new javax.swing.JLabel();
@@ -47,10 +52,8 @@ public class frmAhorcado extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Juego Ahorcado");
-        addWindowListener(new java.awt.event.WindowAdapter()
-        {
-            public void windowOpened(java.awt.event.WindowEvent evt)
-            {
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
@@ -60,10 +63,8 @@ public class frmAhorcado extends javax.swing.JFrame
 
         btnJugarLetra.setText("Jugar Letra");
         btnJugarLetra.setFocusable(false);
-        btnJugarLetra.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnJugarLetra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnJugarLetraActionPerformed(evt);
             }
         });
@@ -149,10 +150,9 @@ public class frmAhorcado extends javax.swing.JFrame
         
         this.lblFallosRestantes.setText("Fallos restantes: " + (this.juego.getFallosMaximos() - this.juego.getCantidadFallos()));
         this.lblJugadasRealizadas.setText("Jugadas realizadas: " + this.juego.getCantidadJugadas());
-        this.lblFilo.setIcon(new ImageIcon("filo.jpg"));
-        this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + 10, this.lblGuillotina.getLocation().y + 10);
         this.lblGuillotina.setIcon(new ImageIcon("guillotina2.jpg"));
-        //this.lblFilo.setBounds(this.lblGuillotina.getLocation().x + 100, this.lblGuillotina.getLocation().y + 200, this.lblFilo.getWidth(), this.lblFilo.getHeight());
+        this.lblFilo.setIcon(new ImageIcon("filo.jpg"));
+        this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + this.xFilo, this.lblGuillotina.getLocation().y + this.yFilo);
         
         try
         {
@@ -179,6 +179,9 @@ public class frmAhorcado extends javax.swing.JFrame
         }
         catch (JuegoException e)
         {
+            if(e instanceof JuegoPerdidoException)
+            {
+            }
             this.lblPalabra.setText(this.juego.getPalabraSeleccionada().getPalabra());
             this.btnJugarLetra.setEnabled(false);
             JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
@@ -188,6 +191,7 @@ public class frmAhorcado extends javax.swing.JFrame
             this.lblFallosRestantes.setText("Fallos restantes: " + (this.juego.getFallosMaximos() - this.juego.getCantidadFallos()));
             this.lblJugadasRealizadas.setText("Jugadas realizadas: " + this.juego.getCantidadJugadas());
             this.lblLetrasJugadas.setText(this.juego.getLetrasJugadas());
+            this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + this.xFilo, this.lblGuillotina.getLocation().y + this.yFilo + (this.yFiloRatio * this.juego.getCantidadFallos()));
         }
     }//GEN-LAST:event_btnJugarLetraActionPerformed
 
@@ -203,4 +207,8 @@ public class frmAhorcado extends javax.swing.JFrame
     private javax.swing.JTextArea txtDefinicion;
     // End of variables declaration//GEN-END:variables
     private final JuegoAhorcado juego;
+    private int xFilo;
+    private int yFilo;
+    private int yFiloMax;
+    private int yFiloRatio;
 }
