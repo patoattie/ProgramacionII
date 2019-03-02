@@ -198,7 +198,7 @@ public class JuegoAhorcado
     
     public static void jugarPorEntornoGrafico(JuegoAhorcado miJuego)
     {
-        frmAhorcado ventana = new frmAhorcado(miJuego, 102, 149, 224);
+        frmAhorcado ventana = new frmAhorcado(miJuego, 102, 133, 208);
         ventana.setVisible(true);
     }
 

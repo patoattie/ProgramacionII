@@ -22,13 +22,13 @@ public class frmAhorcado extends javax.swing.JFrame
     {
         initComponents();
         this.juego = miJuego;
+        this.setLayout(null);
+        this.setComponentZOrder(this.lblFilo, 0);
+        this.setComponentZOrder(this.lblGuillotina, 1);
         this.xFilo = xFilo;
         this.yFilo = yFilo;
         this.yFiloMax = yFiloMax;
         this.yFiloRatio = (this.yFiloMax - this.yFilo) / this.juego.getFallosMaximos();
-        this.setLayout(null);
-        this.setComponentZOrder(this.lblFilo, 0);
-        this.setComponentZOrder(this.lblGuillotina, 1);
     }
 
     /**
@@ -101,7 +101,7 @@ public class frmAhorcado extends javax.swing.JFrame
                     .addComponent(lblPalabra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(22, 22, 22))
             .addGroup(layout.createSequentialGroup()
-                .addGap(102, 102, 102)
+                .addGap(40, 40, 40)
                 .addComponent(lblFilo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -110,7 +110,7 @@ public class frmAhorcado extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblFilo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtDefinicion, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -126,8 +126,7 @@ public class frmAhorcado extends javax.swing.JFrame
                 .addGap(12, 12, 12)
                 .addComponent(lblFallosRestantes, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblLetrasJugadas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addComponent(lblLetrasJugadas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
