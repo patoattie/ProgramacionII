@@ -34,15 +34,18 @@ public class ParcialDosLII
             System.out.println("ERROR. Archivo XML no encontrado");
         }
         
-        try
-        {
-            //JuegoAhorcado.jugarPorConsola(new JuegoAhorcado("*", 10, miDiccionario));
-            JuegoAhorcado.jugarPorEntornoGrafico(new JuegoAhorcado("*", 10, miDiccionario));
-        }
-        catch (DiccionarioVacioException e)
-        {
-            System.out.println(e.getMessage());
-        }
+        frmPrincipal ventana = new frmPrincipal(miDiccionario);
+        ventana.setVisible(true);
+
+//        try
+//        {
+//            //JuegoAhorcado.jugarPorConsola(new JuegoAhorcado("*", 10, miDiccionario));
+//            JuegoAhorcado.jugarPorEntornoGrafico(new JuegoAhorcado("*", 10, miDiccionario));
+//        }
+//        catch (DiccionarioVacioException e)
+//        {
+//            System.out.println(e.getMessage());
+//        }
     }
     
     private static void cargarListaPalabras()

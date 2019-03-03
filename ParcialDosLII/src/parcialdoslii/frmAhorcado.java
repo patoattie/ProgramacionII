@@ -50,8 +50,9 @@ public class frmAhorcado extends javax.swing.JFrame
         lblFallosRestantes = new javax.swing.JLabel();
         lblGuillotina = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Juego Ahorcado");
+        setSize(new java.awt.Dimension(634, 466));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
