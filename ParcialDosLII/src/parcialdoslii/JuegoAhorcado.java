@@ -53,6 +53,11 @@ public class JuegoAhorcado
         }
     }
 
+    public void setPalabraSeleccionada(Palabra palabraSeleccionada)
+    {
+        this.palabraSeleccionada = palabraSeleccionada;
+    }
+
     public Palabra getPalabraSeleccionada()
     {
         return palabraSeleccionada;
@@ -86,6 +91,26 @@ public class JuegoAhorcado
     public int getCantidadJugadas()
     {
         return this.letrasJugadas.length();
+    }
+
+    public void setFallosMaximos(int fallosMaximos)
+    {
+        this.fallosMaximos = fallosMaximos;
+    }
+
+    public void setCantidadFallos(int cantidadFallos)
+    {
+        this.cantidadFallos = cantidadFallos;
+    }
+
+    public void setJugadaMuestraAyuda(int jugadaMuestraAyuda)
+    {
+        this.jugadaMuestraAyuda = jugadaMuestraAyuda;
+    }
+
+    public void setCaracterMascara(String caracterMascara)
+    {
+        this.caracterMascara = caracterMascara;
     }
     
     public String getPalabra() throws JuegoException

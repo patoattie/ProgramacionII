@@ -256,13 +256,14 @@ public class frmAhorcado extends javax.swing.JFrame
     private void menJuegoGuardarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menJuegoGuardarActionPerformed
     {//GEN-HEADEREND:event_menJuegoGuardarActionPerformed
         String nombreArchivo = JOptionPane.showInputDialog(null, "Ingrese nombre para el juego", "Guardar Juego", JOptionPane.INFORMATION_MESSAGE);
-        File f = new File(nombreArchivo);
+        String nombreArchivoXML = "xml\\" + nombreArchivo + ".xml";
+        File f = new File(nombreArchivoXML);
         
-        if(!f.exists() || (f.exists() && JOptionPane.showConfirmDialog(null, "El juego ya existe, desea sobreescribir?", "Guardar Juego", JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION))
+        if(!f.exists() || (f.exists() && JOptionPane.showConfirmDialog(null, "El juego ya existe, desea sobreescribir?", "Guardar Juego", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION))
         {
             try
             {
-                this.juego.guardarJuego(nombreArchivo);
+                this.juego.guardarJuego(nombreArchivoXML);
             }
             catch (FileNotFoundException e)
             {
