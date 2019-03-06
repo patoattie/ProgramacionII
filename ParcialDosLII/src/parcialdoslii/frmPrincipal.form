@@ -7,7 +7,6 @@
         <Menu class="javax.swing.JMenu" name="menAhorcado">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ahorcado"/>
-            <Property name="actionCommand" type="java.lang.String" value="Ahorcado"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menAhorcadoNuevo">
@@ -16,6 +15,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menAhorcadoNuevoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menAhorcadoCargar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cargar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menAhorcadoCargarActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

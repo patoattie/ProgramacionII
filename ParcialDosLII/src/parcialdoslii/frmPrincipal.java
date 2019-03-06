@@ -5,6 +5,11 @@
  */
 package parcialdoslii;
 
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Sil y Pato
@@ -33,6 +38,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuPrincipal = new javax.swing.JMenuBar();
         menAhorcado = new javax.swing.JMenu();
         menAhorcadoNuevo = new javax.swing.JMenuItem();
+        menAhorcadoCargar = new javax.swing.JMenuItem();
         menDiccionario = new javax.swing.JMenu();
         menSalir = new javax.swing.JMenu();
 
@@ -41,7 +47,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(0, 0));
 
         menAhorcado.setText("Ahorcado");
-        menAhorcado.setActionCommand("Ahorcado");
 
         menAhorcadoNuevo.setText("Nuevo");
         menAhorcadoNuevo.addActionListener(new java.awt.event.ActionListener()
@@ -52,6 +57,16 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
         menAhorcado.add(menAhorcadoNuevo);
+
+        menAhorcadoCargar.setText("Cargar");
+        menAhorcadoCargar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                menAhorcadoCargarActionPerformed(evt);
+            }
+        });
+        menAhorcado.add(menAhorcadoCargar);
 
         menuPrincipal.add(menAhorcado);
 
@@ -102,8 +117,23 @@ public class frmPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_menSalirMouseClicked
 
+    private void menAhorcadoCargarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menAhorcadoCargarActionPerformed
+    {//GEN-HEADEREND:event_menAhorcadoCargarActionPerformed
+        try
+        {
+            this.setEnabled(false);
+            JuegoAhorcado.jugarPorEntornoGrafico(JuegoAhorcado.cargarJuego("xml\\" + JOptionPane.showInputDialog(null, "Ingrese juego a cargar", "Cargar Juego", JOptionPane.INFORMATION_MESSAGE) + ".xml"));
+            this.setEnabled(true);
+        }
+        catch (FileNotFoundException e)
+        {
+            JOptionPane.showMessageDialog(null, "No existe el juego ingresado", "Cargar Juego", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_menAhorcadoCargarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu menAhorcado;
+    private javax.swing.JMenuItem menAhorcadoCargar;
     private javax.swing.JMenuItem menAhorcadoNuevo;
     private javax.swing.JMenu menDiccionario;
     private javax.swing.JMenu menSalir;
