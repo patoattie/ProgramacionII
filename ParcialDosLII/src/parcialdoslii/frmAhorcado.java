@@ -5,6 +5,7 @@
  */
 package parcialdoslii;
 
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -38,7 +39,8 @@ public class frmAhorcado extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         lblPalabra = new javax.swing.JLabel();
         lblLetrasJugadas = new javax.swing.JLabel();
@@ -53,19 +55,34 @@ public class frmAhorcado extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Juego Ahorcado");
         setSize(new java.awt.Dimension(634, 466));
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
+        addWindowListener(new java.awt.event.WindowAdapter()
+        {
+            public void windowOpened(java.awt.event.WindowEvent evt)
+            {
                 formWindowOpened(evt);
             }
         });
 
         lblPalabra.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblPalabra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPalabra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lblLetrasJugadas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        cmbLetraJugada.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                cmbLetraJugadaKeyTyped(evt);
+            }
+        });
 
         btnJugarLetra.setText("Jugar Letra");
         btnJugarLetra.setFocusable(false);
-        btnJugarLetra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnJugarLetra.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnJugarLetraActionPerformed(evt);
             }
         });
@@ -76,58 +93,67 @@ public class frmAhorcado extends javax.swing.JFrame
         txtDefinicion.setLineWrap(true);
         txtDefinicion.setRows(5);
         txtDefinicion.setWrapStyleWord(true);
+        txtDefinicion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtDefinicion.setFocusable(false);
         txtDefinicion.setOpaque(false);
+
+        lblJugadasRealizadas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lblFallosRestantes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblFallosRestantes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                    .addComponent(lblJugadasRealizadas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblGuillotina, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblGuillotina, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblFilo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblLetrasJugadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtDefinicion, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPalabra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cmbLetraJugada, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnJugarLetra)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(lblLetrasJugadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(txtDefinicion, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblPalabra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(22, 22, 22))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(lblFilo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblJugadasRealizadas, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblFallosRestantes, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblFilo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblFilo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblJugadasRealizadas, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblFallosRestantes, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addComponent(txtDefinicion, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addComponent(lblPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbLetraJugada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnJugarLetra)))
-                    .addComponent(lblGuillotina, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblJugadasRealizadas, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(lblFallosRestantes, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblLetrasJugadas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnJugarLetra))
+                        .addGap(86, 86, 86)
+                        .addComponent(lblLetrasJugadas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblGuillotina, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();
@@ -150,8 +176,8 @@ public class frmAhorcado extends javax.swing.JFrame
         
         this.lblFallosRestantes.setText("Fallos restantes: " + (this.juego.getFallosMaximos() - this.juego.getCantidadFallos()));
         this.lblJugadasRealizadas.setText("Jugadas realizadas: " + this.juego.getCantidadJugadas());
-        this.lblGuillotina.setIcon(new ImageIcon("guillotina2.jpg"));
-        this.lblFilo.setIcon(new ImageIcon("filo.jpg"));
+        this.lblGuillotina.setIcon(new ImageIcon("imagenes\\guillotina2.jpg"));
+        this.lblFilo.setIcon(new ImageIcon("imagenes\\filo.jpg"));
         this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + this.xFilo, this.lblGuillotina.getLocation().y + this.yFilo);
         
         try
@@ -182,7 +208,7 @@ public class frmAhorcado extends javax.swing.JFrame
             if(e instanceof JuegoPerdidoException)
             {
                 this.lblFilo.setVisible(false);
-                this.lblGuillotina.setIcon(new ImageIcon("guillotina3.jpg"));
+                this.lblGuillotina.setIcon(new ImageIcon("imagenes\\guillotina3.jpg"));
             }
             this.lblPalabra.setText(this.juego.getPalabraSeleccionada().getPalabra());
             this.btnJugarLetra.setEnabled(false);
@@ -196,6 +222,14 @@ public class frmAhorcado extends javax.swing.JFrame
             this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + this.xFilo, this.lblGuillotina.getLocation().y + this.yFilo + (this.yFiloRatio * this.juego.getCantidadFallos()));
         }
     }//GEN-LAST:event_btnJugarLetraActionPerformed
+
+    private void cmbLetraJugadaKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_cmbLetraJugadaKeyTyped
+    {//GEN-HEADEREND:event_cmbLetraJugadaKeyTyped
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER && this.btnJugarLetra.isEnabled())
+        {
+            this.btnJugarLetraActionPerformed(null);
+        }
+    }//GEN-LAST:event_cmbLetraJugadaKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnJugarLetra;

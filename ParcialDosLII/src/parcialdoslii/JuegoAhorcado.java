@@ -127,7 +127,7 @@ public class JuegoAhorcado
         if(this.cantidadFallos < this.fallosMaximos)
         {
             String letraJugadaUpper = letraJugada.substring(0, 1).toUpperCase();
-            char letraJugadaChar = letraJugadaUpper.charAt(0);
+            //char letraJugadaChar = letraJugadaUpper.charAt(0);
 
             //if(letraJugadaChar < 'A' || letraJugadaChar > 'Z')
             if(Palabra.existeCaracterEspecial(letraJugadaUpper))
@@ -198,7 +198,8 @@ public class JuegoAhorcado
     
     public static void jugarPorEntornoGrafico(JuegoAhorcado miJuego)
     {
-        frmAhorcado ventana = new frmAhorcado(miJuego, 102, 133, 208);
+        //frmAhorcado ventana = new frmAhorcado(miJuego, 102, 133, 208);
+        frmAhorcado ventana = new frmAhorcado(miJuego, 102, 101, 176);
         ventana.setVisible(true);
     }
 

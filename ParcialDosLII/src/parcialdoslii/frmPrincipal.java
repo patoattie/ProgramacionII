@@ -27,7 +27,8 @@ public class frmPrincipal extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         menuPrincipal = new javax.swing.JMenuBar();
         menJuego = new javax.swing.JMenu();
@@ -42,8 +43,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         menJuego.setText("Juego");
 
         menJuegoNuevo.setText("Nuevo");
-        menJuegoNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menJuegoNuevo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 menJuegoNuevoActionPerformed(evt);
             }
         });
@@ -55,8 +58,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuPrincipal.add(menDiccionario);
 
         menSalir.setText("Salir");
-        menSalir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        menSalir.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 menSalirMouseClicked(evt);
             }
         });
