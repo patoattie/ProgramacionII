@@ -5,6 +5,7 @@
  */
 package parcialdoslii;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -199,7 +200,7 @@ public class JuegoAhorcado
     public static void jugarPorEntornoGrafico(JuegoAhorcado miJuego)
     {
         //frmAhorcado ventana = new frmAhorcado(miJuego, 102, 133, 208);
-        frmAhorcado ventana = new frmAhorcado(miJuego, 102, 101, 176);
+        frmAhorcado ventana = new frmAhorcado(miJuego, 102, 113, 185);
         ventana.setVisible(true);
     }
 
@@ -216,5 +217,15 @@ public class JuegoAhorcado
             unaPalabra = diccionario.getListaPalabras().get(indiceAleatorio);
         }
         return unaPalabra;
+    }
+
+    public static JuegoAhorcado cargarJuego(String archivoXML) throws FileNotFoundException
+    {
+        return (JuegoAhorcado) XML.cargar(archivoXML);
+    }
+
+    public void guardarJuego(String archivoXML) throws FileNotFoundException
+    {
+        XML.guardar(archivoXML, this);
     }
 }

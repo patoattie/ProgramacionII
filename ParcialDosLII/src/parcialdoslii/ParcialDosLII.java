@@ -28,14 +28,14 @@ public class ParcialDosLII
         {
             miDiccionario = Diccionario.crearDiccionario(ARCHIVO_XML);
             //System.out.println(miDiccionario.toString());
+            frmPrincipal ventana = new frmPrincipal(miDiccionario);
+            ventana.setVisible(true);
         }
         catch(FileNotFoundException e)
         {
             System.out.println("ERROR. Archivo XML no encontrado");
         }
         
-        frmPrincipal ventana = new frmPrincipal(miDiccionario);
-        ventana.setVisible(true);
 
 //        try
 //        {

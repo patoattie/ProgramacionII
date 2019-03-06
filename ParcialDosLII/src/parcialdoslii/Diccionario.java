@@ -5,13 +5,7 @@
  */
 package parcialdoslii;
 
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -79,23 +73,12 @@ public class Diccionario implements java.io.Serializable
 
     public static Diccionario crearDiccionario(String archivoXML) throws FileNotFoundException
     {
-        FileInputStream fis = new FileInputStream(archivoXML);
-        BufferedInputStream bis = new BufferedInputStream(fis);
-        XMLDecoder decoder = new XMLDecoder(bis);
-        
-        Diccionario unDiccionario = (Diccionario) decoder.readObject();
-
-        return unDiccionario;
+        return (Diccionario) XML.cargar(archivoXML);
     }
 
     public void grabarDiccionario(String archivoXML) throws FileNotFoundException
     {
-        FileOutputStream fos = new FileOutputStream(archivoXML);
-        BufferedOutputStream bos = new BufferedOutputStream(fos); 
-        XMLEncoder encoder = new XMLEncoder(bos);
-
-        encoder.writeObject(this);
-        encoder.close();
+        XML.guardar(archivoXML, this);
     }
     
     public boolean existePalabra(Palabra unaPalabra)

@@ -6,6 +6,8 @@
 package parcialdoslii;
 
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -51,6 +53,9 @@ public class frmAhorcado extends javax.swing.JFrame
         lblJugadasRealizadas = new javax.swing.JLabel();
         lblFallosRestantes = new javax.swing.JLabel();
         lblGuillotina = new javax.swing.JLabel();
+        menuAhorcado = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        menJuegoGuardar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Juego Ahorcado");
@@ -100,6 +105,23 @@ public class frmAhorcado extends javax.swing.JFrame
         lblJugadasRealizadas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblFallosRestantes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jMenu1.setText("Juego");
+
+        menJuegoGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        menJuegoGuardar.setText("Guardar");
+        menJuegoGuardar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                menJuegoGuardarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menJuegoGuardar);
+
+        menuAhorcado.add(jMenu1);
+
+        setJMenuBar(menuAhorcado);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -231,15 +253,36 @@ public class frmAhorcado extends javax.swing.JFrame
         }
     }//GEN-LAST:event_cmbLetraJugadaKeyTyped
 
+    private void menJuegoGuardarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menJuegoGuardarActionPerformed
+    {//GEN-HEADEREND:event_menJuegoGuardarActionPerformed
+        String nombreArchivo = JOptionPane.showInputDialog(null, "Ingrese nombre para el juego", "Guardar Juego", JOptionPane.INFORMATION_MESSAGE);
+        File f = new File(nombreArchivo);
+        
+        if(!f.exists() || (f.exists() && JOptionPane.showConfirmDialog(null, "El juego ya existe, desea sobreescribir?", "Guardar Juego", JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION))
+        {
+            try
+            {
+                this.juego.guardarJuego(nombreArchivo);
+            }
+            catch (FileNotFoundException e)
+            {
+                JOptionPane.showMessageDialog(null, "Error al guardar el juego", "Guardar Juego", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_menJuegoGuardarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnJugarLetra;
     private javax.swing.JComboBox<String> cmbLetraJugada;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JLabel lblFallosRestantes;
     private javax.swing.JLabel lblFilo;
     private javax.swing.JLabel lblGuillotina;
     private javax.swing.JLabel lblJugadasRealizadas;
     private javax.swing.JLabel lblLetrasJugadas;
     private javax.swing.JLabel lblPalabra;
+    private javax.swing.JMenuItem menJuegoGuardar;
+    private javax.swing.JMenuBar menuAhorcado;
     private javax.swing.JTextArea txtDefinicion;
     // End of variables declaration//GEN-END:variables
     private final JuegoAhorcado juego;

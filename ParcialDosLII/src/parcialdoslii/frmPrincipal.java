@@ -31,8 +31,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     {
 
         menuPrincipal = new javax.swing.JMenuBar();
-        menJuego = new javax.swing.JMenu();
-        menJuegoNuevo = new javax.swing.JMenuItem();
+        menAhorcado = new javax.swing.JMenu();
+        menAhorcadoNuevo = new javax.swing.JMenuItem();
         menDiccionario = new javax.swing.JMenu();
         menSalir = new javax.swing.JMenu();
 
@@ -40,19 +40,20 @@ public class frmPrincipal extends javax.swing.JFrame {
         setTitle("Juego del Ahorcado");
         setSize(new java.awt.Dimension(0, 0));
 
-        menJuego.setText("Juego");
+        menAhorcado.setText("Ahorcado");
+        menAhorcado.setActionCommand("Ahorcado");
 
-        menJuegoNuevo.setText("Nuevo");
-        menJuegoNuevo.addActionListener(new java.awt.event.ActionListener()
+        menAhorcadoNuevo.setText("Nuevo");
+        menAhorcadoNuevo.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                menJuegoNuevoActionPerformed(evt);
+                menAhorcadoNuevoActionPerformed(evt);
             }
         });
-        menJuego.add(menJuegoNuevo);
+        menAhorcado.add(menAhorcadoNuevo);
 
-        menuPrincipal.add(menJuego);
+        menuPrincipal.add(menAhorcado);
 
         menDiccionario.setText("Diccionario");
         menuPrincipal.add(menDiccionario);
@@ -83,7 +84,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menJuegoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menJuegoNuevoActionPerformed
+    private void menAhorcadoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menAhorcadoNuevoActionPerformed
         try
         {
             //JuegoAhorcado.jugarPorConsola(new JuegoAhorcado("*", 10, miDiccionario));
@@ -95,16 +96,16 @@ public class frmPrincipal extends javax.swing.JFrame {
         {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_menJuegoNuevoActionPerformed
+    }//GEN-LAST:event_menAhorcadoNuevoActionPerformed
 
     private void menSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menSalirMouseClicked
         this.dispose();
     }//GEN-LAST:event_menSalirMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu menAhorcado;
+    private javax.swing.JMenuItem menAhorcadoNuevo;
     private javax.swing.JMenu menDiccionario;
-    private javax.swing.JMenu menJuego;
-    private javax.swing.JMenuItem menJuegoNuevo;
     private javax.swing.JMenu menSalir;
     private javax.swing.JMenuBar menuPrincipal;
     // End of variables declaration//GEN-END:variables
