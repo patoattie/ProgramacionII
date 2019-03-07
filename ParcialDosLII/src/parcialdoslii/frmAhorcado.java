@@ -248,7 +248,7 @@ public class frmAhorcado extends javax.swing.JFrame
 
     private void cmbLetraJugadaKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_cmbLetraJugadaKeyTyped
     {//GEN-HEADEREND:event_cmbLetraJugadaKeyTyped
-        if(evt.getKeyChar() == KeyEvent.VK_ENTER && this.btnJugarLetra.isEnabled())
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER && !this.juego.isJuegoFinalizado())
         {
             this.btnJugarLetraActionPerformed(null);
         }
@@ -256,20 +256,27 @@ public class frmAhorcado extends javax.swing.JFrame
 
     private void menJuegoGuardarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menJuegoGuardarActionPerformed
     {//GEN-HEADEREND:event_menJuegoGuardarActionPerformed
-        String nombreArchivo = JOptionPane.showInputDialog(null, "Ingrese nombre para el juego", "Guardar Juego", JOptionPane.INFORMATION_MESSAGE);
-        String nombreArchivoXML = "xml\\" + nombreArchivo + ".xml";
-        File f = new File(nombreArchivoXML);
-        
-        if(!f.exists() || (f.exists() && JOptionPane.showConfirmDialog(null, "El juego ya existe, desea sobreescribir?", "Guardar Juego", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION))
+        if(!this.juego.isJuegoFinalizado())
         {
-            try
+            String nombreArchivo = JOptionPane.showInputDialog(null, "Ingrese nombre para el juego", "Guardar Juego", JOptionPane.INFORMATION_MESSAGE);
+            String nombreArchivoXML = "xml\\" + nombreArchivo + ".xml";
+            File f = new File(nombreArchivoXML);
+
+            if(!f.exists() || (f.exists() && JOptionPane.showConfirmDialog(null, "El juego ya existe, desea sobreescribir?", "Guardar Juego", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION))
             {
-                this.juego.guardarJuego(nombreArchivoXML);
+                try
+                {
+                    this.juego.guardarJuego(nombreArchivoXML);
+                }
+                catch (FileNotFoundException e)
+                {
+                    JOptionPane.showMessageDialog(null, "Error al guardar el juego", "Guardar Juego", JOptionPane.ERROR_MESSAGE);
+                }
             }
-            catch (FileNotFoundException e)
-            {
-                JOptionPane.showMessageDialog(null, "Error al guardar el juego", "Guardar Juego", JOptionPane.ERROR_MESSAGE);
-            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "No se puede guardar el juego. Ha finalizado", "Guardar Juego", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_menJuegoGuardarActionPerformed
 

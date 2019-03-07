@@ -5,13 +5,7 @@
  */
 package parcialdoslii;
 
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.Scanner;
 
 /**
@@ -27,12 +21,14 @@ public class JuegoAhorcado
     private int jugadaMuestraAyuda;
     private int fallosMinimosPermitidos;
     private String caracterMascara;
+    private boolean juegoFinalizado;
     
     public JuegoAhorcado()
     {
         this.letrasJugadas = "";
         this.cantidadFallos = 0;
         this.fallosMinimosPermitidos = 5;
+        this.juegoFinalizado = false;
     }
 
     public JuegoAhorcado(String caracterMascara, int fallosMaximos, Diccionario unDiccionario) throws DiccionarioVacioException
@@ -139,6 +135,16 @@ public class JuegoAhorcado
     {
         return caracterMascara;
     }
+
+    public boolean isJuegoFinalizado()
+    {
+        return juegoFinalizado;
+    }
+
+    public void setJuegoFinalizado(boolean juegoFinalizado)
+    {
+        this.juegoFinalizado = juegoFinalizado;
+    }
     
     public String getPalabra() throws JuegoException
     {
@@ -157,6 +163,7 @@ public class JuegoAhorcado
         
         if(!faltanLetras)
         {
+            this.juegoFinalizado = true;
             throw new JuegoGanadoException("FELICITACIONES!! GANASTE EL JUEGO");
         }
         
@@ -201,6 +208,7 @@ public class JuegoAhorcado
 
                     if(this.cantidadFallos == this.fallosMaximos)
                     {
+                        this.juegoFinalizado = true;
                         throw new JuegoPerdidoException("FUISTE DECAPITADO!!");
                     }
                 }
@@ -208,6 +216,7 @@ public class JuegoAhorcado
         }
         else
         {
+            this.juegoFinalizado = true;
             throw new JuegoPerdidoException("FUISTE DECAPITADO!!");
         }
     }
@@ -218,7 +227,6 @@ public class JuegoAhorcado
         final String TERMINA = "0";
         String letraJugada = "";
         String palabra = "";
-        boolean finJuego = false;
         
         do
         {
@@ -242,11 +250,10 @@ public class JuegoAhorcado
             }
             catch(JuegoException e)
             {
-                finJuego = true;
                 System.out.println(e.getMessage());
                 System.out.println("Palabra: " + miJuego.getPalabraSeleccionada().getPalabra());
             }
-        } while(!letraJugada.equalsIgnoreCase(TERMINA) && !finJuego);
+        } while(!letraJugada.equalsIgnoreCase(TERMINA) && !miJuego.isJuegoFinalizado());
     }
     
     public static void jugarPorEntornoGrafico(JuegoAhorcado miJuego)
