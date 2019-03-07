@@ -5,7 +5,13 @@
  */
 package parcialdoslii;
 
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.Scanner;
 
 /**
@@ -19,13 +25,14 @@ public class JuegoAhorcado
     private String letrasJugadas;
     private int cantidadFallos;
     private int jugadaMuestraAyuda;
-    private final int FALLOS_MINIMOS_PERMITIDOS = 5;
+    private int fallosMinimosPermitidos;
     private String caracterMascara;
     
     public JuegoAhorcado()
     {
         this.letrasJugadas = "";
         this.cantidadFallos = 0;
+        this.fallosMinimosPermitidos = 5;
     }
 
     public JuegoAhorcado(String caracterMascara, int fallosMaximos, Diccionario unDiccionario) throws DiccionarioVacioException
@@ -38,9 +45,9 @@ public class JuegoAhorcado
         }
         else
         {
-            if(fallosMaximos < this.FALLOS_MINIMOS_PERMITIDOS)
+            if(fallosMaximos < this.fallosMinimosPermitidos)
             {
-                this.fallosMaximos = this.FALLOS_MINIMOS_PERMITIDOS;
+                this.fallosMaximos = this.fallosMinimosPermitidos;
             }
             else
             {
@@ -112,6 +119,26 @@ public class JuegoAhorcado
     {
         this.caracterMascara = caracterMascara;
     }
+
+    public int getFallosMinimosPermitidos()
+    {
+        return fallosMinimosPermitidos;
+    }
+
+    public void setFallosMinimosPermitidos(int fallosMinimosPermitidos)
+    {
+        this.fallosMinimosPermitidos = fallosMinimosPermitidos;
+    }
+
+    public int getJugadaMuestraAyuda()
+    {
+        return jugadaMuestraAyuda;
+    }
+
+    public String getCaracterMascara()
+    {
+        return caracterMascara;
+    }
     
     public String getPalabra() throws JuegoException
     {
@@ -130,7 +157,7 @@ public class JuegoAhorcado
         
         if(!faltanLetras)
         {
-            throw new JuegoGanadoException("JUEGO GANADO");
+            throw new JuegoGanadoException("FELICITACIONES!! GANASTE EL JUEGO");
         }
         
         return retorno;
@@ -174,14 +201,14 @@ public class JuegoAhorcado
 
                     if(this.cantidadFallos == this.fallosMaximos)
                     {
-                        throw new JuegoPerdidoException("GAME OVER");
+                        throw new JuegoPerdidoException("FUISTE DECAPITADO!!");
                     }
                 }
             }
         }
         else
         {
-            throw new JuegoPerdidoException("GAME OVER");
+            throw new JuegoPerdidoException("FUISTE DECAPITADO!!");
         }
     }
 

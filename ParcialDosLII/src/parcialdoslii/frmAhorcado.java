@@ -200,7 +200,8 @@ public class frmAhorcado extends javax.swing.JFrame
         this.lblJugadasRealizadas.setText("Jugadas realizadas: " + this.juego.getCantidadJugadas());
         this.lblGuillotina.setIcon(new ImageIcon("imagenes\\guillotina2.jpg"));
         this.lblFilo.setIcon(new ImageIcon("imagenes\\filo.jpg"));
-        this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + this.xFilo, this.lblGuillotina.getLocation().y + this.yFilo);
+        this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + this.xFilo, this.lblGuillotina.getLocation().y + this.yFilo + (this.yFiloRatio * this.juego.getCantidadFallos()));
+        this.lblLetrasJugadas.setText(this.juego.getLetrasJugadas());
         
         try
         {
