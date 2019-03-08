@@ -228,6 +228,23 @@ public class JuegoAhorcado
             throw new JuegoPerdidoException("FUISTE DECAPITADO!!");
         }
     }
+    
+    public void arriesgarPalabra(String palabra) throws JuegoException
+    {
+        if(!palabra.isEmpty())
+        {
+            if(palabra.equalsIgnoreCase(this.palabraSeleccionada.getPalabra()))
+            {
+                throw new JuegoGanadoException("FELICITACIONES!! GANASTE EL JUEGO");
+            }
+            else
+            {
+                throw new JuegoPerdidoException("FUISTE DECAPITADO!!");
+            }
+        }
+        
+        this.juegoFinalizado = true;
+    }
 
     public static void jugarPorConsola(JuegoAhorcado miJuego)
     {

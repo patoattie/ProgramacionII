@@ -52,19 +52,16 @@ public class frmAhorcado extends javax.swing.JFrame
         lblJugadasRealizadas = new javax.swing.JLabel();
         lblFallosRestantes = new javax.swing.JLabel();
         lblGuillotina = new javax.swing.JLabel();
+        btnArriesgarPalabra = new javax.swing.JButton();
         menuAhorcado = new javax.swing.JMenuBar();
-        menJuego = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
         menJuegoGuardar = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Juego Ahorcado");
         setSize(new java.awt.Dimension(634, 466));
         addWindowListener(new java.awt.event.WindowAdapter()
         {
-            public void windowClosing(java.awt.event.WindowEvent evt)
-            {
-                formWindowClosing(evt);
-            }
             public void windowOpened(java.awt.event.WindowEvent evt)
             {
                 formWindowOpened(evt);
@@ -109,7 +106,16 @@ public class frmAhorcado extends javax.swing.JFrame
 
         lblFallosRestantes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        menJuego.setText("Juego");
+        btnArriesgarPalabra.setText("Arriesgar Palabra");
+        btnArriesgarPalabra.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnArriesgarPalabraActionPerformed(evt);
+            }
+        });
+
+        jMenu1.setText("Juego");
 
         menJuegoGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         menJuegoGuardar.setText("Guardar");
@@ -120,9 +126,9 @@ public class frmAhorcado extends javax.swing.JFrame
                 menJuegoGuardarActionPerformed(evt);
             }
         });
-        menJuego.add(menJuegoGuardar);
+        jMenu1.add(menJuegoGuardar);
 
-        menuAhorcado.add(menJuego);
+        menuAhorcado.add(jMenu1);
 
         setJMenuBar(menuAhorcado);
 
@@ -146,7 +152,9 @@ public class frmAhorcado extends javax.swing.JFrame
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cmbLetraJugada, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnJugarLetra)
+                        .addComponent(btnJugarLetra, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnArriesgarPalabra)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblJugadasRealizadas, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,7 +180,8 @@ public class frmAhorcado extends javax.swing.JFrame
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbLetraJugada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnJugarLetra))
+                            .addComponent(btnJugarLetra)
+                            .addComponent(btnArriesgarPalabra))
                         .addGap(86, 86, 86)
                         .addComponent(lblLetrasJugadas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -219,15 +228,29 @@ public class frmAhorcado extends javax.swing.JFrame
 
     private void btnJugarLetraActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnJugarLetraActionPerformed
     {//GEN-HEADEREND:event_btnJugarLetraActionPerformed
+        this.jugarLetra();
+    }//GEN-LAST:event_btnJugarLetraActionPerformed
+
+    private void cmbLetraJugadaKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_cmbLetraJugadaKeyTyped
+    {//GEN-HEADEREND:event_cmbLetraJugadaKeyTyped
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER && !this.juego.isJuegoFinalizado())
+        {
+            this.jugarLetra();
+        }
+    }//GEN-LAST:event_cmbLetraJugadaKeyTyped
+
+    private void menJuegoGuardarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menJuegoGuardarActionPerformed
+    {//GEN-HEADEREND:event_menJuegoGuardarActionPerformed
+        this.guardarJuego();
+    }//GEN-LAST:event_menJuegoGuardarActionPerformed
+
+    private void btnArriesgarPalabraActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnArriesgarPalabraActionPerformed
+    {//GEN-HEADEREND:event_btnArriesgarPalabraActionPerformed
+        String palabra = JOptionPane.showInputDialog(null, "Ingrese palabra a arriesgar", "Arriesgar Palabra", JOptionPane.INFORMATION_MESSAGE);
+        
         try
         {
-            this.juego.jugarLetra(this.cmbLetraJugada.getItemAt(this.cmbLetraJugada.getSelectedIndex()));
-            this.lblPalabra.setText(this.juego.getPalabra());
-            this.txtDefinicion.setText(this.juego.getDefinicion());
-        }
-        catch (LetraJugadaException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
+            this.juego.arriesgarPalabra(palabra);
         }
         catch (JuegoException e)
         {
@@ -238,55 +261,12 @@ public class frmAhorcado extends javax.swing.JFrame
             }
             this.lblPalabra.setText(this.juego.getPalabraSeleccionada().getPalabra());
             this.btnJugarLetra.setEnabled(false);
+            this.btnArriesgarPalabra.setEnabled(false);
             JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
         }
-        finally
-        {
-            this.lblFallosRestantes.setText("Fallos restantes: " + (this.juego.getFallosMaximos() - this.juego.getCantidadFallos()));
-            this.lblJugadasRealizadas.setText("Jugadas realizadas: " + this.juego.getCantidadJugadas());
-            this.lblLetrasJugadas.setText(this.juego.getLetrasJugadas());
-            this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + this.xFilo, this.lblGuillotina.getLocation().y + this.yFilo + (this.yFiloRatio * this.juego.getCantidadFallos()));
-        }
-    }//GEN-LAST:event_btnJugarLetraActionPerformed
+    }//GEN-LAST:event_btnArriesgarPalabraActionPerformed
 
-    private void cmbLetraJugadaKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_cmbLetraJugadaKeyTyped
-    {//GEN-HEADEREND:event_cmbLetraJugadaKeyTyped
-        if(evt.getKeyChar() == KeyEvent.VK_ENTER && !this.juego.isJuegoFinalizado())
-        {
-            this.btnJugarLetraActionPerformed(null);
-        }
-    }//GEN-LAST:event_cmbLetraJugadaKeyTyped
-
-    private void menJuegoGuardarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menJuegoGuardarActionPerformed
-    {//GEN-HEADEREND:event_menJuegoGuardarActionPerformed
-        this.GuardarJuego();
-    }//GEN-LAST:event_menJuegoGuardarActionPerformed
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
-    {//GEN-HEADEREND:event_formWindowClosing
-        if(this.juego.isJuegoSinGuardar() && !this.juego.isJuegoFinalizado())
-        {
-            switch(JOptionPane.showConfirmDialog(null, "El juego no fue guardado. Desea guardar?", "Salir del Juego", JOptionPane.YES_NO_CANCEL_OPTION))
-            {
-                case JOptionPane.YES_OPTION:
-                    if(this.GuardarJuego())
-                    {
-                        this.dispose();
-                    }
-                    break;
-                case JOptionPane.NO_OPTION:
-                    this.dispose();
-                    break;
-                case JOptionPane.CANCEL_OPTION:
-            }
-        }
-        else
-        {
-            this.dispose();
-        }
-    }//GEN-LAST:event_formWindowClosing
-
-    private boolean GuardarJuego()
+    private boolean guardarJuego()
     {
         boolean guardoJuego = false;
         
@@ -336,16 +316,51 @@ public class frmAhorcado extends javax.swing.JFrame
         
         return guardoJuego;
     }
+    
+    private void jugarLetra()
+    {
+        try
+        {
+            this.juego.jugarLetra(this.cmbLetraJugada.getItemAt(this.cmbLetraJugada.getSelectedIndex()));
+            this.lblPalabra.setText(this.juego.getPalabra());
+            this.txtDefinicion.setText(this.juego.getDefinicion());
+        }
+        catch (LetraJugadaException e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch (JuegoException e)
+        {
+            if(e instanceof JuegoPerdidoException)
+            {
+                this.lblFilo.setVisible(false);
+                this.lblGuillotina.setIcon(new ImageIcon("imagenes\\guillotina3.jpg"));
+            }
+            this.lblPalabra.setText(this.juego.getPalabraSeleccionada().getPalabra());
+            this.btnJugarLetra.setEnabled(false);
+            this.btnArriesgarPalabra.setEnabled(false);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
+        }
+        finally
+        {
+            this.lblFallosRestantes.setText("Fallos restantes: " + (this.juego.getFallosMaximos() - this.juego.getCantidadFallos()));
+            this.lblJugadasRealizadas.setText("Jugadas realizadas: " + this.juego.getCantidadJugadas());
+            this.lblLetrasJugadas.setText(this.juego.getLetrasJugadas());
+            this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + this.xFilo, this.lblGuillotina.getLocation().y + this.yFilo + (this.yFiloRatio * this.juego.getCantidadFallos()));
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnArriesgarPalabra;
     private javax.swing.JButton btnJugarLetra;
     private javax.swing.JComboBox<String> cmbLetraJugada;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JLabel lblFallosRestantes;
     private javax.swing.JLabel lblFilo;
     private javax.swing.JLabel lblGuillotina;
     private javax.swing.JLabel lblJugadasRealizadas;
     private javax.swing.JLabel lblLetrasJugadas;
     private javax.swing.JLabel lblPalabra;
-    private javax.swing.JMenu menJuego;
     private javax.swing.JMenuItem menJuegoGuardar;
     private javax.swing.JMenuBar menuAhorcado;
     private javax.swing.JTextArea txtDefinicion;
