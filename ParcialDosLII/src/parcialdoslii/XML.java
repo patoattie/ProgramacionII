@@ -9,6 +9,7 @@ import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -28,9 +29,31 @@ public class XML
         return decoder.readObject();
     }
 
+    public static void guardarNuevo(String archivoXML, Object miObjeto) throws FileNotFoundException, ArchivoException
+    {
+        if(archivoXML != null && !archivoXML.isEmpty())
+        {
+            String nombreArchivoXML = "xml\\" + archivoXML + ".xml";
+            File f = new File(nombreArchivoXML);
+
+            if(f.exists())
+            {
+                throw new ArchivoExisteException("El archivo existe");
+            }
+
+            guardar(archivoXML, miObjeto);
+        }
+        else
+        {
+            throw new ArchivoNuloException("Debe elegir un nombre de archivo válido");
+        }
+    }
+
     public static void guardar(String archivoXML, Object miObjeto) throws FileNotFoundException
     {
-        FileOutputStream fos = new FileOutputStream(archivoXML);
+        String nombreArchivoXML = "xml\\" + archivoXML + ".xml";
+
+        FileOutputStream fos = new FileOutputStream(nombreArchivoXML);
         BufferedOutputStream bos = new BufferedOutputStream(fos); 
         XMLEncoder encoder = new XMLEncoder(bos);
 

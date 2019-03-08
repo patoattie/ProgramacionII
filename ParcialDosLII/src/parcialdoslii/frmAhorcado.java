@@ -6,7 +6,6 @@
 package parcialdoslii;
 
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.FileNotFoundException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -54,14 +53,18 @@ public class frmAhorcado extends javax.swing.JFrame
         lblFallosRestantes = new javax.swing.JLabel();
         lblGuillotina = new javax.swing.JLabel();
         menuAhorcado = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menJuego = new javax.swing.JMenu();
         menJuegoGuardar = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Juego Ahorcado");
         setSize(new java.awt.Dimension(634, 466));
         addWindowListener(new java.awt.event.WindowAdapter()
         {
+            public void windowClosing(java.awt.event.WindowEvent evt)
+            {
+                formWindowClosing(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt)
             {
                 formWindowOpened(evt);
@@ -106,7 +109,7 @@ public class frmAhorcado extends javax.swing.JFrame
 
         lblFallosRestantes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jMenu1.setText("Juego");
+        menJuego.setText("Juego");
 
         menJuegoGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         menJuegoGuardar.setText("Guardar");
@@ -117,9 +120,9 @@ public class frmAhorcado extends javax.swing.JFrame
                 menJuegoGuardarActionPerformed(evt);
             }
         });
-        jMenu1.add(menJuegoGuardar);
+        menJuego.add(menJuegoGuardar);
 
-        menuAhorcado.add(jMenu1);
+        menuAhorcado.add(menJuego);
 
         setJMenuBar(menuAhorcado);
 
@@ -256,40 +259,93 @@ public class frmAhorcado extends javax.swing.JFrame
 
     private void menJuegoGuardarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menJuegoGuardarActionPerformed
     {//GEN-HEADEREND:event_menJuegoGuardarActionPerformed
-        if(!this.juego.isJuegoFinalizado())
+        this.GuardarJuego();
+    }//GEN-LAST:event_menJuegoGuardarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
+    {//GEN-HEADEREND:event_formWindowClosing
+        if(this.juego.isJuegoSinGuardar() && !this.juego.isJuegoFinalizado())
+        {
+            switch(JOptionPane.showConfirmDialog(null, "El juego no fue guardado. Desea guardar?", "Salir del Juego", JOptionPane.YES_NO_CANCEL_OPTION))
+            {
+                case JOptionPane.YES_OPTION:
+                    if(this.GuardarJuego())
+                    {
+                        this.dispose();
+                    }
+                    break;
+                case JOptionPane.NO_OPTION:
+                    this.dispose();
+                    break;
+                case JOptionPane.CANCEL_OPTION:
+            }
+        }
+        else
+        {
+            this.dispose();
+        }
+    }//GEN-LAST:event_formWindowClosing
+
+    private boolean GuardarJuego()
+    {
+        boolean guardoJuego = false;
+        
+        if(!this.juego.isJuegoFinalizado() && this.juego.isJuegoSinGuardar())
         {
             String nombreArchivo = JOptionPane.showInputDialog(null, "Ingrese nombre para el juego", "Guardar Juego", JOptionPane.INFORMATION_MESSAGE);
-            String nombreArchivoXML = "xml\\" + nombreArchivo + ".xml";
-            File f = new File(nombreArchivoXML);
 
-            if(!f.exists() || (f.exists() && JOptionPane.showConfirmDialog(null, "El juego ya existe, desea sobreescribir?", "Guardar Juego", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION))
+            try
             {
-                try
+                this.juego.guardarJuegoNuevo(nombreArchivo);
+            }
+            catch (FileNotFoundException e)
+            {
+                JOptionPane.showMessageDialog(null, "Error al guardar el juego", "Guardar Juego", JOptionPane.ERROR_MESSAGE);
+            }
+            catch (ArchivoException e)
+            {
+                if(e instanceof ArchivoExisteException)
                 {
-                    this.juego.guardarJuego(nombreArchivoXML);
+                    switch(JOptionPane.showConfirmDialog(null, "El juego ya existe, desea sobreescribir?", "Guardar Juego", JOptionPane.YES_NO_CANCEL_OPTION))
+                    {
+                        case JOptionPane.YES_OPTION:
+                            try
+                            {
+                                this.juego.guardarJuego(nombreArchivo);
+                                guardoJuego = true;
+                            }
+                            catch (FileNotFoundException ex)
+                            {
+                                JOptionPane.showMessageDialog(null, "Error al guardar el juego", "Guardar Juego", JOptionPane.ERROR_MESSAGE);
+                            }
+                            break;
+                        case JOptionPane.NO_OPTION:
+                            guardoJuego = true;
+                    }
                 }
-                catch (FileNotFoundException e)
+                else if(e instanceof ArchivoNuloException)
                 {
-                    JOptionPane.showMessageDialog(null, "Error al guardar el juego", "Guardar Juego", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Guardar Juego", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "No se puede guardar el juego. Ha finalizado", "Guardar Juego", JOptionPane.INFORMATION_MESSAGE);
+            guardoJuego = true;
         }
-    }//GEN-LAST:event_menJuegoGuardarActionPerformed
-
+        
+        return guardoJuego;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnJugarLetra;
     private javax.swing.JComboBox<String> cmbLetraJugada;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JLabel lblFallosRestantes;
     private javax.swing.JLabel lblFilo;
     private javax.swing.JLabel lblGuillotina;
     private javax.swing.JLabel lblJugadasRealizadas;
     private javax.swing.JLabel lblLetrasJugadas;
     private javax.swing.JLabel lblPalabra;
+    private javax.swing.JMenu menJuego;
     private javax.swing.JMenuItem menJuegoGuardar;
     private javax.swing.JMenuBar menuAhorcado;
     private javax.swing.JTextArea txtDefinicion;

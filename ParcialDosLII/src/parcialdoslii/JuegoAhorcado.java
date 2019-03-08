@@ -22,6 +22,7 @@ public class JuegoAhorcado
     private int fallosMinimosPermitidos;
     private String caracterMascara;
     private boolean juegoFinalizado;
+    private boolean juegoSinGuardar;
     
     public JuegoAhorcado()
     {
@@ -29,6 +30,7 @@ public class JuegoAhorcado
         this.cantidadFallos = 0;
         this.fallosMinimosPermitidos = 5;
         this.juegoFinalizado = false;
+        this.juegoSinGuardar = false;
     }
 
     public JuegoAhorcado(String caracterMascara, int fallosMaximos, Diccionario unDiccionario) throws DiccionarioVacioException
@@ -145,7 +147,12 @@ public class JuegoAhorcado
     {
         this.juegoFinalizado = juegoFinalizado;
     }
-    
+
+    public boolean isJuegoSinGuardar()
+    {
+        return juegoSinGuardar;
+    }
+
     public String getPalabra() throws JuegoException
     {
         String retorno = this.palabraSeleccionada.getPalabra();
@@ -201,6 +208,7 @@ public class JuegoAhorcado
             else
             {
                 this.setLetrasJugadas(letraJugadaUpper);
+                this.juegoSinGuardar = true;
 
                 if(!this.palabraSeleccionada.getPalabra().contains(letraJugadaUpper))
                 {
@@ -283,8 +291,33 @@ public class JuegoAhorcado
         return (JuegoAhorcado) XML.cargar(archivoXML);
     }
 
+    public void guardarJuegoNuevo(String archivoXML) throws FileNotFoundException, ArchivoException
+    {
+        try
+        {
+            XML.guardarNuevo(archivoXML, this);
+            this.juegoSinGuardar = false;
+        }
+        catch (FileNotFoundException e)
+        {
+            throw new FileNotFoundException();
+        }
+        catch (ArchivoExisteException e)
+        {
+            throw new ArchivoExisteException(e.getMessage());
+        }
+    }
+
     public void guardarJuego(String archivoXML) throws FileNotFoundException
     {
-        XML.guardar(archivoXML, this);
+        try
+        {
+            XML.guardar(archivoXML, this);
+            this.juegoSinGuardar = false;
+        }
+        catch (FileNotFoundException e)
+        {
+            throw new FileNotFoundException();
+        }
     }
 }
