@@ -252,6 +252,10 @@ public class frmAhorcado extends javax.swing.JFrame
         {
             this.juego.arriesgarPalabra(palabra);
         }
+        catch (LetraJugadaException e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
+        }
         catch (JuegoException e)
         {
             if(e instanceof JuegoPerdidoException)
@@ -319,34 +323,37 @@ public class frmAhorcado extends javax.swing.JFrame
     
     private void jugarLetra()
     {
-        try
+        if(!this.juego.isJuegoFinalizado())
         {
-            this.juego.jugarLetra(this.cmbLetraJugada.getItemAt(this.cmbLetraJugada.getSelectedIndex()));
-            this.lblPalabra.setText(this.juego.getPalabra());
-            this.txtDefinicion.setText(this.juego.getDefinicion());
-        }
-        catch (LetraJugadaException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
-        }
-        catch (JuegoException e)
-        {
-            if(e instanceof JuegoPerdidoException)
+            try
             {
-                this.lblFilo.setVisible(false);
-                this.lblGuillotina.setIcon(new ImageIcon("imagenes\\guillotina3.jpg"));
+                this.juego.jugarLetra(this.cmbLetraJugada.getItemAt(this.cmbLetraJugada.getSelectedIndex()));
+                this.lblPalabra.setText(this.juego.getPalabra());
+                this.txtDefinicion.setText(this.juego.getDefinicion());
             }
-            this.lblPalabra.setText(this.juego.getPalabraSeleccionada().getPalabra());
-            this.btnJugarLetra.setEnabled(false);
-            this.btnArriesgarPalabra.setEnabled(false);
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
-        }
-        finally
-        {
-            this.lblFallosRestantes.setText("Fallos restantes: " + (this.juego.getFallosMaximos() - this.juego.getCantidadFallos()));
-            this.lblJugadasRealizadas.setText("Jugadas realizadas: " + this.juego.getCantidadJugadas());
-            this.lblLetrasJugadas.setText(this.juego.getLetrasJugadas());
-            this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + this.xFilo, this.lblGuillotina.getLocation().y + this.yFilo + (this.yFiloRatio * this.juego.getCantidadFallos()));
+            catch (LetraJugadaException e)
+            {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
+            }
+            catch (JuegoException e)
+            {
+                if(e instanceof JuegoPerdidoException)
+                {
+                    this.lblFilo.setVisible(false);
+                    this.lblGuillotina.setIcon(new ImageIcon("imagenes\\guillotina3.jpg"));
+                }
+                this.lblPalabra.setText(this.juego.getPalabraSeleccionada().getPalabra());
+                this.btnJugarLetra.setEnabled(false);
+                this.btnArriesgarPalabra.setEnabled(false);
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
+            }
+            finally
+            {
+                this.lblFallosRestantes.setText("Fallos restantes: " + (this.juego.getFallosMaximos() - this.juego.getCantidadFallos()));
+                this.lblJugadasRealizadas.setText("Jugadas realizadas: " + this.juego.getCantidadJugadas());
+                this.lblLetrasJugadas.setText(this.juego.getLetrasJugadas());
+                this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + this.xFilo, this.lblGuillotina.getLocation().y + this.yFilo + (this.yFiloRatio * this.juego.getCantidadFallos()));
+            }
         }
     }
     

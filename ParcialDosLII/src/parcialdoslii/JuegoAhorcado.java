@@ -229,21 +229,28 @@ public class JuegoAhorcado
         }
     }
     
-    public void arriesgarPalabra(String palabra) throws JuegoException
+    public void arriesgarPalabra(String palabra) throws LetraJugadaException, JuegoException
     {
         if(!palabra.isEmpty())
         {
-            if(palabra.equalsIgnoreCase(this.palabraSeleccionada.getPalabra()))
+            if(Palabra.existeCaracterEspecial(palabra))
             {
-                throw new JuegoGanadoException("FELICITACIONES!! GANASTE EL JUEGO");
+                throw new LetraJugadaException("ERROR. La palabra '" + palabra + "' contiene caracteres especiales");
             }
             else
             {
-                throw new JuegoPerdidoException("FUISTE DECAPITADO!!");
+                this.juegoFinalizado = true;
+
+                if(palabra.equalsIgnoreCase(this.palabraSeleccionada.getPalabra()))
+                {
+                    throw new JuegoGanadoException("FELICITACIONES!! GANASTE EL JUEGO");
+                }
+                else
+                {
+                    throw new JuegoPerdidoException("FUISTE DECAPITADO!!");
+                }
             }
         }
-        
-        this.juegoFinalizado = true;
     }
 
     public static void jugarPorConsola(JuegoAhorcado miJuego)
