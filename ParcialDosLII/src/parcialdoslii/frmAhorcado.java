@@ -40,8 +40,7 @@ public class frmAhorcado extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         lblPalabra = new javax.swing.JLabel();
         lblLetrasJugadas = new javax.swing.JLabel();
@@ -57,13 +56,22 @@ public class frmAhorcado extends javax.swing.JFrame
         jMenu1 = new javax.swing.JMenu();
         menJuegoGuardar = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Juego Ahorcado");
         setSize(new java.awt.Dimension(634, 466));
-        addWindowListener(new java.awt.event.WindowAdapter()
-        {
-            public void windowOpened(java.awt.event.WindowEvent evt)
-            {
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+                formWindowLostFocus(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
@@ -74,20 +82,16 @@ public class frmAhorcado extends javax.swing.JFrame
 
         lblLetrasJugadas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        cmbLetraJugada.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+        cmbLetraJugada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 cmbLetraJugadaKeyTyped(evt);
             }
         });
 
         btnJugarLetra.setText("Jugar Letra");
         btnJugarLetra.setFocusable(false);
-        btnJugarLetra.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnJugarLetra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnJugarLetraActionPerformed(evt);
             }
         });
@@ -107,10 +111,8 @@ public class frmAhorcado extends javax.swing.JFrame
         lblFallosRestantes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnArriesgarPalabra.setText("Arriesgar Palabra");
-        btnArriesgarPalabra.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnArriesgarPalabra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnArriesgarPalabraActionPerformed(evt);
             }
         });
@@ -119,10 +121,8 @@ public class frmAhorcado extends javax.swing.JFrame
 
         menJuegoGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         menJuegoGuardar.setText("Guardar");
-        menJuegoGuardar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        menJuegoGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menJuegoGuardarActionPerformed(evt);
             }
         });
@@ -210,9 +210,7 @@ public class frmAhorcado extends javax.swing.JFrame
         
         this.lblFallosRestantes.setText("Fallos restantes: " + (this.juego.getFallosMaximos() - this.juego.getCantidadFallos()));
         this.lblJugadasRealizadas.setText("Jugadas realizadas: " + this.juego.getCantidadJugadas());
-        this.lblGuillotina.setIcon(new ImageIcon("imagenes\\guillotina2.jpg"));
-        this.lblFilo.setIcon(new ImageIcon("imagenes\\filo.jpg"));
-        this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + this.xFilo, this.lblGuillotina.getLocation().y + this.yFilo + (this.yFiloRatio * this.juego.getCantidadFallos()));
+        this.dibujarImagenes();
         this.lblLetrasJugadas.setText(this.juego.getLetrasJugadas());
         
         try
@@ -260,8 +258,7 @@ public class frmAhorcado extends javax.swing.JFrame
         {
             if(e instanceof JuegoPerdidoException)
             {
-                this.lblFilo.setVisible(false);
-                this.lblGuillotina.setIcon(new ImageIcon("imagenes\\guillotina3.jpg"));
+                this.dibujarImagenes();
             }
             this.lblPalabra.setText(this.juego.getPalabraSeleccionada().getPalabra());
             this.btnJugarLetra.setEnabled(false);
@@ -270,13 +267,44 @@ public class frmAhorcado extends javax.swing.JFrame
         }
     }//GEN-LAST:event_btnArriesgarPalabraActionPerformed
 
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        this.dibujarImagenes();
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if(this.juego.isJuegoSinGuardar())
+        {
+            switch(JOptionPane.showConfirmDialog(null, "Desea guardar el juego antes de salir?", "Salir del Juego", JOptionPane.YES_NO_CANCEL_OPTION))
+            {
+                case JOptionPane.YES_OPTION:
+                    if(this.guardarJuego())
+                    {
+                        this.dispose();
+                    }
+                    break;
+                case JOptionPane.NO_OPTION:
+                    this.dispose();
+                    break;
+            }
+        }
+        else
+        {
+            this.dispose();
+        }
+    }//GEN-LAST:event_formWindowClosing
+
+    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
+        this.dibujarImagenes();
+    }//GEN-LAST:event_formWindowLostFocus
+
     private boolean guardarJuego()
     {
         boolean guardoJuego = false;
         
         if(!this.juego.isJuegoFinalizado() && this.juego.isJuegoSinGuardar())
         {
-            String nombreArchivo = JOptionPane.showInputDialog(null, "Ingrese nombre para el juego", "Guardar Juego", JOptionPane.INFORMATION_MESSAGE);
+            String nombreArchivo = XML.dialogo(true);
+            this.dibujarImagenes();
 
             try
             {
@@ -337,11 +365,11 @@ public class frmAhorcado extends javax.swing.JFrame
             }
             catch (JuegoException e)
             {
-                if(e instanceof JuegoPerdidoException)
+                /*if(e instanceof JuegoPerdidoException)
                 {
                     this.lblFilo.setVisible(false);
                     this.lblGuillotina.setIcon(new ImageIcon("imagenes\\guillotina3.jpg"));
-                }
+                }*/
                 this.lblPalabra.setText(this.juego.getPalabraSeleccionada().getPalabra());
                 this.btnJugarLetra.setEnabled(false);
                 this.btnArriesgarPalabra.setEnabled(false);
@@ -352,8 +380,24 @@ public class frmAhorcado extends javax.swing.JFrame
                 this.lblFallosRestantes.setText("Fallos restantes: " + (this.juego.getFallosMaximos() - this.juego.getCantidadFallos()));
                 this.lblJugadasRealizadas.setText("Jugadas realizadas: " + this.juego.getCantidadJugadas());
                 this.lblLetrasJugadas.setText(this.juego.getLetrasJugadas());
-                this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + this.xFilo, this.lblGuillotina.getLocation().y + this.yFilo + (this.yFiloRatio * this.juego.getCantidadFallos()));
+                //this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + this.xFilo, this.lblGuillotina.getLocation().y + this.yFilo + (this.yFiloRatio * this.juego.getCantidadFallos()));
+                this.dibujarImagenes();
             }
+        }
+    }
+    
+    private void dibujarImagenes()
+    {
+        if(this.juego.isJuegoFinalizado() && !this.juego.isJuegoGanado())
+        {
+            this.lblFilo.setVisible(false);
+            this.lblGuillotina.setIcon(new ImageIcon("imagenes\\guillotina3.jpg"));
+        }
+        else
+        {
+            this.lblGuillotina.setIcon(new ImageIcon("imagenes\\guillotina2.jpg"));
+            this.lblFilo.setIcon(new ImageIcon("imagenes\\filo.jpg"));
+            this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + this.xFilo, this.lblGuillotina.getLocation().y + this.yFilo + (this.yFiloRatio * this.juego.getCantidadFallos()));
         }
     }
     

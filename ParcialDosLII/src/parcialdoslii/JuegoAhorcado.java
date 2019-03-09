@@ -22,6 +22,7 @@ public class JuegoAhorcado
     private int fallosMinimosPermitidos;
     private String caracterMascara;
     private boolean juegoFinalizado;
+    private boolean juegoGanado;
     private boolean juegoSinGuardar;
     
     public JuegoAhorcado()
@@ -31,6 +32,7 @@ public class JuegoAhorcado
         this.fallosMinimosPermitidos = 5;
         this.juegoFinalizado = false;
         this.juegoSinGuardar = false;
+        this.juegoGanado = false;
     }
 
     public JuegoAhorcado(String caracterMascara, int fallosMaximos, Diccionario unDiccionario) throws DiccionarioVacioException
@@ -153,6 +155,11 @@ public class JuegoAhorcado
         return juegoSinGuardar;
     }
 
+    public boolean isJuegoGanado()
+    {
+        return juegoGanado;
+    }
+
     public String getPalabra() throws JuegoException
     {
         String retorno = this.palabraSeleccionada.getPalabra();
@@ -171,6 +178,7 @@ public class JuegoAhorcado
         if(!faltanLetras)
         {
             this.juegoFinalizado = true;
+            this.juegoGanado = true;
             throw new JuegoGanadoException("FELICITACIONES!! GANASTE EL JUEGO");
         }
         
@@ -302,7 +310,8 @@ public class JuegoAhorcado
         if (diccionario.getListaPalabras().isEmpty())
         {
             throw new DiccionarioVacioException("ERROR. El Diccionario esta vacío");
-        } else
+        }
+        else
         {
             indiceAleatorio = (int) (Math.random() * (diccionario.getListaPalabras().size()));
             unaPalabra = diccionario.getListaPalabras().get(indiceAleatorio);

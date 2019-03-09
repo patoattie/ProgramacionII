@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
 
 /**
  *
@@ -20,6 +22,19 @@ import java.io.FileOutputStream;
  */
 public class XML
 {
+    private static String directorio = "xml\\";
+    private static String extension = ".xml";
+
+    public static String getDirectorio()
+    {
+        return directorio;
+    }
+
+    public static String getExtension()
+    {
+        return extension;
+    }
+    
     public static Object cargar(String archivoXML) throws FileNotFoundException
     {
         FileInputStream fis = new FileInputStream(archivoXML);
@@ -33,7 +48,11 @@ public class XML
     {
         if(archivoXML != null && !archivoXML.isEmpty())
         {
-            String nombreArchivoXML = "xml\\" + archivoXML + ".xml";
+            String nombreArchivoXML = directorio + archivoXML;
+            if(!archivoXML.endsWith(extension))
+            {
+                nombreArchivoXML = nombreArchivoXML + extension;
+            }
             File f = new File(nombreArchivoXML);
 
             if(f.exists())
@@ -51,7 +70,12 @@ public class XML
 
     public static void guardar(String archivoXML, Object miObjeto) throws FileNotFoundException
     {
-        String nombreArchivoXML = "xml\\" + archivoXML + ".xml";
+        String nombreArchivoXML = directorio + archivoXML;
+        
+        if(!archivoXML.endsWith(extension))
+        {
+            nombreArchivoXML = nombreArchivoXML + extension;
+        }
 
         FileOutputStream fos = new FileOutputStream(nombreArchivoXML);
         BufferedOutputStream bos = new BufferedOutputStream(fos); 
@@ -59,5 +83,47 @@ public class XML
 
         encoder.writeObject(miObjeto);
         encoder.close();
+    }
+    
+    public static String dialogo(boolean guardar)
+    {
+        JFileChooser dialogo = new JFileChooser(directorio);
+        String retorno = "";
+        int seleccion;
+        FileFilter filtro = new FileFilter()
+        {
+            @Override
+            public boolean accept(File f)
+            {
+                return f.getName().endsWith(extension);
+            }
+
+            @Override
+            public String getDescription()
+            {
+                return "Archivo XML";
+            }
+        };
+
+        dialogo.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        dialogo.setFileFilter(filtro);
+        dialogo.setAcceptAllFileFilterUsed(false);
+        if(guardar)
+        {
+            dialogo.setDialogType(JFileChooser.SAVE_DIALOG);
+            seleccion = dialogo.showSaveDialog(null);
+        }
+        else
+        {
+            dialogo.setDialogType(JFileChooser.OPEN_DIALOG);
+            seleccion = dialogo.showOpenDialog(null);
+        }
+        
+        if(seleccion == JFileChooser.APPROVE_OPTION)
+        {
+            retorno = dialogo.getSelectedFile().getName();
+        }
+        
+        return retorno;
     }
 }
