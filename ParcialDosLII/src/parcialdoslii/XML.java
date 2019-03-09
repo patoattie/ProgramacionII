@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
 
 /**
@@ -22,29 +23,30 @@ import javax.swing.filechooser.FileFilter;
  */
 public class XML
 {
-    private static String directorio = "xml\\";
     private static String extension = ".xml";
-
-    public static String getDirectorio()
-    {
-        return directorio;
-    }
 
     public static String getExtension()
     {
         return extension;
     }
     
-    public static Object cargar(String archivoXML) throws FileNotFoundException
+    public static Object cargar(String directorio, String archivoXML) throws FileNotFoundException
     {
-        FileInputStream fis = new FileInputStream(archivoXML);
+        String nombreArchivoXML = directorio + archivoXML;
+        
+        if(!archivoXML.endsWith(extension))
+        {
+            nombreArchivoXML = nombreArchivoXML + extension;
+        }
+
+        FileInputStream fis = new FileInputStream(nombreArchivoXML);
         BufferedInputStream bis = new BufferedInputStream(fis);
         XMLDecoder decoder = new XMLDecoder(bis);
         
         return decoder.readObject();
     }
 
-    public static void guardarNuevo(String archivoXML, Object miObjeto) throws FileNotFoundException, ArchivoException
+    public static void guardarNuevo(String directorio, String archivoXML, Object miObjeto) throws FileNotFoundException, ArchivoException
     {
         if(archivoXML != null && !archivoXML.isEmpty())
         {
@@ -60,7 +62,7 @@ public class XML
                 throw new ArchivoExisteException("El archivo existe");
             }
 
-            guardar(archivoXML, miObjeto);
+            guardar(directorio, archivoXML, miObjeto);
         }
         else
         {
@@ -68,7 +70,7 @@ public class XML
         }
     }
 
-    public static void guardar(String archivoXML, Object miObjeto) throws FileNotFoundException
+    public static void guardar(String directorio, String archivoXML, Object miObjeto) throws FileNotFoundException
     {
         String nombreArchivoXML = directorio + archivoXML;
         
@@ -83,47 +85,5 @@ public class XML
 
         encoder.writeObject(miObjeto);
         encoder.close();
-    }
-    
-    public static String dialogo(boolean guardar)
-    {
-        JFileChooser dialogo = new JFileChooser(directorio);
-        String retorno = "";
-        int seleccion;
-        FileFilter filtro = new FileFilter()
-        {
-            @Override
-            public boolean accept(File f)
-            {
-                return f.getName().endsWith(extension);
-            }
-
-            @Override
-            public String getDescription()
-            {
-                return "Archivo XML";
-            }
-        };
-
-        dialogo.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        dialogo.setFileFilter(filtro);
-        dialogo.setAcceptAllFileFilterUsed(false);
-        if(guardar)
-        {
-            dialogo.setDialogType(JFileChooser.SAVE_DIALOG);
-            seleccion = dialogo.showSaveDialog(null);
-        }
-        else
-        {
-            dialogo.setDialogType(JFileChooser.OPEN_DIALOG);
-            seleccion = dialogo.showOpenDialog(null);
-        }
-        
-        if(seleccion == JFileChooser.APPROVE_OPTION)
-        {
-            retorno = dialogo.getSelectedFile().getName();
-        }
-        
-        return retorno;
     }
 }

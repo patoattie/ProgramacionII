@@ -303,12 +303,19 @@ public class frmAhorcado extends javax.swing.JFrame
         
         if(!this.juego.isJuegoFinalizado() && this.juego.isJuegoSinGuardar())
         {
-            String nombreArchivo = XML.dialogo(true);
+            dlgArchivo dialogo = new dlgArchivo(this, true, this.juego.getListaJuegos(), TipoDialogoEnum.GUARDAR);
+            dialogo.setTitle("Guardar Juego");
+            dialogo.setVisible(true);
+            
+            String nombreArchivo = dialogo.getArchivoSeleccionado();
             this.dibujarImagenes();
 
             try
             {
-                this.juego.guardarJuegoNuevo(nombreArchivo);
+                if(!dialogo.isDialogoCancelado())
+                {
+                    this.juego.guardarJuegoNuevo(nombreArchivo);
+                }
             }
             catch (FileNotFoundException e)
             {
@@ -340,6 +347,10 @@ public class frmAhorcado extends javax.swing.JFrame
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Guardar Juego", JOptionPane.ERROR_MESSAGE);
                 }
             }
+            finally
+            {
+                dialogo.dispose();
+            }
         }
         else
         {
@@ -355,7 +366,7 @@ public class frmAhorcado extends javax.swing.JFrame
         {
             try
             {
-                this.juego.jugarLetra(this.cmbLetraJugada.getItemAt(this.cmbLetraJugada.getSelectedIndex()));
+                this.juego.jugarLetra(this.cmbLetraJugada.getSelectedItem().toString());
                 this.lblPalabra.setText(this.juego.getPalabra());
                 this.txtDefinicion.setText(this.juego.getDefinicion());
             }

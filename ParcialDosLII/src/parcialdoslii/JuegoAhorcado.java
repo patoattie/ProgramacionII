@@ -5,14 +5,16 @@
  */
 package parcialdoslii;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.util.Scanner;
 
 /**
  *
  * @author pattie
  */
-public class JuegoAhorcado
+public class JuegoAhorcado implements FilenameFilter
 {
     private int fallosMaximos;
     private Palabra palabraSeleccionada;
@@ -24,6 +26,7 @@ public class JuegoAhorcado
     private boolean juegoFinalizado;
     private boolean juegoGanado;
     private boolean juegoSinGuardar;
+    private static String directorio = "juegos" + System.getProperty("file.separator");
     
     public JuegoAhorcado()
     {
@@ -58,6 +61,11 @@ public class JuegoAhorcado
             this.palabraSeleccionada = getPalabraAleatoria(unDiccionario);
             this.caracterMascara = caracterMascara;
         }
+    }
+
+    public static String getDirectorio()
+    {
+        return directorio;
     }
 
     public void setPalabraSeleccionada(Palabra palabraSeleccionada)
@@ -197,6 +205,13 @@ public class JuegoAhorcado
         return retorno;
     }
     
+    public String[] getListaJuegos()
+    {
+        File dir = new File(directorio);
+        
+        return dir.list(this);
+    }
+    
     public void jugarLetra(String letraJugada) throws LetraJugadaException, JuegoException
     {
         if(this.cantidadFallos < this.fallosMaximos)
@@ -321,14 +336,14 @@ public class JuegoAhorcado
 
     public static JuegoAhorcado cargarJuego(String archivoXML) throws FileNotFoundException
     {
-        return (JuegoAhorcado) XML.cargar(archivoXML);
+        return (JuegoAhorcado) XML.cargar(directorio, archivoXML);
     }
 
     public void guardarJuegoNuevo(String archivoXML) throws FileNotFoundException, ArchivoException
     {
         try
         {
-            XML.guardarNuevo(archivoXML, this);
+            XML.guardarNuevo(directorio, archivoXML, this);
             this.juegoSinGuardar = false;
         }
         catch (FileNotFoundException e)
@@ -345,12 +360,18 @@ public class JuegoAhorcado
     {
         try
         {
-            XML.guardar(archivoXML, this);
+            XML.guardar(directorio, archivoXML, this);
             this.juegoSinGuardar = false;
         }
         catch (FileNotFoundException e)
         {
             throw new FileNotFoundException();
         }
+    }
+
+    @Override
+    public boolean accept(File dir, String name)
+    {
+        return name.endsWith(XML.getExtension());
     }
 }

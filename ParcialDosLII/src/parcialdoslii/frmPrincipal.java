@@ -117,11 +117,18 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void menAhorcadoCargarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menAhorcadoCargarActionPerformed
     {//GEN-HEADEREND:event_menAhorcadoCargarActionPerformed
+        JuegoAhorcado juego = new JuegoAhorcado();
+        dlgArchivo dialogo = new dlgArchivo(this, true, juego.getListaJuegos(), TipoDialogoEnum.ABRIR);
+        dialogo.setTitle("Cargar Juego");
+        dialogo.setVisible(true);
+
+        String nombreArchivo = dialogo.getArchivoSeleccionado();
+        dialogo.dispose();
+
         try
         {
-            this.setEnabled(false);
-            JuegoAhorcado.jugarPorEntornoGrafico(JuegoAhorcado.cargarJuego("xml\\" + JOptionPane.showInputDialog(null, "Ingrese juego a cargar", "Cargar Juego", JOptionPane.INFORMATION_MESSAGE) + ".xml"));
-            this.setEnabled(true);
+            //JuegoAhorcado.jugarPorEntornoGrafico(JuegoAhorcado.cargarJuego("xml\\" + JOptionPane.showInputDialog(null, "Ingrese juego a cargar", "Cargar Juego", JOptionPane.INFORMATION_MESSAGE) + ".xml"));
+            JuegoAhorcado.jugarPorEntornoGrafico(JuegoAhorcado.cargarJuego(nombreArchivo));
         }
         catch (FileNotFoundException e)
         {

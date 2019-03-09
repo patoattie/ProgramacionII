@@ -5,16 +5,19 @@
  */
 package parcialdoslii;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 
 /**
  *
  * @author capacita_mecon
  */
-public class Diccionario implements java.io.Serializable
+public class Diccionario implements java.io.Serializable, FilenameFilter
 {
     private ArrayList<Palabra> listaPalabras;
+    private static String directorio = "diccionarios" + System.getProperty("file.separator");
 
     public Diccionario()
     {
@@ -25,6 +28,18 @@ public class Diccionario implements java.io.Serializable
     {
         this();
         this.listaPalabras = listaPalabras;
+    }
+
+    public static String getDirectorio()
+    {
+        return directorio;
+    }
+
+    public String[] getListaDiccionarios()
+    {
+        File dir = new File(directorio);
+        
+        return dir.list(this);
     }
     
     public boolean agregarPalabra(Palabra unaPalabra) throws ExistePalabraException
@@ -73,12 +88,12 @@ public class Diccionario implements java.io.Serializable
 
     public static Diccionario crearDiccionario(String archivoXML) throws FileNotFoundException
     {
-        return (Diccionario) XML.cargar(archivoXML);
+        return (Diccionario) XML.cargar(directorio, archivoXML);
     }
 
     public void grabarDiccionario(String archivoXML) throws FileNotFoundException
     {
-        XML.guardar(archivoXML, this);
+        XML.guardar(directorio, archivoXML, this);
     }
     
     public boolean existePalabra(Palabra unaPalabra)
@@ -95,6 +110,12 @@ public class Diccionario implements java.io.Serializable
         }
         
         return retorno;
+    }
+
+    @Override
+    public boolean accept(File dir, String name)
+    {
+        return name.endsWith(XML.getExtension());
     }
     
 }

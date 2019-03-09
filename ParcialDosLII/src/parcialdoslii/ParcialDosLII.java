@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 public class ParcialDosLII
 {
 
-    private static final String ARCHIVO_XML = "xml\\Diccionario.xml";
+    private static final String ARCHIVO_XML = "Diccionario.xml";
     /**
      * @param args the command line arguments
      */
