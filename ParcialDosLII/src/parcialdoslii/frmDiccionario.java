@@ -6,16 +6,17 @@
 package parcialdoslii;
 
 import java.awt.Component;
-import javax.swing.event.TableModelListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
 
 /**
  *
  * @author Sil y Pato
  */
-public class frmDiccionario extends javax.swing.JFrame implements TableModel{
+public class frmDiccionario extends javax.swing.JFrame {
 
     /**
      * Creates new form frmDiccionario
@@ -45,7 +46,26 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModel{
         setTitle("Diccionario");
 
         tablaPalabras.setAutoCreateRowSorter(true);
+        tablaPalabras.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         tablaPalabras.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tablaPalabras.getTableHeader().setReorderingAllowed(false);
+        tablaPalabras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaPalabrasMouseClicked(evt);
+            }
+        });
+        tablaPalabras.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tablaPalabrasKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaPalabras);
 
         txtDefinicion.setColumns(20);
@@ -84,6 +104,18 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModel{
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tablaPalabrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPalabrasMouseClicked
+        this.txtPalabra.setText((String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), 0));
+        this.txtDefinicion.setText((String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), 1));
+        
+    }//GEN-LAST:event_tablaPalabrasMouseClicked
+
+    private void tablaPalabrasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaPalabrasKeyPressed
+        this.txtPalabra.setText((String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), 0));
+        this.txtDefinicion.setText((String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), 1));
+
+    }//GEN-LAST:event_tablaPalabrasKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -93,109 +125,41 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModel{
     // End of variables declaration//GEN-END:variables
     private Diccionario diccionario;
     
-    @Override
-    public int getRowCount()
-    {
-        return this.diccionario.getCantidadPalabras();
-    }
-
-    @Override
-    public int getColumnCount()
-    {
-        return 2;
-    }
-
-    @Override
-    public String getColumnName(int columnIndex)
-    {
-        String nombreColumna = "";
-        
-        switch(columnIndex)
-        {
-            case 0:
-                nombreColumna = "Palabra";
-                break;
-            case 1:
-                nombreColumna = "Definición";
-                break;
-        }
-        
-        return nombreColumna;
-    }
-
-    @Override
-    public Class<?> getColumnClass(int columnIndex)
-    {
-        return this.tablaPalabras.getValueAt(0, columnIndex).getClass();
-    }
-
-    @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex)
-    {
-        return false;
-    }
-
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex)
-    {
-        Palabra palabra = this.diccionario.getListaPalabras().get(rowIndex);
-        String retorno = "";
-        
-        switch(columnIndex)
-        {
-            case 0:
-                retorno = palabra.getPalabra();
-                this.txtPalabra.setText(retorno);
-                break;
-            case 1:
-                retorno = palabra.getDefinicion();
-                this.txtDefinicion.setText(retorno);
-                break;
-        }
-
-        /*if(this.tablaPalabras.getSelectedRow() >= 0)
-        {
-            //this.txtPalabra.setText((String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), 0));
-            this.txtPalabra.setText(this.tablaPalabras.get);
-            this.txtDefinicion.setText((String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), 1));
-        }*/
-        
-        return retorno;
-    }
-
-    @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex)
-    {
-        /*try
-        {
-            this.diccionario.editarPalabra(rowIndex, (String) aValue);
-        }
-        catch (CaracterPalabraException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Editar Palabra", JOptionPane.ERROR_MESSAGE);
-        }*/
-    }
-
-    @Override
-    public void addTableModelListener(TableModelListener l) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void removeTableModelListener(TableModelListener l) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     private void inicializarTabla()
     {
-        this.tablaPalabras.setModel(this);
-        this.tablaPalabras.createDefaultColumnsFromModel();
-        this.tablaPalabras.getTableHeader().setResizingAllowed(true);
-        final TableColumnModel columnModel = this.tablaPalabras.getColumnModel();
+//        this.tablaPalabras.setModel(this);
+//        this.tablaPalabras.createDefaultColumnsFromModel();
+        String titulo[]={"Palabra","Definición"};
+        String fila[]=new String[2];
+        DefaultTableModel modeloTabla = new DefaultTableModel(titulo, 0)
+        {
+            @Override
+            public Class getColumnClass(int columnIndex)
+            {
+                return java.lang.String.class;
+            }
+            
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return false;
+            }
+        };
         
+        for (Palabra unaPalabra : this.diccionario.getListaPalabras())
+        {
+            fila[0] = unaPalabra.getPalabra();
+            fila[1] = unaPalabra.getDefinicion();
+            modeloTabla.addRow(fila);
+        }
+        
+        this.tablaPalabras.setModel(modeloTabla);
+        this.tablaPalabras.getTableHeader().setResizingAllowed(true);
+
         //Adapta ancho de columnas al contenido
         for (int column = 0; column < this.tablaPalabras.getColumnCount(); column++)
         {
+            final TableColumnModel columnModel = this.tablaPalabras.getColumnModel();
             int width = 15; // Min width
             for (int row = 0; row < this.tablaPalabras.getRowCount(); row++)
             {
@@ -209,7 +173,5 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModel{
             }
             columnModel.getColumn(column).setPreferredWidth(width);
         }
-
-        this.tablaPalabras.repaint();
     }
 }
