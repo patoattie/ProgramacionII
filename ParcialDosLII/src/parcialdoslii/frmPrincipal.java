@@ -127,8 +127,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         try
         {
-            //JuegoAhorcado.jugarPorEntornoGrafico(JuegoAhorcado.cargarJuego("xml\\" + JOptionPane.showInputDialog(null, "Ingrese juego a cargar", "Cargar Juego", JOptionPane.INFORMATION_MESSAGE) + ".xml"));
-            JuegoAhorcado.jugarPorEntornoGrafico(JuegoAhorcado.cargarJuego(nombreArchivo));
+            if(!dialogo.isDialogoCancelado())
+            {
+                //JuegoAhorcado.jugarPorEntornoGrafico(JuegoAhorcado.cargarJuego("xml\\" + JOptionPane.showInputDialog(null, "Ingrese juego a cargar", "Cargar Juego", JOptionPane.INFORMATION_MESSAGE) + ".xml"));
+                JuegoAhorcado.jugarPorEntornoGrafico(JuegoAhorcado.cargarJuego(nombreArchivo));
+            }
         }
         catch (FileNotFoundException e)
         {

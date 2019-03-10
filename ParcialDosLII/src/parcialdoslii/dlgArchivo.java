@@ -5,6 +5,8 @@
  */
 package parcialdoslii;
 
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -12,7 +14,7 @@ import java.awt.event.KeyListener;
  *
  * @author Sil y Pato
  */
-public class dlgArchivo extends javax.swing.JDialog implements KeyListener{
+public class dlgArchivo extends javax.swing.JDialog implements KeyEventDispatcher{
 
     /**
      * Creates new form dlgArchivo
@@ -24,6 +26,7 @@ public class dlgArchivo extends javax.swing.JDialog implements KeyListener{
         this.dialogoCancelado = false;
         initComponents();
         this.setComboEditable();
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
     }
 
     /**
@@ -125,7 +128,7 @@ public class dlgArchivo extends javax.swing.JDialog implements KeyListener{
     
     private void setComboEditable()
     {
-        this.cmbArchivos.getEditor().getEditorComponent().addKeyListener(this);
+        //this.cmbArchivos.getEditor().getEditorComponent().addKeyListener(this);
 
         if(this.tipoDialogo.equals(TipoDialogoEnum.ABRIR))
         {
@@ -153,29 +156,20 @@ public class dlgArchivo extends javax.swing.JDialog implements KeyListener{
     private boolean dialogoCancelado;
 
     @Override
-    public void keyTyped(KeyEvent e)
-    {
-        switch(e.getKeyChar())
-        {
-            case KeyEvent.VK_ESCAPE:
-                this.dialogoCancelado = true;
-                this.setVisible(false);
-                break;
-            case KeyEvent.VK_ENTER:
-                this.setVisible(false);
-                break;
+    public boolean dispatchKeyEvent(KeyEvent e) {
+        boolean keyHandled = false;
+        if (e.getID() == KeyEvent.KEY_TYPED) {
+            switch(e.getKeyChar())
+            {
+                case KeyEvent.VK_ESCAPE:
+                    this.dialogoCancelado = true;
+                    this.setVisible(false);
+                    break;
+                case KeyEvent.VK_ENTER:
+                    this.setVisible(false);
+                    break;
+            }
         }
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e)
-    {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e)
-    {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return keyHandled;
     }
 }
