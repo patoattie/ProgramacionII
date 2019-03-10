@@ -5,11 +5,14 @@
  */
 package parcialdoslii;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 /**
  *
  * @author Sil y Pato
  */
-public class dlgArchivo extends javax.swing.JDialog {
+public class dlgArchivo extends javax.swing.JDialog implements KeyListener{
 
     /**
      * Creates new form dlgArchivo
@@ -20,6 +23,7 @@ public class dlgArchivo extends javax.swing.JDialog {
         this.tipoDialogo = tipo;
         this.dialogoCancelado = false;
         initComponents();
+        this.setComboEditable();
     }
 
     /**
@@ -92,8 +96,6 @@ public class dlgArchivo extends javax.swing.JDialog {
         {
             this.cmbArchivos.addItem(listaArchivo);
         }
-
-        this.setComboEditable();
     }//GEN-LAST:event_formWindowOpened
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
@@ -123,6 +125,9 @@ public class dlgArchivo extends javax.swing.JDialog {
     
     private void setComboEditable()
     {
+        this.cmbArchivos.addKeyListener(this);
+        this.addKeyListener(this);
+
         if(this.tipoDialogo.equals(TipoDialogoEnum.ABRIR))
         {
             this.cmbArchivos.setEditable(false);
@@ -138,7 +143,7 @@ public class dlgArchivo extends javax.swing.JDialog {
     {
         return dialogoCancelado;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
@@ -147,4 +152,22 @@ public class dlgArchivo extends javax.swing.JDialog {
     private String[] listaArchivos;
     private TipoDialogoEnum tipoDialogo;
     private boolean dialogoCancelado;
+
+    @Override
+    public void keyTyped(KeyEvent e)
+    {
+        System.out.println(e.getKeyChar());
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e)
+    {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e)
+    {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
