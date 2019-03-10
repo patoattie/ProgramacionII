@@ -84,7 +84,7 @@ public class dlgArchivo extends javax.swing.JDialog implements KeyListener{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar))
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -125,8 +125,7 @@ public class dlgArchivo extends javax.swing.JDialog implements KeyListener{
     
     private void setComboEditable()
     {
-        this.cmbArchivos.addKeyListener(this);
-        this.addKeyListener(this);
+        this.cmbArchivos.getEditor().getEditorComponent().addKeyListener(this);
 
         if(this.tipoDialogo.equals(TipoDialogoEnum.ABRIR))
         {
@@ -156,7 +155,16 @@ public class dlgArchivo extends javax.swing.JDialog implements KeyListener{
     @Override
     public void keyTyped(KeyEvent e)
     {
-        System.out.println(e.getKeyChar());
+        switch(e.getKeyChar())
+        {
+            case KeyEvent.VK_ESCAPE:
+                this.dialogoCancelado = true;
+                this.setVisible(false);
+                break;
+            case KeyEvent.VK_ENTER:
+                this.setVisible(false);
+                break;
+        }
     }
 
     @Override
