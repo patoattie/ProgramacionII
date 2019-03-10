@@ -42,7 +42,7 @@ public class frmDiccionario extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDefinicion = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Diccionario");
 
         tablaPalabras.setAutoCreateRowSorter(true);
@@ -62,8 +62,8 @@ public class frmDiccionario extends javax.swing.JFrame {
             }
         });
         tablaPalabras.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tablaPalabrasKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tablaPalabrasKeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(tablaPalabras);
@@ -105,16 +105,12 @@ public class frmDiccionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tablaPalabrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPalabrasMouseClicked
-        this.txtPalabra.setText((String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), 0));
-        this.txtDefinicion.setText((String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), 1));
-        
+        this.completarDetalle(this.tablaPalabras.getSelectedRow());
     }//GEN-LAST:event_tablaPalabrasMouseClicked
 
-    private void tablaPalabrasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaPalabrasKeyPressed
-        this.txtPalabra.setText((String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), 0));
-        this.txtDefinicion.setText((String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), 1));
-
-    }//GEN-LAST:event_tablaPalabrasKeyPressed
+    private void tablaPalabrasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaPalabrasKeyReleased
+        this.completarDetalle(this.tablaPalabras.getSelectedRow());        
+    }//GEN-LAST:event_tablaPalabrasKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
@@ -169,9 +165,18 @@ public class frmDiccionario extends javax.swing.JFrame {
             }
             if(width > 1000)
             {
-                width=1000;
+                width = 1000;
             }
             columnModel.getColumn(column).setPreferredWidth(width);
         }
+        
+        this.tablaPalabras.setRowSelectionInterval(0, 0);
+        this.completarDetalle(0);
+    }
+    
+    private void completarDetalle(int fila)
+    {
+        this.txtPalabra.setText((String)this.tablaPalabras.getValueAt(fila, 0));
+        this.txtDefinicion.setText((String)this.tablaPalabras.getValueAt(fila, 1));
     }
 }
