@@ -8,7 +8,6 @@ package parcialdoslii;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 /**
  *
@@ -25,8 +24,9 @@ public class dlgArchivo extends javax.swing.JDialog implements KeyEventDispatche
         this.tipoDialogo = tipo;
         this.dialogoCancelado = false;
         initComponents();
+        this.llenarCombo();
         this.setComboEditable();
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
+        this.capturarEventosTeclado();
     }
 
     /**
@@ -44,11 +44,6 @@ public class dlgArchivo extends javax.swing.JDialog implements KeyEventDispatche
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
 
         btnAceptar.setText("Aceptar");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,13 +89,6 @@ public class dlgArchivo extends javax.swing.JDialog implements KeyEventDispatche
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        for (String listaArchivo : listaArchivos)
-        {
-            this.cmbArchivos.addItem(listaArchivo);
-        }
-    }//GEN-LAST:event_formWindowOpened
-
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_btnAceptarActionPerformed
@@ -128,8 +116,6 @@ public class dlgArchivo extends javax.swing.JDialog implements KeyEventDispatche
     
     private void setComboEditable()
     {
-        //this.cmbArchivos.getEditor().getEditorComponent().addKeyListener(this);
-
         if(this.tipoDialogo.equals(TipoDialogoEnum.ABRIR))
         {
             this.cmbArchivos.setEditable(false);
@@ -144,6 +130,19 @@ public class dlgArchivo extends javax.swing.JDialog implements KeyEventDispatche
     public boolean isDialogoCancelado()
     {
         return dialogoCancelado;
+    }
+    
+    private void capturarEventosTeclado()
+    {
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
+    }
+    
+    private void llenarCombo()
+    {
+        for (String listaArchivo : listaArchivos)
+        {
+            this.cmbArchivos.addItem(listaArchivo);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

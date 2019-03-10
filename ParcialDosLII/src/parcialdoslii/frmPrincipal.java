@@ -123,19 +123,21 @@ public class frmPrincipal extends javax.swing.JFrame {
         dialogo.setVisible(true);
 
         String nombreArchivo = dialogo.getArchivoSeleccionado();
-        dialogo.dispose();
 
         try
         {
             if(!dialogo.isDialogoCancelado())
             {
-                //JuegoAhorcado.jugarPorEntornoGrafico(JuegoAhorcado.cargarJuego("xml\\" + JOptionPane.showInputDialog(null, "Ingrese juego a cargar", "Cargar Juego", JOptionPane.INFORMATION_MESSAGE) + ".xml"));
                 JuegoAhorcado.jugarPorEntornoGrafico(JuegoAhorcado.cargarJuego(nombreArchivo));
             }
         }
         catch (FileNotFoundException e)
         {
             JOptionPane.showMessageDialog(null, "No existe el juego ingresado", "Cargar Juego", JOptionPane.ERROR_MESSAGE);
+        }
+        finally
+        {
+            dialogo.dispose();
         }
     }//GEN-LAST:event_menAhorcadoCargarActionPerformed
 
