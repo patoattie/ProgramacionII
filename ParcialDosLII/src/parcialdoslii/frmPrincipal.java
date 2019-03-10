@@ -30,14 +30,14 @@ public class frmPrincipal extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         menuPrincipal = new javax.swing.JMenuBar();
         menAhorcado = new javax.swing.JMenu();
         menAhorcadoNuevo = new javax.swing.JMenuItem();
         menAhorcadoCargar = new javax.swing.JMenuItem();
         menDiccionario = new javax.swing.JMenu();
+        menDiccionarioCargar = new javax.swing.JMenuItem();
         menSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -47,20 +47,16 @@ public class frmPrincipal extends javax.swing.JFrame {
         menAhorcado.setText("Ahorcado");
 
         menAhorcadoNuevo.setText("Nuevo");
-        menAhorcadoNuevo.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        menAhorcadoNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menAhorcadoNuevoActionPerformed(evt);
             }
         });
         menAhorcado.add(menAhorcadoNuevo);
 
         menAhorcadoCargar.setText("Cargar");
-        menAhorcadoCargar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        menAhorcadoCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menAhorcadoCargarActionPerformed(evt);
             }
         });
@@ -69,13 +65,20 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuPrincipal.add(menAhorcado);
 
         menDiccionario.setText("Diccionario");
+
+        menDiccionarioCargar.setText("Cargar");
+        menDiccionarioCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menDiccionarioCargarActionPerformed(evt);
+            }
+        });
+        menDiccionario.add(menDiccionarioCargar);
+
         menuPrincipal.add(menDiccionario);
 
         menSalir.setText("Salir");
-        menSalir.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        menSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 menSalirMouseClicked(evt);
             }
         });
@@ -141,11 +144,17 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menAhorcadoCargarActionPerformed
 
+    private void menDiccionarioCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menDiccionarioCargarActionPerformed
+        frmDiccionario diccionario = new frmDiccionario(this.diccionarioActivo);
+        diccionario.setVisible(true);
+    }//GEN-LAST:event_menDiccionarioCargarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu menAhorcado;
     private javax.swing.JMenuItem menAhorcadoCargar;
     private javax.swing.JMenuItem menAhorcadoNuevo;
     private javax.swing.JMenu menDiccionario;
+    private javax.swing.JMenuItem menDiccionarioCargar;
     private javax.swing.JMenu menSalir;
     private javax.swing.JMenuBar menuPrincipal;
     // End of variables declaration//GEN-END:variables
