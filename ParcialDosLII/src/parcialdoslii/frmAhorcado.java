@@ -40,7 +40,8 @@ public class frmAhorcado extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         lblPalabra = new javax.swing.JLabel();
         lblLetrasJugadas = new javax.swing.JLabel();
@@ -53,25 +54,31 @@ public class frmAhorcado extends javax.swing.JFrame
         lblGuillotina = new javax.swing.JLabel();
         btnArriesgarPalabra = new javax.swing.JButton();
         menuAhorcado = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menJuego = new javax.swing.JMenu();
         menJuegoGuardar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Juego Ahorcado");
         setSize(new java.awt.Dimension(634, 466));
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+        addWindowFocusListener(new java.awt.event.WindowFocusListener()
+        {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt)
+            {
                 formWindowGainedFocus(evt);
             }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            public void windowLostFocus(java.awt.event.WindowEvent evt)
+            {
                 formWindowLostFocus(evt);
             }
         });
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
+        addWindowListener(new java.awt.event.WindowAdapter()
+        {
+            public void windowClosing(java.awt.event.WindowEvent evt)
+            {
                 formWindowClosing(evt);
             }
-            public void windowOpened(java.awt.event.WindowEvent evt) {
+            public void windowOpened(java.awt.event.WindowEvent evt)
+            {
                 formWindowOpened(evt);
             }
         });
@@ -82,16 +89,20 @@ public class frmAhorcado extends javax.swing.JFrame
 
         lblLetrasJugadas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        cmbLetraJugada.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
+        cmbLetraJugada.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
                 cmbLetraJugadaKeyTyped(evt);
             }
         });
 
         btnJugarLetra.setText("Jugar Letra");
         btnJugarLetra.setFocusable(false);
-        btnJugarLetra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnJugarLetra.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnJugarLetraActionPerformed(evt);
             }
         });
@@ -111,24 +122,28 @@ public class frmAhorcado extends javax.swing.JFrame
         lblFallosRestantes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnArriesgarPalabra.setText("Arriesgar Palabra");
-        btnArriesgarPalabra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnArriesgarPalabra.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnArriesgarPalabraActionPerformed(evt);
             }
         });
 
-        jMenu1.setText("Juego");
+        menJuego.setText("Juego");
 
         menJuegoGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         menJuegoGuardar.setText("Guardar");
-        menJuegoGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menJuegoGuardar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 menJuegoGuardarActionPerformed(evt);
             }
         });
-        jMenu1.add(menJuegoGuardar);
+        menJuego.add(menJuegoGuardar);
 
-        menuAhorcado.add(jMenu1);
+        menuAhorcado.add(menJuego);
 
         setJMenuBar(menuAhorcado);
 
@@ -416,13 +431,13 @@ public class frmAhorcado extends javax.swing.JFrame
     private javax.swing.JButton btnArriesgarPalabra;
     private javax.swing.JButton btnJugarLetra;
     private javax.swing.JComboBox<String> cmbLetraJugada;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JLabel lblFallosRestantes;
     private javax.swing.JLabel lblFilo;
     private javax.swing.JLabel lblGuillotina;
     private javax.swing.JLabel lblJugadasRealizadas;
     private javax.swing.JLabel lblLetrasJugadas;
     private javax.swing.JLabel lblPalabra;
+    private javax.swing.JMenu menJuego;
     private javax.swing.JMenuItem menJuegoGuardar;
     private javax.swing.JMenuBar menuAhorcado;
     private javax.swing.JTextArea txtDefinicion;

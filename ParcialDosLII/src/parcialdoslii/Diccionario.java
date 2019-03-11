@@ -131,4 +131,33 @@ public class Diccionario implements java.io.Serializable, FilenameFilter
             throw e;
         }
     }
+    
+    public void editarDefinicion(int indice, String definicion) throws CaracterPalabraException
+    {
+        Palabra anterior = this.listaPalabras.get(indice);
+        try
+        {
+            this.listaPalabras.set(indice, new Palabra(anterior.getPalabra(), definicion));
+        }
+        catch (CaracterPalabraException e)
+        {
+            this.listaPalabras.set(indice, anterior);
+            throw e;
+        }
+    }
+    
+    public int buscarPalabra(String palabra)
+    {
+        int retorno = -1;
+        
+        for (Palabra unaPalabra : this.listaPalabras)
+        {
+            if(unaPalabra.getPalabra().equalsIgnoreCase(palabra))
+            {
+                retorno = this.listaPalabras.indexOf(unaPalabra);
+            }
+        }
+        
+        return retorno;
+    }
 }

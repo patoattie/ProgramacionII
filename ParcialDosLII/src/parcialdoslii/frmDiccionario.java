@@ -6,23 +6,54 @@
 package parcialdoslii;
 
 import java.awt.Component;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 /**
  *
  * @author Sil y Pato
  */
-public class frmDiccionario extends javax.swing.JFrame {
+public class frmDiccionario extends javax.swing.JFrame implements TableModelListener{
 
     /**
      * Creates new form frmDiccionario
      */
     public frmDiccionario(Diccionario diccionario) {
+        String titulo[] = {"Palabra", "Definición"};
         this.diccionario = diccionario;
+        this.modeloTablaInicial = new DefaultTableModel(titulo, 0)
+        {
+            @Override
+            public Class getColumnClass(int columnIndex)
+            {
+                return java.lang.String.class;
+            }
+            
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return columnIndex == 1;
+            }
+        };
+        this.modeloTablaAgregarFila = new DefaultTableModel(titulo, 0)
+        {
+            @Override
+            public Class getColumnClass(int columnIndex)
+            {
+                return java.lang.String.class;
+            }
+            
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return true;
+            }
+        };
         initComponents();
         this.inicializarTabla();
     }
@@ -34,35 +65,45 @@ public class frmDiccionario extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPalabras = new javax.swing.JTable();
         txtPalabra = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDefinicion = new javax.swing.JTextArea();
+        menuDiccionario = new javax.swing.JMenuBar();
+        menDiccionario = new javax.swing.JMenu();
+        menDiccionarioAgregar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Diccionario");
 
         tablaPalabras.setAutoCreateRowSorter(true);
         tablaPalabras.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
 
             }
         ));
         tablaPalabras.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tablaPalabras.getTableHeader().setReorderingAllowed(false);
-        tablaPalabras.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tablaPalabras.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 tablaPalabrasMouseClicked(evt);
             }
         });
-        tablaPalabras.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+        tablaPalabras.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
                 tablaPalabrasKeyReleased(evt);
             }
         });
@@ -73,6 +114,22 @@ public class frmDiccionario extends javax.swing.JFrame {
         txtDefinicion.setRows(5);
         txtDefinicion.setWrapStyleWord(true);
         jScrollPane2.setViewportView(txtDefinicion);
+
+        menDiccionario.setText("Diccionario");
+
+        menDiccionarioAgregar.setText("Agregar Palabra");
+        menDiccionarioAgregar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                menDiccionarioAgregarActionPerformed(evt);
+            }
+        });
+        menDiccionario.add(menDiccionarioAgregar);
+
+        menuDiccionario.add(menDiccionario);
+
+        setJMenuBar(menuDiccionario);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,7 +154,7 @@ public class frmDiccionario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -112,44 +169,44 @@ public class frmDiccionario extends javax.swing.JFrame {
         this.completarDetalle(this.tablaPalabras.getSelectedRow());        
     }//GEN-LAST:event_tablaPalabrasKeyReleased
 
+    private void menDiccionarioAgregarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menDiccionarioAgregarActionPerformed
+    {//GEN-HEADEREND:event_menDiccionarioAgregarActionPerformed
+        String fila[] = new String[2];
+        this.tablaPalabras.setModel(this.modeloTablaAgregarFila);
+        this.modeloTablaAgregarFila.
+    }//GEN-LAST:event_menDiccionarioAgregarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JMenu menDiccionario;
+    private javax.swing.JMenuItem menDiccionarioAgregar;
+    private javax.swing.JMenuBar menuDiccionario;
     private javax.swing.JTable tablaPalabras;
     private javax.swing.JTextArea txtDefinicion;
     private javax.swing.JTextField txtPalabra;
     // End of variables declaration//GEN-END:variables
     private Diccionario diccionario;
+    private DefaultTableModel modeloTablaInicial;
+    private DefaultTableModel modeloTablaAgregarFila;
     
     private void inicializarTabla()
     {
 //        this.tablaPalabras.setModel(this);
 //        this.tablaPalabras.createDefaultColumnsFromModel();
-        String titulo[]={"Palabra","Definición"};
-        String fila[]=new String[2];
-        DefaultTableModel modeloTabla = new DefaultTableModel(titulo, 0)
-        {
-            @Override
-            public Class getColumnClass(int columnIndex)
-            {
-                return java.lang.String.class;
-            }
-            
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
-                return false;
-            }
-        };
+        String fila[] = new String[2];
+        this.tablaPalabras.addColumn(new TableColumn());
+        this.tablaPalabras.addColumn(new TableColumn());
+        this.modeloTablaInicial.addTableModelListener(this);
         
         for (Palabra unaPalabra : this.diccionario.getListaPalabras())
         {
             fila[0] = unaPalabra.getPalabra();
             fila[1] = unaPalabra.getDefinicion();
-            modeloTabla.addRow(fila);
+            this.modeloTablaInicial.addRow(fila);
         }
         
-        this.tablaPalabras.setModel(modeloTabla);
+        this.tablaPalabras.setModel(this.modeloTablaInicial);
         this.tablaPalabras.getTableHeader().setResizingAllowed(true);
 
         //Adapta ancho de columnas al contenido
@@ -178,5 +235,26 @@ public class frmDiccionario extends javax.swing.JFrame {
     {
         this.txtPalabra.setText((String)this.tablaPalabras.getValueAt(fila, 0));
         this.txtDefinicion.setText((String)this.tablaPalabras.getValueAt(fila, 1));
+    }
+
+    @Override
+    public void tableChanged(TableModelEvent tme)
+    {
+        switch(tme.getType())
+        {
+            case TableModelEvent.UPDATE:
+                try
+                {
+                    String palabraTabla = (String) this.tablaPalabras.getValueAt(tme.getFirstRow(), 0);
+                    String definicionTabla = (String) this.tablaPalabras.getValueAt(tme.getFirstRow(), 1);
+                    this.diccionario.editarDefinicion(this.diccionario.buscarPalabra(palabraTabla), definicionTabla);
+                }
+                catch (CaracterPalabraException e)
+                {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Editar Diccionario", JOptionPane.ERROR_MESSAGE);
+                }
+
+                break;
+        }
     }
 }
