@@ -24,36 +24,21 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
      * Creates new form frmDiccionario
      */
     public frmDiccionario(Diccionario diccionario) {
-        String titulo[] = {"Palabra", "Definición"};
         this.diccionario = diccionario;
-        this.modeloTablaInicial = new DefaultTableModel(titulo, 0)
-        {
-            @Override
-            public Class getColumnClass(int columnIndex)
+        this.modeloTabla = new DefaultTableModel(0, 0)
             {
-                return java.lang.String.class;
-            }
-            
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
-                return columnIndex == 1;
-            }
-        };
-        this.modeloTablaAgregarFila = new DefaultTableModel(titulo, 0)
-        {
-            @Override
-            public Class getColumnClass(int columnIndex)
-            {
-                return java.lang.String.class;
-            }
-            
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
-                return true;
-            }
-        };
+                @Override
+                public boolean isCellEditable(int i, int i1)
+                {
+                    return true;
+                }
+                
+                @Override
+                 public Class<?> getColumnClass(int i)
+                {
+                    return String.class;
+                }
+            };
         initComponents();
         this.inicializarTabla();
     }
@@ -172,8 +157,7 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
     private void menDiccionarioAgregarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menDiccionarioAgregarActionPerformed
     {//GEN-HEADEREND:event_menDiccionarioAgregarActionPerformed
         String fila[] = new String[2];
-        this.tablaPalabras.setModel(this.modeloTablaAgregarFila);
-        this.modeloTablaAgregarFila.
+
     }//GEN-LAST:event_menDiccionarioAgregarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -187,26 +171,27 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
     private javax.swing.JTextField txtPalabra;
     // End of variables declaration//GEN-END:variables
     private Diccionario diccionario;
-    private DefaultTableModel modeloTablaInicial;
-    private DefaultTableModel modeloTablaAgregarFila;
+    private DefaultTableModel modeloTabla;
     
     private void inicializarTabla()
     {
 //        this.tablaPalabras.setModel(this);
 //        this.tablaPalabras.createDefaultColumnsFromModel();
+        String titulo[] = {"Palabra", "Definición"};
         String fila[] = new String[2];
         this.tablaPalabras.addColumn(new TableColumn());
         this.tablaPalabras.addColumn(new TableColumn());
-        this.modeloTablaInicial.addTableModelListener(this);
+        this.modeloTabla.setColumnIdentifiers(titulo);
+        this.modeloTabla.addTableModelListener(this);
         
         for (Palabra unaPalabra : this.diccionario.getListaPalabras())
         {
             fila[0] = unaPalabra.getPalabra();
             fila[1] = unaPalabra.getDefinicion();
-            this.modeloTablaInicial.addRow(fila);
+            this.modeloTabla.addRow(fila);
         }
         
-        this.tablaPalabras.setModel(this.modeloTablaInicial);
+        this.tablaPalabras.setModel(this.modeloTabla);
         this.tablaPalabras.getTableHeader().setResizingAllowed(true);
 
         //Adapta ancho de columnas al contenido
