@@ -22,7 +22,7 @@ public class Palabra
     
     public Palabra(String palabra) throws CaracterPalabraException
     {
-        this(palabra, "No se halló definición");
+        this(palabra, Palabra.validaDefinicion(""));
     }
 
     public Palabra()
@@ -36,6 +36,12 @@ public class Palabra
 
     public final void setPalabra(String palabra) throws CaracterPalabraException
     {
+        this.palabra = Palabra.validaPalabra(palabra);
+    }
+    
+    public static String validaPalabra(String palabra) throws CaracterPalabraException
+    {
+        String palabraValidada;
         //if(palabra.matches("[^A-Za-z]")) //La palabra no puede contener caracteres que no sean letras
         if(Palabra.existeCaracterEspecial(palabra)) //La palabra no puede contener caracteres que no sean letras
         {
@@ -43,8 +49,26 @@ public class Palabra
         }
         else
         {
-            this.palabra = palabra.toUpperCase();
+            palabraValidada = palabra.toUpperCase();
         }
+        
+        return palabraValidada;
+    }
+    
+    public static String validaDefinicion(String definicion)
+    {
+        String definicionValidada;
+        
+        if(definicion.isEmpty())
+        {
+            definicionValidada = "No se halló definición";
+        }
+        else
+        {
+            definicionValidada = definicion;
+        }
+        
+        return definicionValidada;
     }
 
     public String getDefinicion()
@@ -54,7 +78,7 @@ public class Palabra
 
     public final void setDefinicion(String definicion)
     {
-        this.definicion = definicion;
+        this.definicion = Palabra.validaDefinicion(definicion);
     }
 
     @Override
