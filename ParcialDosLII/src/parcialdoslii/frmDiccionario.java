@@ -11,7 +11,6 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 /**
@@ -25,12 +24,12 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
      */
     public frmDiccionario(Diccionario diccionario) {
         this.diccionario = diccionario;
-        this.modeloTabla = new DefaultTableModel(0, 0)
+        this.modeloTabla = new DefaultTableModel(0, 3)
             {
                 @Override
                 public boolean isCellEditable(int i, int i1)
                 {
-                    return true;
+                    return i1 == 1 || (i1 == 0 && (String)this.getValueAt(i, 2) == "S");
                 }
                 
                 @Override
@@ -50,8 +49,7 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPalabras = new javax.swing.JTable();
@@ -67,33 +65,30 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
 
         tablaPalabras.setAutoCreateRowSorter(true);
         tablaPalabras.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
 
             }
         ));
         tablaPalabras.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tablaPalabras.getTableHeader().setReorderingAllowed(false);
-        tablaPalabras.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        tablaPalabras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaPalabrasMouseClicked(evt);
             }
         });
-        tablaPalabras.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
+        tablaPalabras.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
                 tablaPalabrasKeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(tablaPalabras);
 
+        txtPalabra.setEditable(false);
+
+        txtDefinicion.setEditable(false);
         txtDefinicion.setColumns(20);
         txtDefinicion.setLineWrap(true);
         txtDefinicion.setRows(5);
@@ -103,10 +98,8 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
         menDiccionario.setText("Diccionario");
 
         menDiccionarioAgregar.setText("Agregar Palabra");
-        menDiccionarioAgregar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        menDiccionarioAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menDiccionarioAgregarActionPerformed(evt);
             }
         });
@@ -156,8 +149,9 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
 
     private void menDiccionarioAgregarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menDiccionarioAgregarActionPerformed
     {//GEN-HEADEREND:event_menDiccionarioAgregarActionPerformed
-        String fila[] = new String[2];
-
+        String fila[] = new String[3];
+        fila[2] = "S";
+        this.modeloTabla.addRow(fila);
     }//GEN-LAST:event_menDiccionarioAgregarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -177,21 +171,25 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
     {
 //        this.tablaPalabras.setModel(this);
 //        this.tablaPalabras.createDefaultColumnsFromModel();
-        String titulo[] = {"Palabra", "Definición"};
-        String fila[] = new String[2];
-        this.tablaPalabras.addColumn(new TableColumn());
-        this.tablaPalabras.addColumn(new TableColumn());
+        String titulo[] = {"Palabra", "Definición", ""};
+        String fila[] = new String[3];
+//        this.tablaPalabras.addColumn(new TableColumn());
+//        this.tablaPalabras.addColumn(new TableColumn());
+//        this.tablaPalabras.addColumn(new TableColumn());
         this.modeloTabla.setColumnIdentifiers(titulo);
         this.modeloTabla.addTableModelListener(this);
+        this.tablaPalabras.setModel(this.modeloTabla);
         
         for (Palabra unaPalabra : this.diccionario.getListaPalabras())
         {
             fila[0] = unaPalabra.getPalabra();
             fila[1] = unaPalabra.getDefinicion();
+            fila[2] = "N";
             this.modeloTabla.addRow(fila);
+            //JOptionPane.showMessageDialog(null, this.tablaPalabras.getRowCount(), "Prueba", JOptionPane.INFORMATION_MESSAGE);
+            this.modeloTabla.setValueAt("N", this.tablaPalabras.getRowCount() - 1, 2);
         }
         
-        this.tablaPalabras.setModel(this.modeloTabla);
         this.tablaPalabras.getTableHeader().setResizingAllowed(true);
 
         //Adapta ancho de columnas al contenido
@@ -212,6 +210,9 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
             columnModel.getColumn(column).setPreferredWidth(width);
         }
         
+        this.tablaPalabras.getColumnModel().getColumn(2).setMinWidth(1);
+        this.tablaPalabras.getColumnModel().getColumn(2).setPreferredWidth(0);
+        this.tablaPalabras.getColumnModel().getColumn(2).setResizable(false);
         this.tablaPalabras.setRowSelectionInterval(0, 0);
         this.completarDetalle(0);
     }
