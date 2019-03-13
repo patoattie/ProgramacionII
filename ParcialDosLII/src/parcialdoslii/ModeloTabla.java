@@ -48,4 +48,7 @@ public abstract class ModeloTabla extends DefaultTableModel
 
     @Override
     public abstract Class<?> getColumnClass(int i);
+
+    /*@Override
+    public abstract void setValueAt(Object aValue, int rowIndex, int columnIndex);*/
 }

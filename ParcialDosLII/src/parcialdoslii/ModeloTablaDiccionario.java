@@ -5,6 +5,8 @@
  */
 package parcialdoslii;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author pattie
@@ -73,4 +75,29 @@ public class ModeloTablaDiccionario extends ModeloTabla
     {
         return String.class;
     }
+     
+    /*@Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex)
+    {
+                    if(columnIndex == ModeloTablaDiccionario.getCOL_PALABRA())
+                    {
+                        try
+                        {
+                            aValue = Palabra.validaPalabra((String)aValue);
+                            if(this.getValueAt(rowIndex, ModeloTablaDiccionario.getCOL_ESTADO()) == ModeloTablaDiccionario.getINSERTA())
+                            {
+                                this.setValueAt(Palabra.validaDefinicion(""), rowIndex, ModeloTablaDiccionario.getCOL_DEFINICION());
+                            }
+                        }
+                        catch (CaracterPalabraException e)
+                        {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Editar Diccionario", JOptionPane.ERROR_MESSAGE);
+                            //this.tablaPalabras.getCellEditor(this.tablaPalabras.getEditingRow(), this.tablaPalabras.getEditingColumn()).cancelCellEditing();
+                        }
+                    }
+                    else if(columnIndex == ModeloTablaDiccionario.getCOL_DEFINICION())
+                    {
+                        aValue = Palabra.validaDefinicion((String)aValue);
+                    }
+    }*/
 }

@@ -7,19 +7,20 @@ package parcialdoslii;
 
 import java.awt.Component;
 import javax.swing.DefaultCellEditor;
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import javax.swing.plaf.basic.BasicBorders;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
-import javax.swing.tree.DefaultTreeCellEditor;
 
 /**
  *
  * @author Sil y Pato
  */
-public class frmDiccionario extends javax.swing.JFrame implements TableModelListener{
+public class frmDiccionario extends javax.swing.JFrame implements TableModelListener {
 
     /**
      * Creates new form frmDiccionario
@@ -27,6 +28,8 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
     public frmDiccionario(Diccionario diccionario) {
         this.diccionario = diccionario;
         this.modeloTabla = new ModeloTablaDiccionario(0, 3);
+        this.campoValidado = false;
+        this.campoErroneo = false;
         initComponents();
         this.inicializarTabla();
     }
@@ -150,6 +153,7 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
         String fila[] = new String[this.tablaPalabras.getColumnCount()];
         fila[ModeloTablaDiccionario.getCOL_ESTADO()] = ModeloTabla.getINSERTA();
         this.modeloTabla.addRow(fila);
+        this.tablaPalabras.editCellAt(0, ModeloTablaDiccionario.getCOL_PALABRA());
     }//GEN-LAST:event_menDiccionarioAgregarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -164,14 +168,63 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
     // End of variables declaration//GEN-END:variables
     private Diccionario diccionario;
     private ModeloTablaDiccionario modeloTabla;
+    private boolean campoValidado; //Flag para que no se llame infinitas veces el evento UPDATE de tableChanged cuando invoco a SetValueAt en las validaciones de datos.
+    private boolean campoErroneo;
     
     private void inicializarTabla()
     {
+        final InputVerifier iv = new InputVerifier()
+        {
+
+            @Override
+            public boolean verify(JComponent input)
+            {
+                JTextField field = (JTextField) input;
+                return field.getText().length() > 8;
+            }
+
+            @Override
+            public boolean shouldYieldFocus(JComponent input)
+            {
+                boolean valid = verify(input);
+                if (!valid) {
+                    JOptionPane.showMessageDialog(null, "invalid");
+                }
+                return valid;
+            }
+        };
+        
+        DefaultCellEditor editor = new DefaultCellEditor(new JTextField())
+        {
+            {
+                getComponent().setInputVerifier(iv);
+            }
+
+            @Override
+            public boolean stopCellEditing()
+            {
+                if (!iv.shouldYieldFocus(getComponent()))
+                {
+                    return false;
+                }
+                
+                return super.stopCellEditing();
+            }
+
+            @Override
+            public JTextField getComponent()
+            {
+                return (JTextField) super.getComponent();
+            }
+
+        };
+        
         this.tablaPalabras.setModel(this.modeloTabla);
         String titulo[] = {"Palabra", "Definición", ""};
         String fila[] = new String[this.tablaPalabras.getColumnCount()];
         this.modeloTabla.setColumnIdentifiers(titulo);
         this.modeloTabla.addTableModelListener(this);
+        this.tablaPalabras.setDefaultEditor(Object.class, editor);
         
         for (Palabra unaPalabra : this.diccionario.getListaPalabras())
         {
@@ -221,20 +274,37 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
         switch(tme.getType())
         {
             case TableModelEvent.UPDATE:
-                if(tme.getColumn() == ModeloTablaDiccionario.getCOL_PALABRA())
+                if(!this.campoValidado)
                 {
-                    try
+                    if(tme.getColumn() == ModeloTablaDiccionario.getCOL_PALABRA())
                     {
-                        this.tablaPalabras.setValueAt(Palabra.validaPalabra((String)this.tablaPalabras.getValueAt(tme.getFirstRow(), ModeloTablaDiccionario.getCOL_PALABRA())), tme.getFirstRow(), ModeloTablaDiccionario.getCOL_PALABRA());
+                        try
+                        {
+                            this.campoValidado = true;
+                            this.tablaPalabras.setValueAt(Palabra.validaPalabra((String)this.tablaPalabras.getValueAt(this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_PALABRA())), this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_PALABRA());
+                            if(this.tablaPalabras.getValueAt(this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_ESTADO()) == ModeloTablaDiccionario.getINSERTA())
+                            {
+                                this.tablaPalabras.setValueAt(Palabra.validaDefinicion(""), this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_DEFINICION());
+                            }
+                        }
+                        catch (CaracterPalabraException e)
+                        {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Editar Diccionario", JOptionPane.ERROR_MESSAGE);
+                            this.campoErroneo = true;
+                            //this.tablaPalabras.editCellAt(this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_PALABRA());
+                            //this.tablaPalabras.getCellEditor(this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_PALABRA()).stopCellEditing();
+                            this.tablaPalabras.setCellEditor(new DefaultCellEditor(new JTextField()));
+                        }
                     }
-                    catch (CaracterPalabraException e)
+                    else if(tme.getColumn() == ModeloTablaDiccionario.getCOL_DEFINICION())
                     {
-                        JOptionPane.showMessageDialog(null, e.getMessage(), "Editar Diccionario", JOptionPane.ERROR_MESSAGE);
+                        this.campoValidado = true;
+                        this.tablaPalabras.setValueAt(Palabra.validaDefinicion((String)this.tablaPalabras.getValueAt(this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_DEFINICION())), this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_DEFINICION());
                     }
                 }
-                else if(tme.getColumn() == ModeloTablaDiccionario.getCOL_DEFINICION())
+                else
                 {
-                    this.tablaPalabras.setValueAt(Palabra.validaDefinicion((String)this.tablaPalabras.getValueAt(tme.getFirstRow(), ModeloTablaDiccionario.getCOL_DEFINICION())), tme.getFirstRow(), ModeloTablaDiccionario.getCOL_DEFINICION());
+                    this.campoValidado = false;
                 }
 
                 break;
