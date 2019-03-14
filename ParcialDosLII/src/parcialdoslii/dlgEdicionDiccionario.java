@@ -167,7 +167,7 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
             String c = evt.getOppositeComponent().getName();
             this.validarPalabra(this.txtPalabra.getText());
         }
-        catch(NullPointerException e)
+        catch(NullPointerException e) //Cuando el objeto anterior es un JOptionPane, el método getOppositeComponent() lanza NullPointerException.
         {
         }
         

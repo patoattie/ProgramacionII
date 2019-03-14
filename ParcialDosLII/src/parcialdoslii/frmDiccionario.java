@@ -6,8 +6,6 @@
 package parcialdoslii;
 
 import java.awt.Component;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
@@ -24,8 +22,7 @@ public class frmDiccionario extends javax.swing.JFrame {
     public frmDiccionario(Diccionario diccionario) {
         this.diccionario = diccionario;
         this.modeloTabla = new ModeloTablaDiccionario(0, 3);
-//        this.campoValidado = false;
-//        this.campoErroneo = false;
+        this.modeloFilas = new ModeloFilas(ModeloTablaDiccionario.getCOL_ESTADO());
         initComponents();
         this.inicializarTabla();
     }
@@ -148,11 +145,11 @@ public class frmDiccionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tablaPalabrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPalabrasMouseClicked
-        this.completarDetalle(this.tablaPalabras.getSelectedRow());
+        this.completarDetalle();
     }//GEN-LAST:event_tablaPalabrasMouseClicked
 
     private void tablaPalabrasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaPalabrasKeyReleased
-        this.completarDetalle(this.tablaPalabras.getSelectedRow());        
+        this.completarDetalle();        
     }//GEN-LAST:event_tablaPalabrasKeyReleased
 
     private void menDiccionarioAgregarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menDiccionarioAgregarActionPerformed
@@ -167,7 +164,7 @@ public class frmDiccionario extends javax.swing.JFrame {
             fila[ModeloTablaDiccionario.getCOL_PALABRA()] = dialogo.getTxtPalabra();
             fila[ModeloTablaDiccionario.getCOL_DEFINICION()] = dialogo.getTxtDefinicion();
             this.modeloTabla.addRow(fila);
-            this.completarDetalle(this.tablaPalabras.getSelectedRow());
+            this.completarDetalle();
         }
         
         dialogo.dispose();
@@ -175,31 +172,41 @@ public class frmDiccionario extends javax.swing.JFrame {
 
     private void menDiccionarioEditarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menDiccionarioEditarActionPerformed
     {//GEN-HEADEREND:event_menDiccionarioEditarActionPerformed
-        String palabra = (String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_PALABRA());
-        String definicion = (String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_DEFINICION());
-        String estado = ModeloTablaDiccionario.getACTUALIZA();
-        dlgEdicionDiccionario dialogo = null;
+        String palabra = this.getPalabraSeleccionada();
+        String definicion = this.getDefinicionSeleccionada();
+        String estado = this.getEstadoSeleccionado();
         
-        try
+        if(!estado.equals(ModeloTablaDiccionario.getBORRA()))
         {
-            dialogo = new dlgEdicionDiccionario(this, true, new Palabra(palabra, definicion), estado, this.diccionario);
+            dlgEdicionDiccionario dialogo = null;
+
+            if(estado.equals(ModeloTablaDiccionario.getSIN_CAMBIOS()))
+            {
+                estado = ModeloTablaDiccionario.getACTUALIZA();
+            }
+
+            try
+            {
+                dialogo = new dlgEdicionDiccionario(this, true, new Palabra(palabra, definicion), estado, this.diccionario);
+            }
+            catch (CaracterPalabraException e)
+            {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Editar Palabra", JOptionPane.ERROR_MESSAGE);
+            }
+            dialogo.setVisible(true);
+
+            if(!dialogo.isDialogoCancelado())
+            {
+                palabra = dialogo.getTxtPalabra();
+                definicion = dialogo.getTxtDefinicion();
+                this.tablaPalabras.setValueAt(palabra, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_PALABRA());
+                this.tablaPalabras.setValueAt(definicion, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_DEFINICION());
+                this.tablaPalabras.setValueAt(estado, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_ESTADO());
+                this.completarDetalle();
+            }
+
+            dialogo.dispose();
         }
-        catch (CaracterPalabraException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Editar Palabra", JOptionPane.ERROR_MESSAGE);
-        }
-        dialogo.setVisible(true);
-        
-        if(!dialogo.isDialogoCancelado())
-        {
-            palabra = dialogo.getTxtPalabra();
-            definicion = dialogo.getTxtDefinicion();
-            this.tablaPalabras.setValueAt(palabra, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_PALABRA());
-            this.tablaPalabras.setValueAt(definicion, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_DEFINICION());
-            this.completarDetalle(this.tablaPalabras.getSelectedRow());
-        }
-        
-        dialogo.dispose();
     }//GEN-LAST:event_menDiccionarioEditarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -215,12 +222,12 @@ public class frmDiccionario extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private Diccionario diccionario;
     private ModeloTablaDiccionario modeloTabla;
-//    private boolean campoValidado; //Flag para que no se llame infinitas veces el evento UPDATE de tableChanged cuando invoco a SetValueAt en las validaciones de datos.
-//    private boolean campoErroneo;
+    private ModeloFilas modeloFilas;
     
     private void inicializarTabla()
     {
         this.tablaPalabras.setModel(this.modeloTabla);
+        this.tablaPalabras.setDefaultRenderer(Object.class, this.modeloFilas);
         String titulo[] = {"Palabra", "Definición", ""};
         String fila[] = new String[this.tablaPalabras.getColumnCount()];
         this.modeloTabla.setColumnIdentifiers(titulo);
@@ -260,55 +267,31 @@ public class frmDiccionario extends javax.swing.JFrame {
         this.tablaPalabras.getColumnModel().getColumn(ModeloTablaDiccionario.getCOL_ESTADO()).setResizable(false);
         this.tablaPalabras.getRowSorter().toggleSortOrder(ModeloTablaDiccionario.getCOL_PALABRA());
         this.tablaPalabras.setRowSelectionInterval(0, 0);
-        this.completarDetalle(0);
+        this.completarDetalle();
     }
     
-    private void completarDetalle(int fila)
+    private void completarDetalle()
     {
-        this.txtPalabra.setText((String)this.tablaPalabras.getValueAt(fila, ModeloTablaDiccionario.getCOL_PALABRA()));
-        this.txtDefinicion.setText((String)this.tablaPalabras.getValueAt(fila, ModeloTablaDiccionario.getCOL_DEFINICION()));
+        this.txtPalabra.setText(this.getPalabraSeleccionada());
+        this.txtDefinicion.setText(this.getDefinicionSeleccionada());
+        
+        //Si la fila está borrada no la puedo editar
+        this.menDiccionarioEditar.setEnabled(!this.getEstadoSeleccionado().equals(ModeloTablaDiccionario.getBORRA()));
+        //JOptionPane.showMessageDialog(null, this.getEstadoSeleccionado(), "Prueba", 1);
+    }
+    
+    private String getPalabraSeleccionada()
+    {
+        return (String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_PALABRA());
     }
 
-    /*@Override
-    public void tableChanged(TableModelEvent tme)
+    private String getDefinicionSeleccionada()
     {
-        switch(tme.getType())
-        {
-            case TableModelEvent.UPDATE:
-                if(!this.campoValidado)
-                {
-                    if(tme.getColumn() == ModeloTablaDiccionario.getCOL_PALABRA())
-                    {
-                        try
-                        {
-                            this.campoValidado = true;
-                            this.tablaPalabras.setValueAt(Palabra.validaPalabra((String)this.tablaPalabras.getValueAt(this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_PALABRA())), this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_PALABRA());
-                            if(this.tablaPalabras.getValueAt(this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_ESTADO()) == ModeloTablaDiccionario.getINSERTA())
-                            {
-                                this.tablaPalabras.setValueAt(Palabra.validaDefinicion(""), this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_DEFINICION());
-                            }
-                        }
-                        catch (CaracterPalabraException e)
-                        {
-                            JOptionPane.showMessageDialog(null, e.getMessage(), "Editar Diccionario", JOptionPane.ERROR_MESSAGE);
-                            this.campoErroneo = true;
-                            //this.tablaPalabras.editCellAt(this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_PALABRA());
-                            //this.tablaPalabras.getCellEditor(this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_PALABRA()).stopCellEditing();
-                            this.tablaPalabras.setCellEditor(new DefaultCellEditor(new JTextField()));
-                        }
-                    }
-                    else if(tme.getColumn() == ModeloTablaDiccionario.getCOL_DEFINICION())
-                    {
-                        this.campoValidado = true;
-                        this.tablaPalabras.setValueAt(Palabra.validaDefinicion((String)this.tablaPalabras.getValueAt(this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_DEFINICION())), this.tablaPalabras.getEditingRow(), ModeloTablaDiccionario.getCOL_DEFINICION());
-                    }
-                }
-                else
-                {
-                    this.campoValidado = false;
-                }
+        return (String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_DEFINICION());
+    }
 
-                break;
-        }
-    }*/
+    private String getEstadoSeleccionado()
+    {
+        return (String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_ESTADO());
+    }
 }
