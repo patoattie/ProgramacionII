@@ -54,7 +54,7 @@ public class ModeloTablaDiccionario extends ModeloTabla
     {
         boolean esEditable = false;
         
-        switch(columna)
+        /*switch(columna)
         {
             case ModeloTablaDiccionario.COL_PALABRA:
                 if(((String)this.getValueAt(fila, ModeloTablaDiccionario.COL_ESTADO)).equalsIgnoreCase(ModeloTabla.getINSERTA()))
@@ -65,7 +65,7 @@ public class ModeloTablaDiccionario extends ModeloTabla
             case ModeloTablaDiccionario.COL_DEFINICION:
                 esEditable = true;
                 break;
-        }
+        }*/
         
         return esEditable;
     }

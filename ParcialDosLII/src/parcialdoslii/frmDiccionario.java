@@ -6,13 +6,6 @@
 package parcialdoslii;
 
 import java.awt.Component;
-import javax.swing.DefaultCellEditor;
-import javax.swing.InputVerifier;
-import javax.swing.JComponent;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
@@ -20,7 +13,7 @@ import javax.swing.table.TableColumnModel;
  *
  * @author Sil y Pato
  */
-public class frmDiccionario extends javax.swing.JFrame implements TableModelListener {
+public class frmDiccionario extends javax.swing.JFrame {
 
     /**
      * Creates new form frmDiccionario
@@ -28,8 +21,8 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
     public frmDiccionario(Diccionario diccionario) {
         this.diccionario = diccionario;
         this.modeloTabla = new ModeloTablaDiccionario(0, 3);
-        this.campoValidado = false;
-        this.campoErroneo = false;
+//        this.campoValidado = false;
+//        this.campoErroneo = false;
         initComponents();
         this.inicializarTabla();
     }
@@ -151,9 +144,17 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
     private void menDiccionarioAgregarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menDiccionarioAgregarActionPerformed
     {//GEN-HEADEREND:event_menDiccionarioAgregarActionPerformed
         String fila[] = new String[this.tablaPalabras.getColumnCount()];
-        fila[ModeloTablaDiccionario.getCOL_ESTADO()] = ModeloTabla.getINSERTA();
-        this.modeloTabla.addRow(fila);
-        this.tablaPalabras.editCellAt(0, ModeloTablaDiccionario.getCOL_PALABRA());
+        dlgEdicionDiccionario dialogo = new dlgEdicionDiccionario(this, true, new Palabra(), ModeloTabla.getINSERTA(), this.diccionario);
+        dialogo.setVisible(true);
+        
+        if(!dialogo.isDialogoCancelado())
+        {
+            fila[ModeloTablaDiccionario.getCOL_ESTADO()] = ModeloTabla.getINSERTA();
+            this.modeloTabla.addRow(fila);
+            this.tablaPalabras.editCellAt(0, ModeloTablaDiccionario.getCOL_PALABRA());
+        }
+        
+        dialogo.dispose();
     }//GEN-LAST:event_menDiccionarioAgregarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -168,63 +169,17 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
     // End of variables declaration//GEN-END:variables
     private Diccionario diccionario;
     private ModeloTablaDiccionario modeloTabla;
-    private boolean campoValidado; //Flag para que no se llame infinitas veces el evento UPDATE de tableChanged cuando invoco a SetValueAt en las validaciones de datos.
-    private boolean campoErroneo;
+//    private boolean campoValidado; //Flag para que no se llame infinitas veces el evento UPDATE de tableChanged cuando invoco a SetValueAt en las validaciones de datos.
+//    private boolean campoErroneo;
     
     private void inicializarTabla()
     {
-        final InputVerifier iv = new InputVerifier()
-        {
-
-            @Override
-            public boolean verify(JComponent input)
-            {
-                JTextField field = (JTextField) input;
-                return field.getText().length() > 8;
-            }
-
-            @Override
-            public boolean shouldYieldFocus(JComponent input)
-            {
-                boolean valid = verify(input);
-                if (!valid) {
-                    JOptionPane.showMessageDialog(null, "invalid");
-                }
-                return valid;
-            }
-        };
-        
-        DefaultCellEditor editor = new DefaultCellEditor(new JTextField())
-        {
-            {
-                getComponent().setInputVerifier(iv);
-            }
-
-            @Override
-            public boolean stopCellEditing()
-            {
-                if (!iv.shouldYieldFocus(getComponent()))
-                {
-                    return false;
-                }
-                
-                return super.stopCellEditing();
-            }
-
-            @Override
-            public JTextField getComponent()
-            {
-                return (JTextField) super.getComponent();
-            }
-
-        };
-        
         this.tablaPalabras.setModel(this.modeloTabla);
         String titulo[] = {"Palabra", "Definición", ""};
         String fila[] = new String[this.tablaPalabras.getColumnCount()];
         this.modeloTabla.setColumnIdentifiers(titulo);
-        this.modeloTabla.addTableModelListener(this);
-        this.tablaPalabras.setDefaultEditor(Object.class, editor);
+//        this.modeloTabla.addTableModelListener(this);
+//        this.tablaPalabras.setDefaultEditor(Object.class, editor);
         
         for (Palabra unaPalabra : this.diccionario.getListaPalabras())
         {
@@ -268,7 +223,7 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
         this.txtDefinicion.setText((String)this.tablaPalabras.getValueAt(fila, ModeloTablaDiccionario.getCOL_DEFINICION()));
     }
 
-    @Override
+    /*@Override
     public void tableChanged(TableModelEvent tme)
     {
         switch(tme.getType())
@@ -309,5 +264,5 @@ public class frmDiccionario extends javax.swing.JFrame implements TableModelList
 
                 break;
         }
-    }
+    }*/
 }

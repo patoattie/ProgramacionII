@@ -49,7 +49,6 @@ public class Diccionario implements java.io.Serializable, FilenameFilter
         if(this.existePalabra(unaPalabra))
         {
             retorno = false;
-            throw new ExistePalabraException("ERROR. La palabra '" + unaPalabra.getPalabra() + "' ya existe en el Diccionario");
         }
         else
         {
@@ -96,7 +95,7 @@ public class Diccionario implements java.io.Serializable, FilenameFilter
         XML.guardar(directorio, archivoXML, this);
     }
     
-    public boolean existePalabra(Palabra unaPalabra)
+    public boolean existePalabra(Palabra unaPalabra) throws ExistePalabraException
     {
         boolean retorno = false;
         
@@ -107,6 +106,11 @@ public class Diccionario implements java.io.Serializable, FilenameFilter
                 retorno = true;
                 break;
             }
+        }
+        
+        if(!retorno)
+        {
+            throw new ExistePalabraException("ERROR. La palabra '" + unaPalabra.getPalabra() + "' ya existe en el Diccionario");
         }
         
         return retorno;

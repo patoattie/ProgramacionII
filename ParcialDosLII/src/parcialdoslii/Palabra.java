@@ -43,7 +43,11 @@ public class Palabra
     {
         String palabraValidada;
         //if(palabra.matches("[^A-Za-z]")) //La palabra no puede contener caracteres que no sean letras
-        if(Palabra.existeCaracterEspecial(palabra)) //La palabra no puede contener caracteres que no sean letras
+        if(palabra.isEmpty())
+        {
+            throw new CaracterPalabraException("ERROR. La palabra es de ingreso obligatorio");
+        }
+        else if(Palabra.existeCaracterEspecial(palabra)) //La palabra no puede contener caracteres que no sean letras
         {
             throw new CaracterPalabraException("ERROR. La palabra '" + palabra + "' no puede contener caracteres especiales o acentuados, números, o espacios en blanco");
         }

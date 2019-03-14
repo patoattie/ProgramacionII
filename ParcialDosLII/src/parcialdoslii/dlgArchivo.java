@@ -13,7 +13,7 @@ import java.awt.event.KeyEvent;
  *
  * @author Sil y Pato
  */
-public class dlgArchivo extends javax.swing.JDialog implements KeyEventDispatcher{
+public class dlgArchivo extends javax.swing.JDialog implements KeyEventDispatcher {
 
     /**
      * Creates new form dlgArchivo
