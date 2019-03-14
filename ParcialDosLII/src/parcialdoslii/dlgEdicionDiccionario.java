@@ -66,7 +66,9 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
         });
 
         txtDefinicion.setColumns(20);
+        txtDefinicion.setLineWrap(true);
         txtDefinicion.setRows(5);
+        txtDefinicion.setWrapStyleWord(true);
         txtDefinicion.addFocusListener(new java.awt.event.FocusAdapter()
         {
             public void focusGained(java.awt.event.FocusEvent evt)
