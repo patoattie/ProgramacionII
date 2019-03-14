@@ -108,7 +108,7 @@ public class Diccionario implements java.io.Serializable, FilenameFilter
             }
         }
         
-        if(!retorno)
+        if(retorno)
         {
             throw new ExistePalabraException("ERROR. La palabra '" + unaPalabra.getPalabra() + "' ya existe en el Diccionario");
         }

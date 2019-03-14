@@ -150,8 +150,9 @@ public class frmDiccionario extends javax.swing.JFrame {
         if(!dialogo.isDialogoCancelado())
         {
             fila[ModeloTablaDiccionario.getCOL_ESTADO()] = ModeloTabla.getINSERTA();
+            fila[ModeloTablaDiccionario.getCOL_PALABRA()] = dialogo.getTxtPalabra();
+            fila[ModeloTablaDiccionario.getCOL_DEFINICION()] = dialogo.getTxtDefinicion();
             this.modeloTabla.addRow(fila);
-            this.tablaPalabras.editCellAt(0, ModeloTablaDiccionario.getCOL_PALABRA());
         }
         
         dialogo.dispose();

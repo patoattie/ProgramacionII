@@ -155,23 +155,35 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
 
     private void txtPalabraFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_txtPalabraFocusGained
     {//GEN-HEADEREND:event_txtPalabraFocusGained
-        if(evt.getOppositeComponent().equals(this.txtDefinicion));
-        {
-            this.validarDefinicion(this.txtDefinicion.getText());
-        }
+        this.validarDefinicion(this.txtDefinicion.getText());
     }//GEN-LAST:event_txtPalabraFocusGained
 
     private void txtDefinicionFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_txtDefinicionFocusGained
     {//GEN-HEADEREND:event_txtDefinicionFocusGained
-        if(evt.getOppositeComponent().equals(this.txtPalabra));
+        try
         {
+            String c = evt.getOppositeComponent().getName();
             this.validarPalabra(this.txtPalabra.getText());
         }
+        catch(NullPointerException e)
+        {
+        }
+        
     }//GEN-LAST:event_txtDefinicionFocusGained
 
     public boolean isDialogoCancelado()
     {
         return dialogoCancelado;
+    }
+
+    public String getTxtDefinicion()
+    {
+        return txtDefinicion.getText();
+    }
+
+    public String getTxtPalabra()
+    {
+        return txtPalabra.getText();
     }
 
     private void capturarEventosTeclado()
@@ -202,15 +214,18 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
     {
         boolean palabraValidada = true;
 
-        try
+        if(this.accion.equals(ModeloTablaDiccionario.getINSERTA()))
         {
-            this.txtPalabra.setText(Palabra.validaPalabra(palabra));
-            this.diccionario.existePalabra(this.palabraEditada);
-        }
-        catch (CaracterPalabraException | ExistePalabraException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage(), this.getTitle(), JOptionPane.ERROR_MESSAGE);
-            palabraValidada = false;
+            try
+            {
+                this.txtPalabra.setText(Palabra.validaPalabra(palabra));
+                this.diccionario.existePalabra(new Palabra(palabra, this.txtDefinicion.getText()));
+            }
+            catch (CaracterPalabraException | ExistePalabraException e)
+            {
+                JOptionPane.showMessageDialog(null, e.getMessage(), this.getTitle(), JOptionPane.ERROR_MESSAGE);
+                palabraValidada = false;
+            }
         }
         
         return palabraValidada;
