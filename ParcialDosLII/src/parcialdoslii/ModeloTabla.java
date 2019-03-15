@@ -5,6 +5,7 @@
  */
 package parcialdoslii;
 
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,10 +18,12 @@ public abstract class ModeloTabla extends DefaultTableModel
     private static final String ACTUALIZA = "U";
     private static final String BORRA = "D";
     private static final String SIN_CAMBIOS = " ";
+    private ArrayList<Integer> listaCambios;
 
     public ModeloTabla(int fila, int columna)
     {
         super(fila, columna);
+        listaCambios = new ArrayList<>();
     }
     
     public static String getINSERTA()
@@ -41,6 +44,11 @@ public abstract class ModeloTabla extends DefaultTableModel
     public static String getSIN_CAMBIOS()
     {
         return SIN_CAMBIOS;
+    }
+
+    public ArrayList<Integer> getListaCambios()
+    {
+        return listaCambios;
     }
 
     @Override
