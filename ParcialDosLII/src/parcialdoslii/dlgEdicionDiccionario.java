@@ -30,6 +30,7 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
         initComponents();
         this.capturarEventosTeclado();
         this.setearTitulo();
+        this.iniciarComboDificultad();
         this.iniciarTextos();
     }
 
@@ -50,6 +51,8 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
         txtDefinicion = new javax.swing.JTextArea();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        lblDificultad = new javax.swing.JLabel();
+        cmbDificultad = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -96,6 +99,8 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
             }
         });
 
+        lblDificultad.setText("Dificultad:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,21 +108,26 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblPalabra)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPalabra))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblDefinicion)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDefinicion)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblDificultad)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbDificultad, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addComponent(btnAceptar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCancelar)
-                .addGap(53, 53, 53))
+                .addGap(64, 64, 64))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,11 +140,15 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
                 .addComponent(lblDefinicion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDificultad)
+                    .addComponent(cmbDificultad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGap(45, 45, 45))
         );
 
         pack();
@@ -198,6 +212,7 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
         this.txtPalabra.setText(this.palabraEditada.getPalabra());
         this.txtDefinicion.setText(this.palabraEditada.getDefinicion());
         this.txtPalabra.setEditable(this.accion.equals(ModeloTablaDiccionario.getINSERTA()));
+        this.cmbDificultad.setSelectedItem(this.palabraEditada.getDificultad());
     }
     
     private void setearTitulo()
@@ -245,8 +260,10 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JComboBox<String> cmbDificultad;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDefinicion;
+    private javax.swing.JLabel lblDificultad;
     private javax.swing.JLabel lblPalabra;
     private javax.swing.JTextArea txtDefinicion;
     private javax.swing.JTextField txtPalabra;
@@ -273,5 +290,11 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
             }
         }
         return keyHandled;
+    }
+    
+    private void iniciarComboDificultad()
+    {
+        this.cmbDificultad.addItem(DificultadPalabraEnum.FACIL.name());
+        this.cmbDificultad.addItem(DificultadPalabraEnum.DIFICIL.name());
     }
 }

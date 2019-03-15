@@ -15,7 +15,7 @@ public class ModeloTablaDiccionario extends ModeloTabla
     private static final int COL_DEFINICION = 1;
     private static final int COL_ESTADO = 2;
     private static final int ANCHO_MAXIMO = 750;
-    private static final int ANCHO_MINIMO = 15;
+    private static final int ANCHO_MINIMO = 100;
 
     public ModeloTablaDiccionario(int fila, int columna)
     {

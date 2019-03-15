@@ -6,8 +6,6 @@
 package parcialdoslii;
 
 import java.awt.Component;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
@@ -17,14 +15,14 @@ import javax.swing.table.TableColumnModel;
  *
  * @author Sil y Pato
  */
-public class frmDiccionario extends javax.swing.JFrame {
+public class frmDiccionario extends javax.swing.JFrame implements TablaDiccionarioAptaAhorcado {
 
     /**
      * Creates new form frmDiccionario
      */
     public frmDiccionario(Diccionario diccionario) {
         this.diccionario = diccionario;
-        this.modeloTabla = new ModeloTablaDiccionario(0, 3);
+        this.modeloTabla = new ModeloTablaDiccionario(0, 4);
         this.modeloFilas = new ModeloFilas(ModeloTablaDiccionario.getCOL_ESTADO());
         initComponents();
         this.inicializarTabla();
@@ -45,6 +43,7 @@ public class frmDiccionario extends javax.swing.JFrame {
         txtPalabra = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDefinicion = new javax.swing.JTextArea();
+        txtDificultad = new javax.swing.JTextField();
         menuDiccionario = new javax.swing.JMenuBar();
         menDiccionario = new javax.swing.JMenu();
         menDiccionarioAgregar = new javax.swing.JMenuItem();
@@ -101,6 +100,8 @@ public class frmDiccionario extends javax.swing.JFrame {
         txtDefinicion.setRows(5);
         txtDefinicion.setWrapStyleWord(true);
         jScrollPane2.setViewportView(txtDefinicion);
+
+        txtDificultad.setEditable(false);
 
         menDiccionario.setText("Diccionario");
 
@@ -168,7 +169,9 @@ public class frmDiccionario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtPalabra, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                            .addComponent(txtDificultad))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2)))
                 .addContainerGap())
@@ -180,7 +183,10 @@ public class frmDiccionario extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDificultad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
@@ -376,26 +382,37 @@ public class frmDiccionario extends javax.swing.JFrame {
     private javax.swing.JMenuBar menuDiccionario;
     private javax.swing.JTable tablaPalabras;
     private javax.swing.JTextArea txtDefinicion;
+    private javax.swing.JTextField txtDificultad;
     private javax.swing.JTextField txtPalabra;
     // End of variables declaration//GEN-END:variables
     private Diccionario diccionario;
     private ModeloTablaDiccionario modeloTabla;
     private ModeloFilas modeloFilas;
+    private int colDificultad;
     
     private void inicializarTabla()
     {
         this.tablaPalabras.setModel(this.modeloTabla); //Asigno el modelo de la tabla
         this.tablaPalabras.setDefaultRenderer(Object.class, this.modeloFilas); //Para poder manejar colores según el estado.
         this.tablaPalabras.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Permito únicamente selección simple de filas.
-        String titulo[] = {"Palabra", "Definición", ""};
+        String titulo[] = {"Palabra", "Definición", "", "Dificultad"};
         String fila[] = new String[this.tablaPalabras.getColumnCount()];
         this.modeloTabla.setColumnIdentifiers(titulo);
+        this.setColDificultad((this.modeloTabla.findColumn("")) + 1);
         
         for (Palabra unaPalabra : this.diccionario.getListaPalabras())
         {
             fila[ModeloTablaDiccionario.getCOL_PALABRA()] = unaPalabra.getPalabra();
             fila[ModeloTablaDiccionario.getCOL_DEFINICION()] = unaPalabra.getDefinicion();
             fila[ModeloTablaDiccionario.getCOL_ESTADO()] = ModeloTabla.getSIN_CAMBIOS();
+            try
+            {
+                fila[this.getColDificultad()] = unaPalabra.getDificultad().name();
+            }
+            catch(NullPointerException e)
+            {
+                fila[this.getColDificultad()] = "";
+            }
             this.modeloTabla.addRow(fila);
         }
         
@@ -419,9 +436,11 @@ public class frmDiccionario extends javax.swing.JFrame {
             columnModel.getColumn(column).setPreferredWidth(width);
         }
         
+        //Invisibilizo la columna Estado.
         this.tablaPalabras.getColumnModel().getColumn(ModeloTablaDiccionario.getCOL_ESTADO()).setMinWidth(0);
         this.tablaPalabras.getColumnModel().getColumn(ModeloTablaDiccionario.getCOL_ESTADO()).setPreferredWidth(0);
         this.tablaPalabras.getColumnModel().getColumn(ModeloTablaDiccionario.getCOL_ESTADO()).setResizable(false);
+        
         this.tablaPalabras.getRowSorter().toggleSortOrder(ModeloTablaDiccionario.getCOL_PALABRA()); //Ordeno por Palabra en forma ascendente.
         this.tablaPalabras.setRowSelectionInterval(0, 0); //Selecciono inicialmente la primera fila.
         this.refrescarDatos();
@@ -433,11 +452,13 @@ public class frmDiccionario extends javax.swing.JFrame {
         {
             this.txtPalabra.setText(this.getPalabraSeleccionada());
             this.txtDefinicion.setText(this.getDefinicionSeleccionada());
+            this.txtDificultad.setText(this.getDificultadSeleccionada().name());
         }
         else
         {
             this.txtPalabra.setText("");
             this.txtDefinicion.setText("");
+            this.txtDificultad.setText("");
         }
         
         //Si la fila está borrada no la puedo editar ni borrar
@@ -458,12 +479,14 @@ public class frmDiccionario extends javax.swing.JFrame {
         String estadoLeido;
         String palabraLeida;
         String definicionLeida;
+        DificultadPalabraEnum dificultadLeida;
         
         for (int i = 0; i < this.tablaPalabras.getRowCount(); i++)
         {
             estadoLeido = (String)this.tablaPalabras.getValueAt(i, ModeloTablaDiccionario.getCOL_ESTADO());
             palabraLeida = (String)this.tablaPalabras.getValueAt(i, ModeloTablaDiccionario.getCOL_PALABRA());
             definicionLeida = (String)this.tablaPalabras.getValueAt(i, ModeloTablaDiccionario.getCOL_DEFINICION());
+            dificultadLeida = (DificultadPalabraEnum)this.tablaPalabras.getValueAt(i, this.getColDificultad());
             
             if(estadoLeido.equals(ModeloTablaDiccionario.getINSERTA()))
             {
@@ -499,5 +522,23 @@ public class frmDiccionario extends javax.swing.JFrame {
     private String getEstadoSeleccionado()
     {
         return (String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_ESTADO());
+    }
+
+    @Override
+    public int getColDificultad()
+    {
+        return this.colDificultad;
+    }
+
+    @Override
+    public void setColDificultad(int posicionColumna)
+    {
+        this.colDificultad = posicionColumna;
+    }
+
+    @Override
+    public DificultadPalabraEnum getDificultadSeleccionada()
+    {
+        return (DificultadPalabraEnum)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), this.getColDificultad());
     }
 }

@@ -9,10 +9,11 @@ package parcialdoslii;
  *
  * @author pattie
  */
-public class Palabra
+public class Palabra implements PalabraAptaAhorcado
 {
     private String palabra;
     private String definicion;
+    private DificultadPalabraEnum dificultad;
 
     public Palabra(String palabra, String definicion) throws CaracterPalabraException
     {
@@ -106,5 +107,17 @@ public class Palabra
         }
         
         return retorno;
+    }
+
+    @Override
+    public void setDificultad(DificultadPalabraEnum dificultad)
+    {
+        this.dificultad = dificultad;
+    }
+
+    @Override
+    public DificultadPalabraEnum getDificultad()
+    {
+        return this.dificultad;
     }
 }
