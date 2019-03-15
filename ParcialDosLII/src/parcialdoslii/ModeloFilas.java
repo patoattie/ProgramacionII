@@ -33,7 +33,7 @@ public class ModeloFilas extends DefaultTableCellRenderer
         
         if(table.getValueAt(row, this.columnaEstado).equals(ModeloTabla.getBORRA()))
         {
-            this.setForeground(Color.GRAY);
+            this.setForeground(Color.LIGHT_GRAY);
         }
         else if(table.getValueAt(row, this.columnaEstado).equals(ModeloTabla.getACTUALIZA()))
         {

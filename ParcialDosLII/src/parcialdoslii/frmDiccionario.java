@@ -34,8 +34,7 @@ public class frmDiccionario extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPalabras = new javax.swing.JTable();
@@ -46,34 +45,30 @@ public class frmDiccionario extends javax.swing.JFrame {
         menDiccionario = new javax.swing.JMenu();
         menDiccionarioAgregar = new javax.swing.JMenuItem();
         menDiccionarioEditar = new javax.swing.JMenuItem();
+        menDiccionarioBorrar = new javax.swing.JMenuItem();
+        menDiccionarioRehabilitar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Diccionario");
 
         tablaPalabras.setAutoCreateRowSorter(true);
         tablaPalabras.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
 
             }
         ));
         tablaPalabras.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tablaPalabras.getTableHeader().setReorderingAllowed(false);
-        tablaPalabras.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        tablaPalabras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaPalabrasMouseClicked(evt);
             }
         });
-        tablaPalabras.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
+        tablaPalabras.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
                 tablaPalabrasKeyReleased(evt);
             }
         });
@@ -91,24 +86,36 @@ public class frmDiccionario extends javax.swing.JFrame {
         menDiccionario.setText("Diccionario");
 
         menDiccionarioAgregar.setText("Agregar Palabra");
-        menDiccionarioAgregar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        menDiccionarioAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menDiccionarioAgregarActionPerformed(evt);
             }
         });
         menDiccionario.add(menDiccionarioAgregar);
 
         menDiccionarioEditar.setText("Editar Palabra");
-        menDiccionarioEditar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        menDiccionarioEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menDiccionarioEditarActionPerformed(evt);
             }
         });
         menDiccionario.add(menDiccionarioEditar);
+
+        menDiccionarioBorrar.setText("Borrar Palabra");
+        menDiccionarioBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menDiccionarioBorrarActionPerformed(evt);
+            }
+        });
+        menDiccionario.add(menDiccionarioBorrar);
+
+        menDiccionarioRehabilitar.setText("Rehabilitar Palabra");
+        menDiccionarioRehabilitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menDiccionarioRehabilitarActionPerformed(evt);
+            }
+        });
+        menDiccionario.add(menDiccionarioRehabilitar);
 
         menuDiccionario.add(menDiccionario);
 
@@ -145,11 +152,11 @@ public class frmDiccionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tablaPalabrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPalabrasMouseClicked
-        this.completarDetalle();
+        this.refrescarDatos();
     }//GEN-LAST:event_tablaPalabrasMouseClicked
 
     private void tablaPalabrasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaPalabrasKeyReleased
-        this.completarDetalle();        
+        this.refrescarDatos();        
     }//GEN-LAST:event_tablaPalabrasKeyReleased
 
     private void menDiccionarioAgregarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menDiccionarioAgregarActionPerformed
@@ -164,7 +171,7 @@ public class frmDiccionario extends javax.swing.JFrame {
             fila[ModeloTablaDiccionario.getCOL_PALABRA()] = dialogo.getTxtPalabra();
             fila[ModeloTablaDiccionario.getCOL_DEFINICION()] = dialogo.getTxtDefinicion();
             this.modeloTabla.addRow(fila);
-            this.completarDetalle();
+            this.refrescarDatos();
         }
         
         dialogo.dispose();
@@ -174,20 +181,25 @@ public class frmDiccionario extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_menDiccionarioEditarActionPerformed
         String palabra = this.getPalabraSeleccionada();
         String definicion = this.getDefinicionSeleccionada();
-        String estado = this.getEstadoSeleccionado();
+        String estadoActual = this.getEstadoSeleccionado();
+        String estadoNuevo;
         
-        if(!estado.equals(ModeloTablaDiccionario.getBORRA()))
+        if(!estadoActual.equals(ModeloTablaDiccionario.getBORRA()))
         {
             dlgEdicionDiccionario dialogo = null;
 
-            if(estado.equals(ModeloTablaDiccionario.getSIN_CAMBIOS()))
+            if(estadoActual.equals(ModeloTablaDiccionario.getSIN_CAMBIOS()))
             {
-                estado = ModeloTablaDiccionario.getACTUALIZA();
+                estadoNuevo = ModeloTablaDiccionario.getACTUALIZA();
+            }
+            else
+            {
+                estadoNuevo = estadoActual;
             }
 
             try
             {
-                dialogo = new dlgEdicionDiccionario(this, true, new Palabra(palabra, definicion), estado, this.diccionario);
+                dialogo = new dlgEdicionDiccionario(this, true, new Palabra(palabra, definicion), estadoNuevo, this.diccionario);
             }
             catch (CaracterPalabraException e)
             {
@@ -201,20 +213,69 @@ public class frmDiccionario extends javax.swing.JFrame {
                 definicion = dialogo.getTxtDefinicion();
                 this.tablaPalabras.setValueAt(palabra, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_PALABRA());
                 this.tablaPalabras.setValueAt(definicion, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_DEFINICION());
-                this.tablaPalabras.setValueAt(estado, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_ESTADO());
-                this.completarDetalle();
+                this.tablaPalabras.setValueAt(estadoNuevo, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_ESTADO());
+                this.refrescarDatos();
             }
 
             dialogo.dispose();
         }
     }//GEN-LAST:event_menDiccionarioEditarActionPerformed
 
+    private void menDiccionarioBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menDiccionarioBorrarActionPerformed
+        String estadoActual = this.getEstadoSeleccionado();
+        String estadoNuevo = ModeloTablaDiccionario.getBORRA();
+        
+        if(!estadoActual.equals(ModeloTablaDiccionario.getBORRA()))
+        {
+            if(estadoActual.equals(ModeloTablaDiccionario.getINSERTA()))
+            {
+                int filaSeleccionada = this.tablaPalabras.getSelectedRow();
+                
+                //Necesito traducir el número de fila visible al número de fila del modelo con convertRowIndexToModel.
+                this.modeloTabla.removeRow(this.tablaPalabras.getRowSorter().convertRowIndexToModel(this.tablaPalabras.getSelectedRow()));
+                this.tablaPalabras.setRowSelectionInterval(filaSeleccionada, filaSeleccionada);
+            }
+            else
+            {
+                this.tablaPalabras.setValueAt(estadoNuevo, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_ESTADO());
+            }
+            
+            this.refrescarDatos();
+        }        
+    }//GEN-LAST:event_menDiccionarioBorrarActionPerformed
+
+    private void menDiccionarioRehabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menDiccionarioRehabilitarActionPerformed
+        String estadoActual = this.getEstadoSeleccionado();
+        String estadoNuevo = ModeloTablaDiccionario.getBORRA();
+        
+        if(estadoActual.equals(ModeloTablaDiccionario.getBORRA()))
+        {
+            String definicionAlmacenada = this.diccionario.getListaPalabras().get(this.diccionario.buscarPalabra(this.getPalabraSeleccionada())).getDefinicion();
+            String definicionActual = this.getDefinicionSeleccionada();
+            
+            if(definicionAlmacenada.equalsIgnoreCase(definicionActual))
+            {
+                estadoNuevo = ModeloTablaDiccionario.getSIN_CAMBIOS();
+            }
+            else
+            {
+                estadoNuevo = ModeloTablaDiccionario.getACTUALIZA();
+            }
+            
+            this.tablaPalabras.setValueAt(estadoNuevo, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_ESTADO());
+            
+            this.refrescarDatos();
+        }
+    }//GEN-LAST:event_menDiccionarioRehabilitarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenu menDiccionario;
     private javax.swing.JMenuItem menDiccionarioAgregar;
+    private javax.swing.JMenuItem menDiccionarioBorrar;
     private javax.swing.JMenuItem menDiccionarioEditar;
+    private javax.swing.JMenuItem menDiccionarioRehabilitar;
     private javax.swing.JMenuBar menuDiccionario;
     private javax.swing.JTable tablaPalabras;
     private javax.swing.JTextArea txtDefinicion;
@@ -231,8 +292,6 @@ public class frmDiccionario extends javax.swing.JFrame {
         String titulo[] = {"Palabra", "Definición", ""};
         String fila[] = new String[this.tablaPalabras.getColumnCount()];
         this.modeloTabla.setColumnIdentifiers(titulo);
-//        this.modeloTabla.addTableModelListener(this);
-//        this.tablaPalabras.setDefaultEditor(Object.class, editor);
         
         for (Palabra unaPalabra : this.diccionario.getListaPalabras())
         {
@@ -267,17 +326,23 @@ public class frmDiccionario extends javax.swing.JFrame {
         this.tablaPalabras.getColumnModel().getColumn(ModeloTablaDiccionario.getCOL_ESTADO()).setResizable(false);
         this.tablaPalabras.getRowSorter().toggleSortOrder(ModeloTablaDiccionario.getCOL_PALABRA());
         this.tablaPalabras.setRowSelectionInterval(0, 0);
-        this.completarDetalle();
+        this.refrescarDatos();
     }
     
-    private void completarDetalle()
+    private void refrescarDatos()
     {
         this.txtPalabra.setText(this.getPalabraSeleccionada());
         this.txtDefinicion.setText(this.getDefinicionSeleccionada());
         
-        //Si la fila está borrada no la puedo editar
+        //Si la fila está borrada no la puedo editar ni borrar
         this.menDiccionarioEditar.setEnabled(!this.getEstadoSeleccionado().equals(ModeloTablaDiccionario.getBORRA()));
-        //JOptionPane.showMessageDialog(null, this.getEstadoSeleccionado(), "Prueba", 1);
+        this.menDiccionarioBorrar.setEnabled(!this.getEstadoSeleccionado().equals(ModeloTablaDiccionario.getBORRA()));
+        
+        //Unicamente si la fila está borrada puedo rehabilitar
+        this.menDiccionarioRehabilitar.setEnabled(this.getEstadoSeleccionado().equals(ModeloTablaDiccionario.getBORRA()));
+//        JOptionPane.showMessageDialog(null, this.tablaPalabras.getSelectedRow(), "Prueba", 1);
+//        JOptionPane.showMessageDialog(null, this.tablaPalabras.getRowSorter().convertRowIndexToModel(this.tablaPalabras.getSelectedRow()), "Prueba", 1);
+        
     }
     
     private String getPalabraSeleccionada()
