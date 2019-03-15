@@ -5,8 +5,6 @@
  */
 package parcialdoslii;
 
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author pattie

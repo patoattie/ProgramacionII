@@ -20,7 +20,6 @@ public class ModeloFilas extends DefaultTableCellRenderer
 
     public ModeloFilas(int columnaEstado)
     {
-        //super();
         this.columnaEstado = columnaEstado;
     }
 

@@ -7,6 +7,7 @@ package parcialdoslii;
 
 import java.awt.Component;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
@@ -194,6 +195,7 @@ public class frmDiccionario extends javax.swing.JFrame {
             }
             else
             {
+                //Si estoy editando una palabra nueva, mantengo el estado.
                 estadoNuevo = estadoActual;
             }
 
@@ -259,6 +261,7 @@ public class frmDiccionario extends javax.swing.JFrame {
             }
             else
             {
+                //Si previo al borrado había modificado la definición, entonces restauro al estado correcto.
                 estadoNuevo = ModeloTablaDiccionario.getACTUALIZA();
             }
             
@@ -287,8 +290,9 @@ public class frmDiccionario extends javax.swing.JFrame {
     
     private void inicializarTabla()
     {
-        this.tablaPalabras.setModel(this.modeloTabla);
-        this.tablaPalabras.setDefaultRenderer(Object.class, this.modeloFilas);
+        this.tablaPalabras.setModel(this.modeloTabla); //Asigno el modelo de la tabla
+        this.tablaPalabras.setDefaultRenderer(Object.class, this.modeloFilas); //Para poder manejar colores según el estado.
+        this.tablaPalabras.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Permito únicamente selección simple de filas.
         String titulo[] = {"Palabra", "Definición", ""};
         String fila[] = new String[this.tablaPalabras.getColumnCount()];
         this.modeloTabla.setColumnIdentifiers(titulo);
@@ -324,22 +328,30 @@ public class frmDiccionario extends javax.swing.JFrame {
         this.tablaPalabras.getColumnModel().getColumn(ModeloTablaDiccionario.getCOL_ESTADO()).setMinWidth(0);
         this.tablaPalabras.getColumnModel().getColumn(ModeloTablaDiccionario.getCOL_ESTADO()).setPreferredWidth(0);
         this.tablaPalabras.getColumnModel().getColumn(ModeloTablaDiccionario.getCOL_ESTADO()).setResizable(false);
-        this.tablaPalabras.getRowSorter().toggleSortOrder(ModeloTablaDiccionario.getCOL_PALABRA());
-        this.tablaPalabras.setRowSelectionInterval(0, 0);
+        this.tablaPalabras.getRowSorter().toggleSortOrder(ModeloTablaDiccionario.getCOL_PALABRA()); //Ordeno por Palabra en forma ascendente.
+        this.tablaPalabras.setRowSelectionInterval(0, 0); //Selecciono inicialmente la primera fila.
         this.refrescarDatos();
     }
     
     private void refrescarDatos()
     {
-        this.txtPalabra.setText(this.getPalabraSeleccionada());
-        this.txtDefinicion.setText(this.getDefinicionSeleccionada());
+        if(this.tablaPalabras.getSelectedRowCount() == 1)
+        {
+            this.txtPalabra.setText(this.getPalabraSeleccionada());
+            this.txtDefinicion.setText(this.getDefinicionSeleccionada());
+        }
+        else
+        {
+            this.txtPalabra.setText("");
+            this.txtDefinicion.setText("");
+        }
         
         //Si la fila está borrada no la puedo editar ni borrar
-        this.menDiccionarioEditar.setEnabled(!this.getEstadoSeleccionado().equals(ModeloTablaDiccionario.getBORRA()));
-        this.menDiccionarioBorrar.setEnabled(!this.getEstadoSeleccionado().equals(ModeloTablaDiccionario.getBORRA()));
+        this.menDiccionarioEditar.setEnabled((this.tablaPalabras.getSelectedRowCount() == 1) && !this.getEstadoSeleccionado().equals(ModeloTablaDiccionario.getBORRA()));
+        this.menDiccionarioBorrar.setEnabled((this.tablaPalabras.getSelectedRowCount() == 1) && !this.getEstadoSeleccionado().equals(ModeloTablaDiccionario.getBORRA()));
         
         //Unicamente si la fila está borrada puedo rehabilitar
-        this.menDiccionarioRehabilitar.setEnabled(this.getEstadoSeleccionado().equals(ModeloTablaDiccionario.getBORRA()));
+        this.menDiccionarioRehabilitar.setEnabled((this.tablaPalabras.getSelectedRowCount() == 1) && this.getEstadoSeleccionado().equals(ModeloTablaDiccionario.getBORRA()));
 //        JOptionPane.showMessageDialog(null, this.tablaPalabras.getSelectedRow(), "Prueba", 1);
 //        JOptionPane.showMessageDialog(null, this.tablaPalabras.getRowSorter().convertRowIndexToModel(this.tablaPalabras.getSelectedRow()), "Prueba", 1);
         
