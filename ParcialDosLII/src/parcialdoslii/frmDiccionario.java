@@ -6,6 +6,8 @@
 package parcialdoslii;
 
 import java.awt.Component;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
@@ -24,7 +26,6 @@ public class frmDiccionario extends javax.swing.JFrame {
         this.diccionario = diccionario;
         this.modeloTabla = new ModeloTablaDiccionario(0, 3);
         this.modeloFilas = new ModeloFilas(ModeloTablaDiccionario.getCOL_ESTADO());
-        this.cambiosSinGuardar = 0;
         initComponents();
         this.inicializarTabla();
     }
@@ -50,6 +51,8 @@ public class frmDiccionario extends javax.swing.JFrame {
         menDiccionarioEditar = new javax.swing.JMenuItem();
         menDiccionarioBorrar = new javax.swing.JMenuItem();
         menDiccionarioRehabilitar = new javax.swing.JMenuItem();
+        menDiccionarioSeparador1 = new javax.swing.JPopupMenu.Separator();
+        menDiccionarioGuardar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Diccionario");
@@ -140,6 +143,17 @@ public class frmDiccionario extends javax.swing.JFrame {
             }
         });
         menDiccionario.add(menDiccionarioRehabilitar);
+        menDiccionario.add(menDiccionarioSeparador1);
+
+        menDiccionarioGuardar.setText("Guardar");
+        menDiccionarioGuardar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                menDiccionarioGuardarActionPerformed(evt);
+            }
+        });
+        menDiccionario.add(menDiccionarioGuardar);
 
         menuDiccionario.add(menDiccionario);
 
@@ -168,7 +182,7 @@ public class frmDiccionario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -195,9 +209,7 @@ public class frmDiccionario extends javax.swing.JFrame {
             fila[ModeloTablaDiccionario.getCOL_PALABRA()] = dialogo.getTxtPalabra();
             fila[ModeloTablaDiccionario.getCOL_DEFINICION()] = dialogo.getTxtDefinicion();
             this.modeloTabla.addRow(fila);
-            this.cambiosSinGuardar++;
-            this.modeloTabla.getListaCambios().add(this.tablaPalabras.getRowCount() - 1);
-            JOptionPane.showMessageDialog(null, this.tablaPalabras.getRowCount() - 1, "Prueba", 1);
+            this.modeloTabla.agregarCambiosSinGuardar();
             this.refrescarDatos();
         }
         
@@ -242,8 +254,7 @@ public class frmDiccionario extends javax.swing.JFrame {
                 this.tablaPalabras.setValueAt(palabra, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_PALABRA());
                 this.tablaPalabras.setValueAt(definicion, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_DEFINICION());
                 this.tablaPalabras.setValueAt(estadoNuevo, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_ESTADO());
-                this.cambiosSinGuardar++;
-                this.modeloTabla.getListaCambios().add(this.tablaPalabras.getRowSorter().convertRowIndexToModel(this.tablaPalabras.getSelectedRow()));
+                this.modeloTabla.agregarCambiosSinGuardar();
                 this.refrescarDatos();
             }
 
@@ -261,19 +272,20 @@ public class frmDiccionario extends javax.swing.JFrame {
             {
                 int filaSeleccionada = this.tablaPalabras.getSelectedRow();
                 
+                //Resto el cambio hecho con la inserción. Casteo a Object para que interprete el entero como valor y no como índice.
+                this.modeloTabla.restarCambiosSinGuardar();
+
                 //Necesito traducir el número de fila visible al número de fila del modelo con convertRowIndexToModel.
                 this.modeloTabla.removeRow(this.tablaPalabras.getRowSorter().convertRowIndexToModel(this.tablaPalabras.getSelectedRow()));
+
                 this.tablaPalabras.setRowSelectionInterval(filaSeleccionada, filaSeleccionada);
-                this.cambiosSinGuardar--; //Resto el cambio hecho con la inserción.
-                this.modeloTabla.getListaCambios().remove(this.tablaPalabras.getRowSorter().convertRowIndexToModel(this.tablaPalabras.getSelectedRow()));
-                JOptionPane.showMessageDialog(null, this.tablaPalabras.getRowSorter().convertRowIndexToModel(this.tablaPalabras.getSelectedRow()), "Prueba", 1);
             }
             else
             {
                 if(estadoActual.equals(ModeloTablaDiccionario.getSIN_CAMBIOS()))
                 {
-                    this.cambiosSinGuardar++; //Si la fila ya estaba actualizada no se agrega ningún cambio, sino sumo 1.
-                    this.modeloTabla.getListaCambios().add(this.tablaPalabras.getRowSorter().convertRowIndexToModel(this.tablaPalabras.getSelectedRow()));
+                    //Si la fila ya estaba actualizada no se agrega ningún cambio, sino sumo 1.
+                    this.modeloTabla.agregarCambiosSinGuardar();
                 }
                 this.tablaPalabras.setValueAt(estadoNuevo, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_ESTADO());
             }
@@ -294,8 +306,8 @@ public class frmDiccionario extends javax.swing.JFrame {
             if(definicionAlmacenada.equalsIgnoreCase(definicionActual))
             {
                 estadoNuevo = ModeloTablaDiccionario.getSIN_CAMBIOS();
-                this.cambiosSinGuardar--; //Resto el cambio hecho con el borrado.
-                this.modeloTabla.getListaCambios().remove(this.tablaPalabras.getRowSorter().convertRowIndexToModel(this.tablaPalabras.getSelectedRow()));
+                //Resto el cambio hecho con el borrado. Casteo a Object para que interprete el entero como valor y no como índice.
+                this.modeloTabla.restarCambiosSinGuardar();
             }
             else
             {
@@ -311,15 +323,20 @@ public class frmDiccionario extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
     {//GEN-HEADEREND:event_formWindowClosing
-        if(!this.modeloTabla.getListaCambios().isEmpty())
+        if(this.modeloTabla.getCambiosSinGuardar() > 0)
         {
             switch(JOptionPane.showConfirmDialog(null, "Desea guardar los cambios antes de salir?", "Salir del Diccionario", JOptionPane.YES_NO_CANCEL_OPTION))
             {
                 case JOptionPane.YES_OPTION:
-                    /*if(this.guardarJuego())
+                    try
                     {
+                        this.persistirEnMemoria();
                         this.dispose();
-                    }*/
+                    }
+                    catch (CaracterPalabraException | ExistePalabraException | IndexOutOfBoundsException | NoExistePalabraException e)
+                    {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Guardar Diccionario", JOptionPane.ERROR_MESSAGE);
+                    }
                     break;
                 case JOptionPane.NO_OPTION:
                     this.dispose();
@@ -332,6 +349,20 @@ public class frmDiccionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
+    private void menDiccionarioGuardarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menDiccionarioGuardarActionPerformed
+    {//GEN-HEADEREND:event_menDiccionarioGuardarActionPerformed
+        try
+        {
+            this.persistirEnMemoria();
+            this.tablaPalabras.repaint();
+            this.refrescarDatos();
+        }
+        catch (CaracterPalabraException | ExistePalabraException | IndexOutOfBoundsException | NoExistePalabraException e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Guardar Diccionario", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_menDiccionarioGuardarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -339,7 +370,9 @@ public class frmDiccionario extends javax.swing.JFrame {
     private javax.swing.JMenuItem menDiccionarioAgregar;
     private javax.swing.JMenuItem menDiccionarioBorrar;
     private javax.swing.JMenuItem menDiccionarioEditar;
+    private javax.swing.JMenuItem menDiccionarioGuardar;
     private javax.swing.JMenuItem menDiccionarioRehabilitar;
+    private javax.swing.JPopupMenu.Separator menDiccionarioSeparador1;
     private javax.swing.JMenuBar menuDiccionario;
     private javax.swing.JTable tablaPalabras;
     private javax.swing.JTextArea txtDefinicion;
@@ -348,7 +381,6 @@ public class frmDiccionario extends javax.swing.JFrame {
     private Diccionario diccionario;
     private ModeloTablaDiccionario modeloTabla;
     private ModeloFilas modeloFilas;
-    private int cambiosSinGuardar;
     
     private void inicializarTabla()
     {
@@ -414,9 +446,44 @@ public class frmDiccionario extends javax.swing.JFrame {
         
         //Unicamente si la fila está borrada puedo rehabilitar
         this.menDiccionarioRehabilitar.setEnabled((this.tablaPalabras.getSelectedRowCount() == 1) && this.getEstadoSeleccionado().equals(ModeloTablaDiccionario.getBORRA()));
-//        JOptionPane.showMessageDialog(null, this.tablaPalabras.getSelectedRow(), "Prueba", 1);
+        
+        this.menDiccionarioGuardar.setEnabled(this.modeloTabla.getCambiosSinGuardar() > 0);
+//        JOptionPane.showMessageDialog(null, this.modeloTabla.getCambiosSinGuardar(), "Prueba", 1);
 //        JOptionPane.showMessageDialog(null, this.tablaPalabras.getRowSorter().convertRowIndexToModel(this.tablaPalabras.getSelectedRow()), "Prueba", 1);
         
+    }
+    
+    private void persistirEnMemoria() throws CaracterPalabraException, ExistePalabraException, IndexOutOfBoundsException, NoExistePalabraException
+    {
+        String estadoLeido;
+        String palabraLeida;
+        String definicionLeida;
+        
+        for (int i = 0; i < this.tablaPalabras.getRowCount(); i++)
+        {
+            estadoLeido = (String)this.tablaPalabras.getValueAt(i, ModeloTablaDiccionario.getCOL_ESTADO());
+            palabraLeida = (String)this.tablaPalabras.getValueAt(i, ModeloTablaDiccionario.getCOL_PALABRA());
+            definicionLeida = (String)this.tablaPalabras.getValueAt(i, ModeloTablaDiccionario.getCOL_DEFINICION());
+            
+            if(estadoLeido.equals(ModeloTablaDiccionario.getINSERTA()))
+            {
+                this.diccionario.agregarPalabra(new Palabra(palabraLeida, definicionLeida));
+                this.tablaPalabras.setValueAt(ModeloTablaDiccionario.getSIN_CAMBIOS(), i, ModeloTablaDiccionario.getCOL_ESTADO());
+                this.modeloTabla.restarCambiosSinGuardar();
+            }
+            else if(estadoLeido.equals(ModeloTablaDiccionario.getACTUALIZA()))
+            {
+                this.diccionario.editarDefinicion(this.diccionario.buscarPalabra(palabraLeida), definicionLeida);
+                this.tablaPalabras.setValueAt(ModeloTablaDiccionario.getSIN_CAMBIOS(), i, ModeloTablaDiccionario.getCOL_ESTADO());
+                this.modeloTabla.restarCambiosSinGuardar();
+            }
+            else if(estadoLeido.equals(ModeloTablaDiccionario.getBORRA()))
+            {
+                this.diccionario.eliminarPalabra(this.diccionario.buscarPalabra(palabraLeida));
+                this.modeloTabla.removeRow(this.tablaPalabras.getRowSorter().convertRowIndexToModel(i));
+                this.modeloTabla.restarCambiosSinGuardar();
+            }
+        }
     }
     
     private String getPalabraSeleccionada()

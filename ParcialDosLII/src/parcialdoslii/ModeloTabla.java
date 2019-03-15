@@ -18,12 +18,12 @@ public abstract class ModeloTabla extends DefaultTableModel
     private static final String ACTUALIZA = "U";
     private static final String BORRA = "D";
     private static final String SIN_CAMBIOS = " ";
-    private ArrayList<Integer> listaCambios;
+    private int cambiosSinGuardar;
 
     public ModeloTabla(int fila, int columna)
     {
         super(fila, columna);
-        listaCambios = new ArrayList<>();
+        this.cambiosSinGuardar = 0;
     }
     
     public static String getINSERTA()
@@ -46,9 +46,19 @@ public abstract class ModeloTabla extends DefaultTableModel
         return SIN_CAMBIOS;
     }
 
-    public ArrayList<Integer> getListaCambios()
+    public int getCambiosSinGuardar()
     {
-        return listaCambios;
+        return cambiosSinGuardar;
+    }
+
+    public void agregarCambiosSinGuardar()
+    {
+        this.cambiosSinGuardar++;
+    }
+
+    public void restarCambiosSinGuardar()
+    {
+        this.cambiosSinGuardar--;
     }
 
     @Override

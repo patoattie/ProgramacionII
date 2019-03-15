@@ -122,31 +122,45 @@ public class Diccionario implements java.io.Serializable, FilenameFilter
         return name.endsWith(XML.getExtension());
     }
     
-    public void editarPalabra(int indice, String palabra) throws CaracterPalabraException
+    public void editarPalabra(int indice, String palabra) throws CaracterPalabraException, IndexOutOfBoundsException
     {
-        Palabra anterior = this.listaPalabras.get(indice);
-        try
+        if(indice < 0 || indice >= this.listaPalabras.size())
         {
-            this.listaPalabras.set(indice, new Palabra(palabra, anterior.getDefinicion()));
+            throw new IndexOutOfBoundsException("ERROR. La posición indicada está fuera de rango");
         }
-        catch (CaracterPalabraException e)
+        else
         {
-            this.listaPalabras.set(indice, anterior);
-            throw e;
+            Palabra anterior = this.listaPalabras.get(indice);
+            try
+            {
+                this.listaPalabras.set(indice, new Palabra(palabra, anterior.getDefinicion()));
+            }
+            catch (CaracterPalabraException e)
+            {
+                this.listaPalabras.set(indice, anterior);
+                throw e;
+            }
         }
     }
     
-    public void editarDefinicion(int indice, String definicion) throws CaracterPalabraException
+    public void editarDefinicion(int indice, String definicion) throws CaracterPalabraException, IndexOutOfBoundsException
     {
-        Palabra anterior = this.listaPalabras.get(indice);
-        try
+        if(indice < 0 || indice >= this.listaPalabras.size())
         {
-            this.listaPalabras.set(indice, new Palabra(anterior.getPalabra(), definicion));
+            throw new IndexOutOfBoundsException("ERROR. La posición indicada está fuera de rango");
         }
-        catch (CaracterPalabraException e)
+        else
         {
-            this.listaPalabras.set(indice, anterior);
-            throw e;
+            Palabra anterior = this.listaPalabras.get(indice);
+            try
+            {
+                this.listaPalabras.set(indice, new Palabra(anterior.getPalabra(), definicion));
+            }
+            catch (CaracterPalabraException e)
+            {
+                this.listaPalabras.set(indice, anterior);
+                throw e;
+            }
         }
     }
     
@@ -163,5 +177,30 @@ public class Diccionario implements java.io.Serializable, FilenameFilter
         }
         
         return retorno;
+    }
+
+    public void eliminarPalabra(int indice) throws IndexOutOfBoundsException
+    {
+        if(indice < 0 || indice >= this.listaPalabras.size())
+        {
+            throw new IndexOutOfBoundsException("ERROR. La posición indicada está fuera de rango");
+        }
+        else
+        {
+            this.listaPalabras.remove(indice);
+        }
+    }
+
+    public void eliminarPalabra(int indice, String palabra) throws NoExistePalabraException
+    {
+        Palabra anterior = this.listaPalabras.get(indice);
+        if(anterior.getPalabra().equalsIgnoreCase(palabra))
+        {
+            this.eliminarPalabra(indice);
+        }
+        else
+        {
+            throw new NoExistePalabraException("ERROR. La palabra '" + palabra + "' no existe en la posición indicada");
+        }
     }
 }
