@@ -44,9 +44,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         setTitle("Juego del Ahorcado");
         setSize(new java.awt.Dimension(0, 0));
 
-        menAhorcado.setText("Ahorcado");
+        menAhorcado.setText("Juego");
 
-        menAhorcadoNuevo.setText("Nuevo");
+        menAhorcadoNuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        menAhorcadoNuevo.setText("Nuevo Ahorcado");
         menAhorcadoNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menAhorcadoNuevoActionPerformed(evt);
@@ -54,7 +55,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         menAhorcado.add(menAhorcadoNuevo);
 
-        menAhorcadoCargar.setText("Cargar");
+        menAhorcadoCargar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        menAhorcadoCargar.setText("Cargar Ahorcado");
         menAhorcadoCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menAhorcadoCargarActionPerformed(evt);
@@ -66,7 +68,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         menDiccionario.setText("Diccionario");
 
-        menDiccionarioCargar.setText("Cargar");
+        menDiccionarioCargar.setText("Administrar");
         menDiccionarioCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menDiccionarioCargarActionPerformed(evt);
@@ -98,6 +100,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void menAhorcadoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menAhorcadoNuevoActionPerformed
@@ -105,6 +108,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         {
             //JuegoAhorcado.jugarPorConsola(new JuegoAhorcado("*", 10, miDiccionario));
             this.setEnabled(false);
+            dlgNuevoAhorcado dialogo = new dlgNuevoAhorcado(this, true);
+            dialogo.setVisible(true);
             JuegoAhorcado.jugarPorEntornoGrafico(new JuegoAhorcado("*", 10, this.diccionarioActivo));
             this.setEnabled(true);
         }

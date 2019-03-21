@@ -21,7 +21,7 @@ public class JuegoAhorcado implements FilenameFilter
     private String letrasJugadas;
     private int cantidadFallos;
     private int jugadaMuestraAyuda;
-    private int fallosMinimosPermitidos;
+    private static int fallosMinimosPermitidos = 5;
     private String caracterMascara;
     private boolean juegoFinalizado;
     private boolean juegoGanado;
@@ -33,7 +33,8 @@ public class JuegoAhorcado implements FilenameFilter
     {
         this.letrasJugadas = "";
         this.cantidadFallos = 0;
-        this.fallosMinimosPermitidos = 5;
+        this.fallosMaximos = JuegoAhorcado.fallosMinimosPermitidos;
+        this.jugadaMuestraAyuda = JuegoAhorcado.fallosMinimosPermitidos - 3;
         this.juegoFinalizado = false;
         this.juegoSinGuardar = false;
         this.juegoGanado = false;
@@ -64,11 +65,22 @@ public class JuegoAhorcado implements FilenameFilter
         }
     }
 
-    public JuegoAhorcado(String caracterMascara, int fallosMaximos, Diccionario unDiccionario, String dificultad) throws DiccionarioVacioException, DificultadPalabraException
+    public JuegoAhorcado(String caracterMascara, int fallosMaximos, int jugadaMuestraAyuda, Diccionario unDiccionario, String dificultad) throws DiccionarioVacioException, DificultadPalabraException
     {
         this(caracterMascara, fallosMaximos, unDiccionario);
-        this.palabraSeleccionada.validaDificultad(dificultad);
-        this.dificultad = dificultad;
+        this.setDificultad(dificultad);
+        if(jugadaMuestraAyuda >= fallosMaximos)
+        {
+            this.jugadaMuestraAyuda = fallosMaximos - 1;
+        }
+        else if(jugadaMuestraAyuda <= 0)
+        {
+            this.jugadaMuestraAyuda = 1;
+        }
+        else
+        {
+            this.jugadaMuestraAyuda = jugadaMuestraAyuda;
+        }
     }
     
     public static String getDirectorio()
@@ -136,14 +148,14 @@ public class JuegoAhorcado implements FilenameFilter
         this.caracterMascara = caracterMascara;
     }
 
-    public int getFallosMinimosPermitidos()
+    public static int getFallosMinimosPermitidos()
     {
         return fallosMinimosPermitidos;
     }
 
-    public void setFallosMinimosPermitidos(int fallosMinimosPermitidos)
+    public static void setFallosMinimosPermitidos(int fallosMinimosPermitidos)
     {
-        this.fallosMinimosPermitidos = fallosMinimosPermitidos;
+        JuegoAhorcado.fallosMinimosPermitidos = fallosMinimosPermitidos;
     }
 
     public int getJugadaMuestraAyuda()
@@ -174,6 +186,17 @@ public class JuegoAhorcado implements FilenameFilter
     public boolean isJuegoGanado()
     {
         return juegoGanado;
+    }
+
+    public String getDificultad()
+    {
+        return dificultad;
+    }
+
+    public void setDificultad(String dificultad) throws DificultadPalabraException
+    {
+        this.palabraSeleccionada.validaDificultad(dificultad);
+        this.dificultad = dificultad;
     }
 
     public String getPalabra() throws JuegoException
@@ -321,7 +344,6 @@ public class JuegoAhorcado implements FilenameFilter
     
     public static void jugarPorEntornoGrafico(JuegoAhorcado miJuego)
     {
-        //frmAhorcado ventana = new frmAhorcado(miJuego, 102, 133, 208);
         frmAhorcado ventana = new frmAhorcado(miJuego, 102, 113, 185);
         ventana.setVisible(true);
     }
