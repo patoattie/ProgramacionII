@@ -13,4 +13,5 @@ public interface PalabraAptaAhorcado
 {
     public abstract void setDificultad(DificultadPalabraEnum dificultad);
     public abstract DificultadPalabraEnum getDificultad();
+    public abstract void validaDificultad(String dificultad) throws DificultadPalabraException;
 }

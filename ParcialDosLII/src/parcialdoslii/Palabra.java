@@ -15,10 +15,16 @@ public class Palabra implements PalabraAptaAhorcado
     private String definicion;
     private DificultadPalabraEnum dificultad;
 
-    public Palabra(String palabra, String definicion) throws CaracterPalabraException
+    public Palabra(String palabra, String definicion, DificultadPalabraEnum dificultad) throws CaracterPalabraException
     {
         this.setPalabra(palabra);
         this.setDefinicion(definicion);
+        this.dificultad = dificultad;
+    }
+
+    public Palabra(String palabra, String definicion) throws CaracterPalabraException
+    {
+        this(palabra, definicion, DificultadPalabraEnum.DIFICIL);
     }
     
     public Palabra(String palabra) throws CaracterPalabraException
@@ -74,6 +80,19 @@ public class Palabra implements PalabraAptaAhorcado
         }
         
         return definicionValidada;
+    }
+
+    @Override
+    public void validaDificultad(String dificultad) throws DificultadPalabraException
+    {
+        try
+        {
+            DificultadPalabraEnum.valueOf(dificultad);
+        }
+        catch(IllegalArgumentException | NullPointerException e)
+        {
+            throw new DificultadPalabraException("ERROR. La dificultad de la palabra es de ingreso obligatorio");
+        }
     }
 
     public String getDefinicion()

@@ -8,6 +8,7 @@ package parcialdoslii;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -157,7 +158,7 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAceptarActionPerformed
     {//GEN-HEADEREND:event_btnAceptarActionPerformed
-        if(this.validarDefinicion(this.txtDefinicion.getText()) && this.validarPalabra(this.txtPalabra.getText()))
+        if(this.validarDificultad(this.getCmbDificultad()) && this.validarDefinicion(this.txtDefinicion.getText()) && this.validarPalabra(this.txtPalabra.getText()))
         {
             this.setVisible(false);
         }
@@ -200,6 +201,10 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
     public String getTxtPalabra()
     {
         return txtPalabra.getText();
+    }
+
+    public String getCmbDificultad() {
+        return cmbDificultad.getItemAt(this.cmbDificultad.getSelectedIndex());
     }
 
     private void capturarEventosTeclado()
@@ -255,6 +260,23 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
         this.txtDefinicion.setText(Palabra.validaDefinicion(definicion));
         
         return definicionValidada;
+    }
+
+        private boolean validarDificultad(String dificultad)
+    {
+        boolean dificultadValidada = true;
+
+        try
+        {
+            this.palabraEditada.validaDificultad(dificultad);
+        }
+        catch (DificultadPalabraException e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage(), this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            dificultadValidada = false;
+        }
+        
+        return dificultadValidada;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
