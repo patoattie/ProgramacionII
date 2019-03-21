@@ -51,17 +51,32 @@ public class ModeloTablaDiccionario extends ModeloTabla implements TablaDicciona
 
     public String getPalabra(int fila) throws IndexOutOfBoundsException
     {
-        return this.getCelda(fila, ModeloTablaDiccionario.getCOL_PALABRA());
+        return this.getCeldaString(fila, ModeloTablaDiccionario.getCOL_PALABRA());
+    }
+    
+    public void setPalabra(String valor, int fila) throws IndexOutOfBoundsException
+    {
+        this.setCelda(valor, fila, ModeloTablaDiccionario.getCOL_PALABRA());
     }
     
     public String getDefinicion(int fila) throws IndexOutOfBoundsException
     {
-        return this.getCelda(fila, ModeloTablaDiccionario.getCOL_DEFINICION());
+        return this.getCeldaString(fila, ModeloTablaDiccionario.getCOL_DEFINICION());
+    }
+    
+    public void setDefinicion(String valor, int fila) throws IndexOutOfBoundsException
+    {
+        this.setCelda(valor, fila, ModeloTablaDiccionario.getCOL_DEFINICION());
     }
     
     public String getEstado(int fila) throws IndexOutOfBoundsException
     {
-        return this.getCelda(fila, ModeloTablaDiccionario.getCOL_ESTADO());
+        return this.getCeldaString(fila, ModeloTablaDiccionario.getCOL_ESTADO());
+    }
+    
+    public void setEstado(String valor, int fila) throws IndexOutOfBoundsException
+    {
+        this.setCelda(valor, fila, ModeloTablaDiccionario.getCOL_ESTADO());
     }
     
     public boolean existePalabra(String unaPalabra) throws ExistePalabraException
@@ -112,6 +127,12 @@ public class ModeloTablaDiccionario extends ModeloTabla implements TablaDicciona
     @Override
     public String getDificultad(int fila) throws IndexOutOfBoundsException
     {
-        return this.getCelda(fila, this.getColDificultad());
+        return this.getCeldaString(fila, this.getColDificultad());
+    }
+
+    @Override
+    public void setDificultad(String valor, int fila) throws IndexOutOfBoundsException
+    {
+        this.setCelda(valor, fila, this.getColDificultad());
     }
 }

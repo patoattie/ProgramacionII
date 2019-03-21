@@ -13,9 +13,9 @@ public class Palabra implements PalabraAptaAhorcado
 {
     private String palabra;
     private String definicion;
-    private DificultadPalabraEnum dificultad;
+    private String dificultad;
 
-    public Palabra(String palabra, String definicion, DificultadPalabraEnum dificultad) throws CaracterPalabraException
+    public Palabra(String palabra, String definicion, String dificultad) throws CaracterPalabraException
     {
         this.setPalabra(palabra);
         this.setDefinicion(definicion);
@@ -24,7 +24,7 @@ public class Palabra implements PalabraAptaAhorcado
 
     public Palabra(String palabra, String definicion) throws CaracterPalabraException
     {
-        this(palabra, definicion, DificultadPalabraEnum.DIFICIL);
+        this(palabra, definicion, DificultadPalabraEnum.DIFICIL.toString());
     }
     
     public Palabra(String palabra) throws CaracterPalabraException
@@ -129,13 +129,13 @@ public class Palabra implements PalabraAptaAhorcado
     }
 
     @Override
-    public void setDificultad(DificultadPalabraEnum dificultad)
+    public void setDificultad(String dificultad)
     {
         this.dificultad = dificultad;
     }
 
     @Override
-    public DificultadPalabraEnum getDificultad()
+    public String getDificultad()
     {
         return this.dificultad;
     }

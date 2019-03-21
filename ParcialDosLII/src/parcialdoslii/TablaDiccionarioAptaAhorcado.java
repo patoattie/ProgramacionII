@@ -14,4 +14,5 @@ public interface TablaDiccionarioAptaAhorcado
     public abstract int getColDificultad();
     public abstract void setColDificultad(int posicionColumna);
     public abstract String getDificultad(int fila) throws IndexOutOfBoundsException;
+    public abstract void setDificultad(String valor, int fila) throws IndexOutOfBoundsException;
 }

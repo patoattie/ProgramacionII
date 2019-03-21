@@ -179,7 +179,7 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
     {//GEN-HEADEREND:event_txtDefinicionFocusGained
         try
         {
-            String c = evt.getOppositeComponent().getName();
+            evt.getOppositeComponent().getName();
             this.validarPalabra(this.txtPalabra.getText());
         }
         catch(NullPointerException e) //Cuando el objeto anterior es un JOptionPane, el método getOppositeComponent() lanza NullPointerException.
@@ -318,7 +318,7 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
     
     private void iniciarComboDificultad()
     {
-        this.cmbDificultad.addItem(DificultadPalabraEnum.FACIL.name());
-        this.cmbDificultad.addItem(DificultadPalabraEnum.DIFICIL.name());
+        this.cmbDificultad.addItem(DificultadPalabraEnum.FACIL.toString());
+        this.cmbDificultad.addItem(DificultadPalabraEnum.DIFICIL.toString());
     }
 }

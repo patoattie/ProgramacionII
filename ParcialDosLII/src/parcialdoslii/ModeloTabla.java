@@ -60,8 +60,8 @@ public abstract class ModeloTabla extends DefaultTableModel
     {
         this.cambiosSinGuardar--;
     }
-
-    public String getCelda(int fila, int columna) throws IndexOutOfBoundsException
+    
+    public void validarCelda(int fila, int columna) throws IndexOutOfBoundsException
     {
         if(fila < 0 || fila >= this.getRowCount())
         {
@@ -71,10 +71,18 @@ public abstract class ModeloTabla extends DefaultTableModel
         {
             throw new IndexOutOfBoundsException("ERROR. No existe el número de columna requerido");
         }
-        else
-        {
-            return (String)this.getValueAt(fila, columna);
-        }
+    }
+
+    public String getCeldaString(int fila, int columna) throws IndexOutOfBoundsException
+    {
+        this.validarCelda(fila, columna);
+        return (String)this.getValueAt(fila, columna);
+    }
+    
+    public void setCelda(String valor, int fila, int columna) throws IndexOutOfBoundsException
+    {
+        this.validarCelda(fila, columna);
+        this.setValueAt(valor, fila, columna);
     }
 
     @Override
