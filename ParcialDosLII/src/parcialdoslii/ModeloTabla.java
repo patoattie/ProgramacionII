@@ -61,6 +61,22 @@ public abstract class ModeloTabla extends DefaultTableModel
         this.cambiosSinGuardar--;
     }
 
+    public String getCelda(int fila, int columna) throws IndexOutOfBoundsException
+    {
+        if(fila < 0 || fila >= this.getRowCount())
+        {
+            throw new IndexOutOfBoundsException("ERROR. No existe el número de fila requerido");
+        }
+        else if(columna < 0 || columna >= this.getColumnCount())
+        {
+            throw new IndexOutOfBoundsException("ERROR. No existe el número de columna requerido");
+        }
+        else
+        {
+            return (String)this.getValueAt(fila, columna);
+        }
+    }
+
     @Override
     public abstract boolean isCellEditable(int fila, int columna);
 

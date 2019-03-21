@@ -50,7 +50,7 @@ public class Palabra implements PalabraAptaAhorcado
     {
         String palabraValidada;
         //if(palabra.matches("[^A-Za-z]")) //La palabra no puede contener caracteres que no sean letras
-        if(palabra.isEmpty())
+        if(palabra.trim().isEmpty())
         {
             throw new CaracterPalabraException("ERROR. La palabra es de ingreso obligatorio");
         }
@@ -70,7 +70,7 @@ public class Palabra implements PalabraAptaAhorcado
     {
         String definicionValidada;
         
-        if(definicion.isEmpty())
+        if(definicion.trim().isEmpty())
         {
             definicionValidada = "No se halló definición";
         }

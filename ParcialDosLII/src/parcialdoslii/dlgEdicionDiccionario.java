@@ -8,7 +8,6 @@ package parcialdoslii;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,13 +20,14 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
     /**
      * Creates new form dlgEdicionDiccionario
      */
-    public dlgEdicionDiccionario(java.awt.Frame parent, boolean modal, Palabra palabraEditada, String accion, Diccionario diccionario)
+    public dlgEdicionDiccionario(java.awt.Frame parent, boolean modal, Palabra palabraEditada, String accion, Diccionario diccionario, ModeloTablaDiccionario modelo)
     {
         super(parent, modal);
         this.dialogoCancelado = false;
         this.palabraEditada = palabraEditada;
         this.accion = accion;
         this.diccionario = diccionario;
+        this.modelo = modelo;
         initComponents();
         this.capturarEventosTeclado();
         this.setearTitulo();
@@ -242,6 +242,7 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
             {
                 this.txtPalabra.setText(Palabra.validaPalabra(palabra));
                 this.diccionario.existePalabra(new Palabra(palabra, this.txtDefinicion.getText()));
+                this.modelo.existePalabra(palabra);
             }
             catch (CaracterPalabraException | ExistePalabraException e)
             {
@@ -294,6 +295,7 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
     private Palabra palabraEditada;
     private String accion;
     private Diccionario diccionario;
+    private ModeloTablaDiccionario modelo;
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent e)

@@ -9,17 +9,19 @@ package parcialdoslii;
  *
  * @author pattie
  */
-public class ModeloTablaDiccionario extends ModeloTabla
+public class ModeloTablaDiccionario extends ModeloTabla implements TablaDiccionarioAptaAhorcado
 {
     private static final int COL_PALABRA = 0;
     private static final int COL_DEFINICION = 1;
     private static final int COL_ESTADO = 2;
+    private int colDificultad;
     private static final int ANCHO_MAXIMO = 750;
     private static final int ANCHO_MINIMO = 100;
 
     public ModeloTablaDiccionario(int fila, int columna)
     {
         super(fila, columna);
+        this.setColDificultad(-1);
     }
     
     public static int getCOL_PALABRA()
@@ -47,6 +49,42 @@ public class ModeloTablaDiccionario extends ModeloTabla
         return ANCHO_MINIMO;
     }
 
+    public String getPalabra(int fila) throws IndexOutOfBoundsException
+    {
+        return this.getCelda(fila, ModeloTablaDiccionario.getCOL_PALABRA());
+    }
+    
+    public String getDefinicion(int fila) throws IndexOutOfBoundsException
+    {
+        return this.getCelda(fila, ModeloTablaDiccionario.getCOL_DEFINICION());
+    }
+    
+    public String getEstado(int fila) throws IndexOutOfBoundsException
+    {
+        return this.getCelda(fila, ModeloTablaDiccionario.getCOL_ESTADO());
+    }
+    
+    public boolean existePalabra(String unaPalabra) throws ExistePalabraException
+    {
+        boolean retorno = false;
+        
+        for (int i = 0; i < this.getRowCount(); i++)
+        {
+            if(this.getEstado(i).equals(ModeloTablaDiccionario.getINSERTA()) && this.getPalabra(i).equalsIgnoreCase(unaPalabra))
+            {
+                retorno = true;
+                break;
+            }
+        }
+        
+        if(retorno)
+        {
+            throw new ExistePalabraException("ERROR. La palabra '" + unaPalabra + "' ya existe en el Diccionario");
+        }
+        
+        return retorno;
+    }
+
     @Override
     public boolean isCellEditable(int fila, int columna)
     {
@@ -57,5 +95,23 @@ public class ModeloTablaDiccionario extends ModeloTabla
      public Class<?> getColumnClass(int i)
     {
         return String.class;
+    }
+
+    @Override
+    public int getColDificultad()
+    {
+        return this.colDificultad;
+    }
+
+    @Override
+    public void setColDificultad(int posicionColumna)
+    {
+        this.colDificultad = posicionColumna;
+    }
+
+    @Override
+    public String getDificultad(int fila) throws IndexOutOfBoundsException
+    {
+        return this.getCelda(fila, this.getColDificultad());
     }
 }

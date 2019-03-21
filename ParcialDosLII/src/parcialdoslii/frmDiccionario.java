@@ -15,7 +15,7 @@ import javax.swing.table.TableColumnModel;
  *
  * @author Sil y Pato
  */
-public class frmDiccionario extends javax.swing.JFrame implements TablaDiccionarioAptaAhorcado {
+public class frmDiccionario extends javax.swing.JFrame {
 
     /**
      * Creates new form frmDiccionario
@@ -206,7 +206,7 @@ public class frmDiccionario extends javax.swing.JFrame implements TablaDiccionar
     private void menDiccionarioAgregarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_menDiccionarioAgregarActionPerformed
     {//GEN-HEADEREND:event_menDiccionarioAgregarActionPerformed
         String fila[] = new String[this.tablaPalabras.getColumnCount()];
-        dlgEdicionDiccionario dialogo = new dlgEdicionDiccionario(this, true, new Palabra(), ModeloTablaDiccionario.getINSERTA(), this.diccionario);
+        dlgEdicionDiccionario dialogo = new dlgEdicionDiccionario(this, true, new Palabra(), ModeloTablaDiccionario.getINSERTA(), this.diccionario, this.modeloTabla);
         dialogo.setVisible(true);
         
         if(!dialogo.isDialogoCancelado())
@@ -214,7 +214,7 @@ public class frmDiccionario extends javax.swing.JFrame implements TablaDiccionar
             fila[ModeloTablaDiccionario.getCOL_ESTADO()] = ModeloTablaDiccionario.getINSERTA();
             fila[ModeloTablaDiccionario.getCOL_PALABRA()] = dialogo.getTxtPalabra();
             fila[ModeloTablaDiccionario.getCOL_DEFINICION()] = dialogo.getTxtDefinicion();
-            fila[this.getColDificultad()] = dialogo.getCmbDificultad();
+            fila[this.modeloTabla.getColDificultad()] = dialogo.getCmbDificultad();
             this.modeloTabla.addRow(fila);
             this.modeloTabla.agregarCambiosSinGuardar();
             this.refrescarDatos();
@@ -246,7 +246,7 @@ public class frmDiccionario extends javax.swing.JFrame implements TablaDiccionar
 
             try
             {
-                dialogo = new dlgEdicionDiccionario(this, true, new Palabra(palabra, definicion), estadoNuevo, this.diccionario);
+                dialogo = new dlgEdicionDiccionario(this, true, new Palabra(palabra, definicion), estadoNuevo, this.diccionario, this.modeloTabla);
             }
             catch (CaracterPalabraException e)
             {
@@ -389,7 +389,6 @@ public class frmDiccionario extends javax.swing.JFrame implements TablaDiccionar
     private Diccionario diccionario;
     private ModeloTablaDiccionario modeloTabla;
     private ModeloFilas modeloFilas;
-    private int colDificultad;
     
     private void inicializarTabla()
     {
@@ -399,7 +398,7 @@ public class frmDiccionario extends javax.swing.JFrame implements TablaDiccionar
         String titulo[] = {"Palabra", "Definición", "", "Dificultad"};
         String fila[] = new String[this.tablaPalabras.getColumnCount()];
         this.modeloTabla.setColumnIdentifiers(titulo);
-        this.setColDificultad((this.modeloTabla.findColumn("")) + 1);
+        this.modeloTabla.setColDificultad((this.modeloTabla.findColumn("")) + 1);
         
         for (Palabra unaPalabra : this.diccionario.getListaPalabras())
         {
@@ -408,11 +407,11 @@ public class frmDiccionario extends javax.swing.JFrame implements TablaDiccionar
             fila[ModeloTablaDiccionario.getCOL_ESTADO()] = ModeloTabla.getSIN_CAMBIOS();
             try
             {
-                fila[this.getColDificultad()] = unaPalabra.getDificultad().name();
+                fila[this.modeloTabla.getColDificultad()] = unaPalabra.getDificultad().name();
             }
             catch(NullPointerException e)
             {
-                fila[this.getColDificultad()] = "";
+                fila[this.modeloTabla.getColDificultad()] = "";
             }
             this.modeloTabla.addRow(fila);
         }
@@ -484,20 +483,20 @@ public class frmDiccionario extends javax.swing.JFrame implements TablaDiccionar
         
         for (int i = 0; i < this.tablaPalabras.getRowCount(); i++)
         {
-            estadoLeido = (String)this.tablaPalabras.getValueAt(i, ModeloTablaDiccionario.getCOL_ESTADO());
-            palabraLeida = (String)this.tablaPalabras.getValueAt(i, ModeloTablaDiccionario.getCOL_PALABRA());
-            definicionLeida = (String)this.tablaPalabras.getValueAt(i, ModeloTablaDiccionario.getCOL_DEFINICION());
-            dificultadLeida = (String)this.tablaPalabras.getValueAt(i, this.getColDificultad());
+            estadoLeido = this.modeloTabla.getEstado(i);
+            palabraLeida = this.modeloTabla.getPalabra(i);
+            definicionLeida = this.modeloTabla.getDefinicion(i);
+            dificultadLeida = this.modeloTabla.getDificultad(i);
             
             if(estadoLeido.equals(ModeloTablaDiccionario.getINSERTA()))
             {
-                this.diccionario.agregarPalabra(new Palabra(palabraLeida, definicionLeida, DificultadPalabraEnum.valueOf(this.getDificultadSeleccionada())));
+                this.diccionario.agregarPalabra(new Palabra(palabraLeida, definicionLeida, DificultadPalabraEnum.valueOf(dificultadLeida)));
                 this.tablaPalabras.setValueAt(ModeloTablaDiccionario.getSIN_CAMBIOS(), i, ModeloTablaDiccionario.getCOL_ESTADO());
                 this.modeloTabla.restarCambiosSinGuardar();
             }
             else if(estadoLeido.equals(ModeloTablaDiccionario.getACTUALIZA()))
             {
-                this.diccionario.editarDefinicion(this.diccionario.buscarPalabra(palabraLeida), definicionLeida);
+                this.diccionario.editarPalabra(this.diccionario.buscarPalabra(palabraLeida), new Palabra(palabraLeida, definicionLeida, DificultadPalabraEnum.valueOf(dificultadLeida)));
                 this.tablaPalabras.setValueAt(ModeloTablaDiccionario.getSIN_CAMBIOS(), i, ModeloTablaDiccionario.getCOL_ESTADO());
                 this.modeloTabla.restarCambiosSinGuardar();
             }
@@ -512,34 +511,27 @@ public class frmDiccionario extends javax.swing.JFrame implements TablaDiccionar
     
     private String getPalabraSeleccionada()
     {
-        return (String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_PALABRA());
+        return this.modeloTabla.getPalabra(this.tablaPalabras.getSelectedRow());
     }
 
     private String getDefinicionSeleccionada()
     {
-        return (String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_DEFINICION());
+        return this.modeloTabla.getDefinicion(this.tablaPalabras.getSelectedRow());
     }
 
     private String getEstadoSeleccionado()
     {
-        return (String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_ESTADO());
+        return this.modeloTabla.getEstado(this.tablaPalabras.getSelectedRow());
+    }
+    
+    private String getDificultadSeleccionada()
+    {
+        return this.modeloTabla.getDificultad(this.tablaPalabras.getSelectedRow());
     }
 
-    @Override
-    public int getColDificultad()
+    public ModeloTablaDiccionario getModeloTabla()
     {
-        return this.colDificultad;
+        return modeloTabla;
     }
-
-    @Override
-    public void setColDificultad(int posicionColumna)
-    {
-        this.colDificultad = posicionColumna;
-    }
-
-    @Override
-    public String getDificultadSeleccionada()
-    {
-        return (String)this.tablaPalabras.getValueAt(this.tablaPalabras.getSelectedRow(), this.getColDificultad());
-    }
+    
 }

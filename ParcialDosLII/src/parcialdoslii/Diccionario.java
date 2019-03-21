@@ -122,7 +122,7 @@ public class Diccionario implements java.io.Serializable, FilenameFilter
         return name.endsWith(XML.getExtension());
     }
     
-    public void editarPalabra(int indice, String palabra) throws CaracterPalabraException, IndexOutOfBoundsException
+    public void editarPalabra(int indice, Palabra palabra) throws CaracterPalabraException, IndexOutOfBoundsException
     {
         if(indice < 0 || indice >= this.listaPalabras.size())
         {
@@ -133,28 +133,7 @@ public class Diccionario implements java.io.Serializable, FilenameFilter
             Palabra anterior = this.listaPalabras.get(indice);
             try
             {
-                this.listaPalabras.set(indice, new Palabra(palabra, anterior.getDefinicion()));
-            }
-            catch (CaracterPalabraException e)
-            {
-                this.listaPalabras.set(indice, anterior);
-                throw e;
-            }
-        }
-    }
-    
-    public void editarDefinicion(int indice, String definicion) throws CaracterPalabraException, IndexOutOfBoundsException
-    {
-        if(indice < 0 || indice >= this.listaPalabras.size())
-        {
-            throw new IndexOutOfBoundsException("ERROR. La posición indicada está fuera de rango");
-        }
-        else
-        {
-            Palabra anterior = this.listaPalabras.get(indice);
-            try
-            {
-                this.listaPalabras.set(indice, new Palabra(anterior.getPalabra(), definicion));
+                this.listaPalabras.set(indice, new Palabra(anterior.getPalabra(), palabra.getDefinicion(), palabra.getDificultad()));
             }
             catch (CaracterPalabraException e)
             {
