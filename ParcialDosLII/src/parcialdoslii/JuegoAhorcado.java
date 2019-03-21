@@ -27,6 +27,7 @@ public class JuegoAhorcado implements FilenameFilter
     private boolean juegoGanado;
     private boolean juegoSinGuardar;
     private static String directorio = "juegos" + System.getProperty("file.separator");
+    private String dificultad;
     
     public JuegoAhorcado()
     {
@@ -58,11 +59,18 @@ public class JuegoAhorcado implements FilenameFilter
             }
 
             this.jugadaMuestraAyuda = this.fallosMaximos - 3;
-            this.palabraSeleccionada = getPalabraAleatoria(unDiccionario);
+            this.palabraSeleccionada = unDiccionario.getPalabraAleatoria();
             this.caracterMascara = caracterMascara;
         }
     }
 
+    public JuegoAhorcado(String caracterMascara, int fallosMaximos, Diccionario unDiccionario, String dificultad) throws DiccionarioVacioException, DificultadPalabraException
+    {
+        this(caracterMascara, fallosMaximos, unDiccionario);
+        this.palabraSeleccionada.validaDificultad(dificultad);
+        this.dificultad = dificultad;
+    }
+    
     public static String getDirectorio()
     {
         return directorio;
@@ -316,22 +324,6 @@ public class JuegoAhorcado implements FilenameFilter
         //frmAhorcado ventana = new frmAhorcado(miJuego, 102, 133, 208);
         frmAhorcado ventana = new frmAhorcado(miJuego, 102, 113, 185);
         ventana.setVisible(true);
-    }
-
-    private Palabra getPalabraAleatoria(Diccionario diccionario) throws DiccionarioVacioException
-    {
-        Palabra unaPalabra = null;
-        int indiceAleatorio;
-        if (diccionario.getListaPalabras().isEmpty())
-        {
-            throw new DiccionarioVacioException("ERROR. El Diccionario esta vacío");
-        }
-        else
-        {
-            indiceAleatorio = (int) (Math.random() * (diccionario.getListaPalabras().size()));
-            unaPalabra = diccionario.getListaPalabras().get(indiceAleatorio);
-        }
-        return unaPalabra;
     }
 
     public static JuegoAhorcado cargarJuego(String archivoXML) throws FileNotFoundException

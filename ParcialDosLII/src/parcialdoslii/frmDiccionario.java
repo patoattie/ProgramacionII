@@ -97,6 +97,7 @@ public class frmDiccionario extends javax.swing.JFrame {
 
         menDiccionario.setText("Diccionario");
 
+        menDiccionarioAgregar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         menDiccionarioAgregar.setText("Agregar Palabra");
         menDiccionarioAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +106,7 @@ public class frmDiccionario extends javax.swing.JFrame {
         });
         menDiccionario.add(menDiccionarioAgregar);
 
+        menDiccionarioEditar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         menDiccionarioEditar.setText("Editar Palabra");
         menDiccionarioEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,6 +124,7 @@ public class frmDiccionario extends javax.swing.JFrame {
         });
         menDiccionario.add(menDiccionarioBorrar);
 
+        menDiccionarioRehabilitar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         menDiccionarioRehabilitar.setText("Rehabilitar Palabra");
         menDiccionarioRehabilitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,6 +134,7 @@ public class frmDiccionario extends javax.swing.JFrame {
         menDiccionario.add(menDiccionarioRehabilitar);
         menDiccionario.add(menDiccionarioSeparador1);
 
+        menDiccionarioGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         menDiccionarioGuardar.setText("Guardar");
         menDiccionarioGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,6 +306,10 @@ public class frmDiccionario extends javax.swing.JFrame {
                     {
                         JOptionPane.showMessageDialog(null, e.getMessage(), "Guardar Diccionario", JOptionPane.ERROR_MESSAGE);
                     }
+                    catch (FileNotFoundException e)
+                    {
+                        JOptionPane.showMessageDialog(null, "ERROR. Archivo XML no encontrado", "Guardar Diccionario", JOptionPane.ERROR_MESSAGE);
+                    }
                     break;
                 case JOptionPane.NO_OPTION:
                     this.dispose();
@@ -319,11 +327,16 @@ public class frmDiccionario extends javax.swing.JFrame {
         try
         {
             this.persistirEnMemoria();
+            JOptionPane.showMessageDialog(null, "Se guardó el Diccionario correctamente", "Guardar Diccionario", JOptionPane.INFORMATION_MESSAGE);
             this.refrescarDatos(true);
         }
         catch (CaracterPalabraException | ExistePalabraException | IndexOutOfBoundsException | NoExistePalabraException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Guardar Diccionario", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (FileNotFoundException e)
+        {
+            JOptionPane.showMessageDialog(null, "ERROR. Archivo XML no encontrado", "Guardar Diccionario", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_menDiccionarioGuardarActionPerformed
 
@@ -448,7 +461,7 @@ public class frmDiccionario extends javax.swing.JFrame {
         }
     }
     
-    private void persistirEnMemoria() throws CaracterPalabraException, ExistePalabraException, IndexOutOfBoundsException, NoExistePalabraException
+    private void persistirEnMemoria() throws CaracterPalabraException, ExistePalabraException, IndexOutOfBoundsException, NoExistePalabraException, FileNotFoundException
     {
         String estadoLeido;
         String palabraLeida;
@@ -483,14 +496,7 @@ public class frmDiccionario extends javax.swing.JFrame {
             }
         }
         
-        try
-        {
-            this.diccionario.grabarDiccionario(Diccionario.getARCHIVO_XML());
-        }
-        catch (FileNotFoundException e)
-        {
-            JOptionPane.showMessageDialog(null, "ERROR. Archivo XML no encontrado", "Guardar Diccionario", JOptionPane.ERROR_MESSAGE);
-        }
+        this.diccionario.grabarDiccionario(Diccionario.getARCHIVO_XML());
     }
     
     private String getPalabraSeleccionada()

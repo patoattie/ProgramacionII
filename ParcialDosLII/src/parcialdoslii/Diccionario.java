@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author capacita_mecon
  */
-public class Diccionario implements java.io.Serializable, FilenameFilter
+public class Diccionario implements java.io.Serializable, FilenameFilter, DiccionarioAptoAhorcado
 {
 
     private static final String ARCHIVO_XML = "Diccionario.xml";
@@ -187,5 +187,62 @@ public class Diccionario implements java.io.Serializable, FilenameFilter
         {
             throw new NoExistePalabraException("ERROR. La palabra '" + palabra + "' no existe en la posición indicada");
         }
+    }
+
+    public Palabra getPalabraAleatoria() throws DiccionarioVacioException
+    {
+        Palabra unaPalabra = null;
+        int indiceAleatorio;
+        
+        if (this.getListaPalabras().isEmpty())
+        {
+            throw new DiccionarioVacioException("ERROR. El Diccionario esta vacío");
+        }
+        else
+        {
+            indiceAleatorio = (int) (Math.random() * (this.getListaPalabras().size()));
+            unaPalabra = this.getListaPalabras().get(indiceAleatorio);
+        }
+        
+        return unaPalabra;
+    }
+
+    @Override
+    public Palabra getPalabraAleatoria(String dificultad) throws DiccionarioVacioException
+    {
+        Palabra retorno = null;
+        
+        int cantidadPalabras = 0;
+        int ultimoIndiceHallado = -1;
+        for (Palabra unaPalabra : this.listaPalabras)
+        {
+            if(unaPalabra.getDificultad().equalsIgnoreCase(dificultad))
+            {
+                cantidadPalabras++;
+                ultimoIndiceHallado = this.listaPalabras.indexOf(unaPalabra);
+                
+                if(cantidadPalabras > 1)
+                {
+                    break;
+                }
+            }
+        }
+        
+        switch(cantidadPalabras)
+        {
+            case 0:
+                throw new DiccionarioVacioException("ERROR. El Diccionario esta vacío");
+            case 1:
+                retorno = this.listaPalabras.get(ultimoIndiceHallado);
+                break;
+            case 2:
+                do
+                {
+                    retorno = this.getPalabraAleatoria();
+                } while(!retorno.getDificultad().equalsIgnoreCase(dificultad));
+                break;
+        }
+        
+        return retorno;
     }
 }
