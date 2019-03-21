@@ -108,14 +108,19 @@ public class frmPrincipal extends javax.swing.JFrame {
         {
             //JuegoAhorcado.jugarPorConsola(new JuegoAhorcado("*", 10, miDiccionario));
             this.setEnabled(false);
+            
             dlgNuevoAhorcado dialogo = new dlgNuevoAhorcado(this, true);
             dialogo.setVisible(true);
-            JuegoAhorcado.jugarPorEntornoGrafico(new JuegoAhorcado("*", 10, this.diccionarioActivo));
+            
+            if(!dialogo.isDialogoCancelado())
+            {
+                JuegoAhorcado.jugarPorEntornoGrafico(new JuegoAhorcado(dialogo.getCmbMascara(), Integer.parseInt(dialogo.getCmbFallosMaximos()), Integer.parseInt(dialogo.getCmbMuestraAyuda()), this.diccionarioActivo, dialogo.getCmbDificultad()));
+            }
             this.setEnabled(true);
         }
-        catch (DiccionarioVacioException e)
+        catch (DiccionarioVacioException | DificultadPalabraException e)
         {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Nuevo Juego Ahorcado", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_menAhorcadoNuevoActionPerformed
 

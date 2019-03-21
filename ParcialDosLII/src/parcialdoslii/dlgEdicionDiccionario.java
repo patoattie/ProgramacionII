@@ -195,16 +195,17 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
 
     public String getTxtDefinicion()
     {
-        return txtDefinicion.getText();
+        return this.txtDefinicion.getText();
     }
 
     public String getTxtPalabra()
     {
-        return txtPalabra.getText();
+        return this.txtPalabra.getText();
     }
 
-    public String getCmbDificultad() {
-        return cmbDificultad.getItemAt(this.cmbDificultad.getSelectedIndex());
+    public String getCmbDificultad()
+    {
+        return this.cmbDificultad.getItemAt(this.cmbDificultad.getSelectedIndex());
     }
 
     private void capturarEventosTeclado()
