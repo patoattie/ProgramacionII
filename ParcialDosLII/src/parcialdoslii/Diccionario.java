@@ -16,6 +16,8 @@ import java.util.ArrayList;
  */
 public class Diccionario implements java.io.Serializable, FilenameFilter
 {
+
+    private static final String ARCHIVO_XML = "Diccionario.xml";
     private ArrayList<Palabra> listaPalabras;
     private static String directorio = "diccionarios" + System.getProperty("file.separator");
 
@@ -40,6 +42,10 @@ public class Diccionario implements java.io.Serializable, FilenameFilter
         File dir = new File(directorio);
         
         return dir.list(this);
+    }
+
+    public static String getARCHIVO_XML() {
+        return ARCHIVO_XML;
     }
     
     public boolean agregarPalabra(Palabra unaPalabra) throws ExistePalabraException

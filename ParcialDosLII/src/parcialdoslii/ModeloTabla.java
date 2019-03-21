@@ -6,6 +6,7 @@
 package parcialdoslii;
 
 import java.util.ArrayList;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -83,6 +84,16 @@ public abstract class ModeloTabla extends DefaultTableModel
     {
         this.validarCelda(fila, columna);
         this.setValueAt(valor, fila, columna);
+    }
+
+    public static int getFilaModelo(JTable tabla, int filaTabla)
+    {
+        return tabla.getRowSorter().convertRowIndexToModel(filaTabla);
+    }
+
+    public static int getFilaTabla(JTable tabla, int filaModelo)
+    {
+        return tabla.getRowSorter().convertRowIndexToView(filaModelo);
     }
 
     @Override

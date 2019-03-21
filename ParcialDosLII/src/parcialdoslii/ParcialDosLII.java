@@ -14,7 +14,6 @@ import java.io.FileNotFoundException;
 public class ParcialDosLII
 {
 
-    private static final String ARCHIVO_XML = "Diccionario.xml";
     /**
      * @param args the command line arguments
      */
@@ -26,7 +25,7 @@ public class ParcialDosLII
 
         try
         {
-            miDiccionario = Diccionario.crearDiccionario(ARCHIVO_XML);
+            miDiccionario = Diccionario.crearDiccionario(Diccionario.getARCHIVO_XML());
             //System.out.println(miDiccionario.toString());
             frmPrincipal ventana = new frmPrincipal(miDiccionario);
             ventana.setVisible(true);
@@ -70,7 +69,7 @@ public class ParcialDosLII
 
             try
             {
-                miDiccionario.grabarDiccionario(ARCHIVO_XML);
+                miDiccionario.grabarDiccionario(Diccionario.getARCHIVO_XML());
             }
             catch (FileNotFoundException e)
             {
