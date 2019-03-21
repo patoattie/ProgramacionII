@@ -297,6 +297,7 @@ public class JuegoAhorcado implements FilenameFilter
 
                 if(palabra.equalsIgnoreCase(this.palabraSeleccionada.getPalabra()))
                 {
+                    this.juegoGanado = true;
                     throw new JuegoGanadoException("FELICITACIONES!! GANASTE EL JUEGO");
                 }
                 else
