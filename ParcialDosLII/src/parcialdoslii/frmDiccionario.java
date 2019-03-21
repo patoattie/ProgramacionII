@@ -228,6 +228,7 @@ public class frmDiccionario extends javax.swing.JFrame {
         String palabra = this.getPalabraSeleccionada();
         String definicion = this.getDefinicionSeleccionada();
         String estadoActual = this.getEstadoSeleccionado();
+        String dificultad = this.getDificultadSeleccionada();
         String estadoNuevo;
         
         if(!estadoActual.equals(ModeloTablaDiccionario.getBORRA()))
@@ -258,9 +259,11 @@ public class frmDiccionario extends javax.swing.JFrame {
             {
                 palabra = dialogo.getTxtPalabra();
                 definicion = dialogo.getTxtDefinicion();
+                dificultad = dialogo.getCmbDificultad();
                 this.tablaPalabras.setValueAt(palabra, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_PALABRA());
                 this.tablaPalabras.setValueAt(definicion, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_DEFINICION());
                 this.tablaPalabras.setValueAt(estadoNuevo, this.tablaPalabras.getSelectedRow(), ModeloTablaDiccionario.getCOL_ESTADO());
+                this.tablaPalabras.setValueAt(dificultad, this.tablaPalabras.getSelectedRow(), this.modeloTabla.getColDificultad());
                 this.modeloTabla.agregarCambiosSinGuardar();
                 this.refrescarDatos();
             }
@@ -511,22 +514,22 @@ public class frmDiccionario extends javax.swing.JFrame {
     
     private String getPalabraSeleccionada()
     {
-        return this.modeloTabla.getPalabra(this.tablaPalabras.getSelectedRow());
+        return this.modeloTabla.getPalabra(this.tablaPalabras.getRowSorter().convertRowIndexToModel(this.tablaPalabras.getSelectedRow()));
     }
 
     private String getDefinicionSeleccionada()
     {
-        return this.modeloTabla.getDefinicion(this.tablaPalabras.getSelectedRow());
+        return this.modeloTabla.getDefinicion(this.tablaPalabras.getRowSorter().convertRowIndexToModel(this.tablaPalabras.getSelectedRow()));
     }
 
     private String getEstadoSeleccionado()
     {
-        return this.modeloTabla.getEstado(this.tablaPalabras.getSelectedRow());
+        return this.modeloTabla.getEstado(this.tablaPalabras.getRowSorter().convertRowIndexToModel(this.tablaPalabras.getSelectedRow()));
     }
     
     private String getDificultadSeleccionada()
     {
-        return this.modeloTabla.getDificultad(this.tablaPalabras.getSelectedRow());
+        return this.modeloTabla.getDificultad(this.tablaPalabras.getRowSorter().convertRowIndexToModel(this.tablaPalabras.getSelectedRow()));
     }
 
     public ModeloTablaDiccionario getModeloTabla()

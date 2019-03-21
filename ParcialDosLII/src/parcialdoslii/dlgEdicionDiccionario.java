@@ -30,7 +30,7 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
         this.modelo = modelo;
         initComponents();
         this.capturarEventosTeclado();
-        this.setearTitulo();
+        this.setTitulo();
         this.iniciarComboDificultad();
         this.iniciarTextos();
     }
@@ -220,7 +220,7 @@ public class dlgEdicionDiccionario extends javax.swing.JDialog implements KeyEve
         this.cmbDificultad.setSelectedItem(this.palabraEditada.getDificultad());
     }
     
-    private void setearTitulo()
+    private void setTitulo()
     {
         if(this.accion.equals(ModeloTablaDiccionario.getINSERTA()))
         {
