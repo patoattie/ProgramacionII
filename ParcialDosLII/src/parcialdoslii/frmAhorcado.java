@@ -276,6 +276,11 @@ public class frmAhorcado extends javax.swing.JFrame
             {
                 this.dibujarImagenes();
             }
+            else
+            {
+                //Habilito el menú de guardar si tengo cambios sin grabar y no está finalizado el juego
+                this.menJuegoGuardar.setEnabled(!this.juego.isJuegoFinalizado() && this.juego.isJuegoSinGuardar());
+            }
             this.lblPalabra.setText(this.juego.getPalabraSeleccionada().getPalabra());
             this.btnJugarLetra.setEnabled(false);
             this.btnArriesgarPalabra.setEnabled(false);
@@ -288,7 +293,7 @@ public class frmAhorcado extends javax.swing.JFrame
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        if(this.juego.isJuegoSinGuardar())
+        if(!this.juego.isJuegoFinalizado() && this.juego.isJuegoSinGuardar())
         {
             switch(JOptionPane.showConfirmDialog(null, "Desea guardar el juego antes de salir?", "Salir del Juego", JOptionPane.YES_NO_CANCEL_OPTION))
             {
@@ -331,6 +336,9 @@ public class frmAhorcado extends javax.swing.JFrame
                 if(!dialogo.isDialogoCancelado())
                 {
                     this.juego.guardarJuegoNuevo(nombreArchivo);
+
+                    //Habilito el menú de guardar si tengo cambios sin grabar y no está finalizado el juego
+                    this.menJuegoGuardar.setEnabled(!this.juego.isJuegoFinalizado() && this.juego.isJuegoSinGuardar());
                 }
             }
             catch (FileNotFoundException e)
@@ -348,6 +356,9 @@ public class frmAhorcado extends javax.swing.JFrame
                             {
                                 this.juego.guardarJuego(nombreArchivo);
                                 guardoJuego = true;
+
+                                //Habilito el menú de guardar si tengo cambios sin grabar y no está finalizado el juego
+                                this.menJuegoGuardar.setEnabled(!this.juego.isJuegoFinalizado() && this.juego.isJuegoSinGuardar());
                             }
                             catch (FileNotFoundException ex)
                             {
@@ -426,6 +437,9 @@ public class frmAhorcado extends javax.swing.JFrame
             this.lblFilo.setIcon(new ImageIcon("imagenes\\filo.jpg"));
             this.lblFilo.setLocation(this.lblGuillotina.getLocation().x + this.xFilo, this.lblGuillotina.getLocation().y + this.yFilo + (this.yFiloRatio * this.juego.getCantidadFallos()));
         }
+        
+        //Habilito el menú de guardar si tengo cambios sin grabar y no está finalizado el juego
+        this.menJuegoGuardar.setEnabled(!this.juego.isJuegoFinalizado() && this.juego.isJuegoSinGuardar());
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

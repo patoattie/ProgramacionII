@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_66" class="java.beans.XMLDecoder">
+ <object class="parcialdoslii.JuegoAhorcado">
+  <void property="caracterMascara">
+   <string>*</string>
+  </void>
+  <void property="dificultad">
+   <string>FACIL</string>
+  </void>
+  <void property="fallosMaximos">
+   <int>10</int>
+  </void>
+  <void property="jugadaMuestraAyuda">
+   <int>5</int>
+  </void>
+  <void property="letrasJugadas">
+   <string>A</string>
+  </void>
+  <void property="palabraSeleccionada">
+   <object class="parcialdoslii.Palabra">
+    <void property="definicion">
+     <string>Conjunto de hilos entrelazados que forman un solo cuerpo largo y flexible que sirve para atar, suspender pesos, etc.</string>
+    </void>
+    <void property="dificultad">
+     <string>FACIL</string>
+    </void>
+    <void property="palabra">
+     <string>CUERDA</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>
