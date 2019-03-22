@@ -80,7 +80,19 @@ public abstract class ModeloTabla extends DefaultTableModel
         return (String)this.getValueAt(fila, columna);
     }
     
+    public int getCeldaInteger(int fila, int columna) throws IndexOutOfBoundsException
+    {
+        this.validarCelda(fila, columna);
+        return Integer.parseInt((String)this.getValueAt(fila, columna));
+    }
+    
     public void setCelda(String valor, int fila, int columna) throws IndexOutOfBoundsException
+    {
+        this.validarCelda(fila, columna);
+        this.setValueAt(valor, fila, columna);
+    }
+
+    public void setCelda(int valor, int fila, int columna) throws IndexOutOfBoundsException
     {
         this.validarCelda(fila, columna);
         this.setValueAt(valor, fila, columna);

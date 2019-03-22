@@ -17,6 +17,7 @@ public class ModeloTablaDiccionario extends ModeloTabla implements TablaDicciona
     private int colDificultad;
     private static final int ANCHO_MAXIMO = 750;
     private static final int ANCHO_MINIMO = 100;
+    public static final String[] TITULOS_COLUMNAS = {"Palabra", "Definición", "", "Dificultad"};
 
     public ModeloTablaDiccionario(int fila, int columna)
     {

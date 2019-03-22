@@ -17,10 +17,12 @@ public class frmPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form frmPrincipal
      */
-    public frmPrincipal(Diccionario miDiccionario) {
+    public frmPrincipal(Diccionario miDiccionario, Ranking miRanking)
+    {
         this.setExtendedState(MAXIMIZED_BOTH);
         initComponents();
         this.diccionarioActivo = miDiccionario;
+        this.ranking = miRanking;
     }
 
     /**
@@ -36,6 +38,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         menAhorcado = new javax.swing.JMenu();
         menAhorcadoNuevo = new javax.swing.JMenuItem();
         menAhorcadoCargar = new javax.swing.JMenuItem();
+        separador = new javax.swing.JPopupMenu.Separator();
+        menAhorcadoRanking = new javax.swing.JMenuItem();
         menDiccionario = new javax.swing.JMenu();
         menDiccionarioCargar = new javax.swing.JMenuItem();
         menSalir = new javax.swing.JMenu();
@@ -63,6 +67,16 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
         menAhorcado.add(menAhorcadoCargar);
+        menAhorcado.add(separador);
+
+        menAhorcadoRanking.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        menAhorcadoRanking.setText("Ver Ranking");
+        menAhorcadoRanking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menAhorcadoRankingActionPerformed(evt);
+            }
+        });
+        menAhorcado.add(menAhorcadoRanking);
 
         menuPrincipal.add(menAhorcado);
 
@@ -114,7 +128,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             
             if(!dialogo.isDialogoCancelado())
             {
-                JuegoAhorcado.jugarPorEntornoGrafico(new JuegoAhorcado(dialogo.getCmbMascara(), Integer.parseInt(dialogo.getCmbFallosMaximos()), Integer.parseInt(dialogo.getCmbMuestraAyuda()), this.diccionarioActivo, dialogo.getCmbDificultad()));
+                JuegoAhorcado.jugarPorEntornoGrafico(new JuegoAhorcado(dialogo.getCmbMascara(), Integer.parseInt(dialogo.getCmbFallosMaximos()), Integer.parseInt(dialogo.getCmbMuestraAyuda()), this.diccionarioActivo, dialogo.getCmbDificultad(), this.ranking));
             }
             this.setEnabled(true);
         }
@@ -159,14 +173,22 @@ public class frmPrincipal extends javax.swing.JFrame {
         diccionario.setVisible(true);
     }//GEN-LAST:event_menDiccionarioCargarActionPerformed
 
+    private void menAhorcadoRankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menAhorcadoRankingActionPerformed
+        frmRanking ranking = new frmRanking(this.ranking);
+        ranking.setVisible(true);
+    }//GEN-LAST:event_menAhorcadoRankingActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu menAhorcado;
     private javax.swing.JMenuItem menAhorcadoCargar;
     private javax.swing.JMenuItem menAhorcadoNuevo;
+    private javax.swing.JMenuItem menAhorcadoRanking;
     private javax.swing.JMenu menDiccionario;
     private javax.swing.JMenuItem menDiccionarioCargar;
     private javax.swing.JMenu menSalir;
     private javax.swing.JMenuBar menuPrincipal;
+    private javax.swing.JPopupMenu.Separator separador;
     // End of variables declaration//GEN-END:variables
     private Diccionario diccionarioActivo;
+    private Ranking ranking;
 }

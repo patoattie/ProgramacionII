@@ -74,7 +74,7 @@ public class Puntuacion
 
     public static String getFecha(Date fecha)
     {
-        SimpleDateFormat formato = new SimpleDateFormat("dd/mm/yyyy HH:mm:ss");
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return formato.format(fecha);
     }
 

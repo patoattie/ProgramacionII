@@ -397,7 +397,7 @@ public class frmDiccionario extends javax.swing.JFrame {
         this.tablaPalabras.setModel(this.modeloTabla); //Asigno el modelo de la tabla
         this.tablaPalabras.setDefaultRenderer(Object.class, this.modeloFilas); //Para poder manejar colores según el estado.
         this.tablaPalabras.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Permito únicamente selección simple de filas.
-        String titulo[] = {"Palabra", "Definición", "", "Dificultad"};
+        String titulo[] = ModeloTablaDiccionario.TITULOS_COLUMNAS;
         String fila[] = new String[this.tablaPalabras.getColumnCount()];
         this.modeloTabla.setColumnIdentifiers(titulo);
         this.modeloTabla.setColDificultad((this.modeloTabla.findColumn("")) + 1);

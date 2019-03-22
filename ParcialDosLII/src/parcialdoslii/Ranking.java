@@ -106,7 +106,7 @@ public class Ranking implements java.io.Serializable, FilenameFilter
         else
         {
             Puntuacion anterior = this.listaPuntuaciones.get(indice);
-            this.listaPuntuaciones.set(indice, new Puntuacion(anterior.getJugador(), puntuacion.getPuntaje()));
+            this.listaPuntuaciones.set(indice, new Puntuacion(anterior.getJugador(), anterior.getPuntaje() + puntuacion.getPuntaje()));
         }
     }
     

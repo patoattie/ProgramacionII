@@ -28,6 +28,7 @@ public class JuegoAhorcado implements FilenameFilter
     private boolean juegoSinGuardar;
     private static String directorio = "juegos" + System.getProperty("file.separator");
     private String dificultad;
+    private Ranking ranking;
     
     public JuegoAhorcado()
     {
@@ -40,7 +41,7 @@ public class JuegoAhorcado implements FilenameFilter
         this.juegoGanado = false;
     }
 
-    public JuegoAhorcado(String caracterMascara, int fallosMaximos, Diccionario unDiccionario) throws DiccionarioVacioException
+    public JuegoAhorcado(String caracterMascara, int fallosMaximos, Diccionario unDiccionario, Ranking ranking) throws DiccionarioVacioException
     {
         this();
 
@@ -50,6 +51,11 @@ public class JuegoAhorcado implements FilenameFilter
         }
         else
         {
+            if(ranking == null)
+            {
+                ranking = new Ranking();
+            }
+            
             if(fallosMaximos < this.fallosMinimosPermitidos)
             {
                 this.fallosMaximos = this.fallosMinimosPermitidos;
@@ -62,12 +68,13 @@ public class JuegoAhorcado implements FilenameFilter
             this.jugadaMuestraAyuda = this.fallosMaximos - 3;
             this.palabraSeleccionada = unDiccionario.getPalabraAleatoria();
             this.caracterMascara = caracterMascara;
+            this.ranking = ranking;
         }
     }
 
-    public JuegoAhorcado(String caracterMascara, int fallosMaximos, int jugadaMuestraAyuda, Diccionario unDiccionario, String dificultad) throws DiccionarioVacioException, DificultadPalabraException
+    public JuegoAhorcado(String caracterMascara, int fallosMaximos, int jugadaMuestraAyuda, Diccionario unDiccionario, String dificultad, Ranking ranking) throws DiccionarioVacioException, DificultadPalabraException
     {
-        this(caracterMascara, fallosMaximos, unDiccionario);
+        this(caracterMascara, fallosMaximos, unDiccionario, ranking);
         this.setDificultad(dificultad);
         if(jugadaMuestraAyuda >= fallosMaximos)
         {
@@ -197,6 +204,16 @@ public class JuegoAhorcado implements FilenameFilter
     {
         this.palabraSeleccionada.validaDificultad(dificultad);
         this.dificultad = dificultad;
+    }
+
+    public Ranking getRanking()
+    {
+        return ranking;
+    }
+
+    public void setRanking(Ranking ranking)
+    {
+        this.ranking = ranking;
     }
 
     public String getPalabra() throws JuegoException
@@ -382,6 +399,22 @@ public class JuegoAhorcado implements FilenameFilter
         {
             throw new FileNotFoundException();
         }
+    }
+    
+    public void guardarRanking(Puntuacion nuevaPuntuacion) throws FileNotFoundException
+    {
+        int indice = this.ranking.buscarPuntuacion(nuevaPuntuacion.getJugador());
+        
+        if(indice < 0)
+        {
+            this.ranking.agregarPuntuacion(nuevaPuntuacion);
+        }
+        else
+        {
+            this.ranking.editarPuntuacion(indice, nuevaPuntuacion);
+        }
+        
+        this.ranking.grabarRanking(Ranking.getARCHIVO_XML());
     }
 
     @Override

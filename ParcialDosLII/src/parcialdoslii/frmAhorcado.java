@@ -5,7 +5,6 @@
  */
 package parcialdoslii;
 
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import javax.swing.ImageIcon;
@@ -262,29 +261,37 @@ public class frmAhorcado extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btnArriesgarPalabraActionPerformed
         String palabra = JOptionPane.showInputDialog(null, "Ingrese palabra a arriesgar", "Arriesgar Palabra", JOptionPane.INFORMATION_MESSAGE);
         
-        try
+        if(palabra != null && !palabra.trim().isEmpty())
         {
-            this.juego.arriesgarPalabra(palabra);
-        }
-        catch (LetraJugadaException e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
-        }
-        catch (JuegoException e)
-        {
-            if(e instanceof JuegoPerdidoException)
+            try
             {
-                this.dibujarImagenes();
+                this.juego.arriesgarPalabra(palabra);
             }
-            else
+            catch (LetraJugadaException e)
             {
-                //Habilito el menú de guardar si tengo cambios sin grabar y no está finalizado el juego
-                this.menJuegoGuardar.setEnabled(!this.juego.isJuegoFinalizado() && this.juego.isJuegoSinGuardar());
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
             }
-            this.lblPalabra.setText(this.juego.getPalabraSeleccionada().getPalabra());
-            this.btnJugarLetra.setEnabled(false);
-            this.btnArriesgarPalabra.setEnabled(false);
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
+            catch (JuegoException e)
+            {
+                if(e instanceof JuegoPerdidoException)
+                {
+                    this.dibujarImagenes();
+                }
+                else
+                {
+                    //Habilito el menú de guardar si tengo cambios sin grabar y no está finalizado el juego
+                    this.menJuegoGuardar.setEnabled(!this.juego.isJuegoFinalizado() && this.juego.isJuegoSinGuardar());
+                }
+                this.lblPalabra.setText(this.juego.getPalabraSeleccionada().getPalabra());
+                this.btnJugarLetra.setEnabled(false);
+                this.btnArriesgarPalabra.setEnabled(false);
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
+
+                if(e instanceof JuegoGanadoException)
+                {
+                    this.guardarRanking();
+                }
+            }
         }
     }//GEN-LAST:event_btnArriesgarPalabraActionPerformed
 
@@ -412,6 +419,11 @@ public class frmAhorcado extends javax.swing.JFrame
                 this.btnJugarLetra.setEnabled(false);
                 this.btnArriesgarPalabra.setEnabled(false);
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje del Juego", JOptionPane.INFORMATION_MESSAGE);
+
+                if(e instanceof JuegoGanadoException)
+                {
+                    this.guardarRanking();
+                }
             }
             finally
             {
@@ -440,6 +452,34 @@ public class frmAhorcado extends javax.swing.JFrame
         
         //Habilito el menú de guardar si tengo cambios sin grabar y no está finalizado el juego
         this.menJuegoGuardar.setEnabled(!this.juego.isJuegoFinalizado() && this.juego.isJuegoSinGuardar());
+    }
+    
+    private void guardarRanking()
+    {
+        if(JOptionPane.showConfirmDialog(null, "Desea actualizar el ranking?", "Juego Ahorcado", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
+        {
+            String jugador = JOptionPane.showInputDialog(null, "Ingrese Nombre", "Juego Ahorcado", JOptionPane.INFORMATION_MESSAGE);
+            if(jugador == null || jugador.trim().isEmpty())
+            {
+                jugador = Puntuacion.JUGADOR_POR_DEFECTO;
+            }
+            
+            int puntaje = 10;
+            if(this.juego.getDificultad().equalsIgnoreCase(DificultadPalabraEnum.DIFICIL.toString()))
+            {
+                puntaje *= 2;
+            }
+            
+            try
+            {
+                this.juego.guardarRanking(new Puntuacion(jugador, puntaje));
+            }
+            catch (FileNotFoundException e)
+            {
+                JOptionPane.showMessageDialog(null, "Error al guardar el ranking", "Guardar Ranking", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

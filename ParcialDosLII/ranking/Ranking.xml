@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_66" class="java.beans.XMLDecoder">
+ <object class="parcialdoslii.Ranking" id="Ranking0">
+  <void property="listaPuntuaciones">
+   <void method="add">
+    <object class="parcialdoslii.Puntuacion">
+     <void property="fecha">
+      <string>22/03/2019 01:05:43</string>
+     </void>
+     <void property="puntaje">
+      <int>40</int>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="parcialdoslii.Puntuacion">
+     <void property="fecha">
+      <string>22/03/2019 01:05:16</string>
+     </void>
+     <void property="jugador">
+      <string>Pato</string>
+     </void>
+     <void property="puntaje">
+      <int>30</int>
+     </void>
+    </object>
+   </void>
+  </void>
+ </object>
+</java>

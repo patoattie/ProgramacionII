@@ -22,18 +22,29 @@ public class ParcialDosLII
         //cargarListaPalabras();
         
         Diccionario miDiccionario = null;
+        Ranking miRanking = null;
 
         try
         {
             miDiccionario = Diccionario.crearDiccionario(Diccionario.getARCHIVO_XML());
-            //System.out.println(miDiccionario.toString());
-            frmPrincipal ventana = new frmPrincipal(miDiccionario);
-            ventana.setVisible(true);
         }
         catch(FileNotFoundException e)
         {
             System.out.println("ERROR. Archivo XML no encontrado");
         }
+
+        try
+        {
+            miRanking = Ranking.crearRanking(Ranking.getARCHIVO_XML());
+        }
+        catch(FileNotFoundException e)
+        {
+            miRanking = new Ranking();
+        }
+
+        //System.out.println(miDiccionario.toString());
+        frmPrincipal ventana = new frmPrincipal(miDiccionario, miRanking);
+        ventana.setVisible(true);
         
 
 //        try
