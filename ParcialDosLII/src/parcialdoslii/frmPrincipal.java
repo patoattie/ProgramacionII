@@ -130,6 +130,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             {
                 JuegoAhorcado.jugarPorEntornoGrafico(new JuegoAhorcado(dialogo.getCmbMascara(), Integer.parseInt(dialogo.getCmbFallosMaximos()), Integer.parseInt(dialogo.getCmbMuestraAyuda()), this.diccionarioActivo, dialogo.getCmbDificultad(), this.ranking));
             }
+            dialogo.dispose();
             this.setEnabled(true);
         }
         catch (DiccionarioVacioException | DificultadPalabraException e)

@@ -80,7 +80,7 @@ public class JuegoAhorcado implements FilenameFilter
         {
             this.jugadaMuestraAyuda = fallosMaximos - 1;
         }
-        else if(jugadaMuestraAyuda <= 0)
+        else if(jugadaMuestraAyuda < 0)
         {
             this.jugadaMuestraAyuda = 1;
         }

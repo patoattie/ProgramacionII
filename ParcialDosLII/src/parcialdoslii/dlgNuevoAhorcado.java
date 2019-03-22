@@ -34,7 +34,8 @@ public class dlgNuevoAhorcado extends javax.swing.JDialog implements KeyEventDis
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         lblDificultad = new javax.swing.JLabel();
         cmbDificultad = new javax.swing.JComboBox<>();
@@ -49,13 +50,22 @@ public class dlgNuevoAhorcado extends javax.swing.JDialog implements KeyEventDis
         btnCancelar = new javax.swing.JButton();
         separador2 = new javax.swing.JSeparator();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Nuevo Juego Ahorcado");
+        addWindowListener(new java.awt.event.WindowAdapter()
+        {
+            public void windowClosing(java.awt.event.WindowEvent evt)
+            {
+                formWindowClosing(evt);
+            }
+        });
 
         lblDificultad.setText("Dificultad:");
 
-        cmbDificultad.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        cmbDificultad.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
                 cmbDificultadItemStateChanged(evt);
             }
         });
@@ -67,15 +77,19 @@ public class dlgNuevoAhorcado extends javax.swing.JDialog implements KeyEventDis
         lblMuestraAyuda.setText("Muestra Ayuda:");
 
         btnJugar.setText("Jugar");
-        btnJugar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnJugar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnJugarActionPerformed(evt);
             }
         });
 
         btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCancelar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCancelarActionPerformed(evt);
             }
         });
@@ -158,6 +172,12 @@ public class dlgNuevoAhorcado extends javax.swing.JDialog implements KeyEventDis
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_btnJugarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
+    {//GEN-HEADEREND:event_formWindowClosing
+        this.dialogoCancelado = true;
+        this.setVisible(false);
+    }//GEN-LAST:event_formWindowClosing
     
     private void iniciarComboDificultad()
     {
